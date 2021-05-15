@@ -1,0 +1,88 @@
+﻿.body-card {
+    margin: 0;
+    padding: 0;
+    background: url('/backgroundMain.jpg')no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.scene {
+    width: 728px;
+    height: 428px;
+    margin: 40px auto;
+    perspective: 728px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+    border-radius: 9px;
+}
+
+.card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: 28px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 9px;
+    box-shadow: 0 0 12px white;
+}
+
+.card__face--front {
+    background: #274355;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+}
+
+.frontRight {
+    width: 427px;
+    height: 100%;
+    color: #1E90FF;
+}
+
+.frontSeparator {
+    width: 1px;
+    height: 90%;
+    background: white;
+    margin: 5% auto;
+}
+
+.frontLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #274355;
+    width: 267px;
+    height: 100%;
+    border-radius: 9px 0 0 9px;
+}
+
+.frontLeft p{
+    font-size: 22px;
+    color: #1E90FF;
+}
+
+.card__face--back {
+    background: #2C4748;
+    transform: rotateY(-180deg);
+}

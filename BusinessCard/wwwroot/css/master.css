@@ -1,0 +1,594 @@
+﻿﻿* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    min-width: 728px;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    background: #211F30;
+    height: 228px;
+    right: 0;
+    top: 0;
+    left: 0;
+    margin: 0 auto;
+    padding: 0;
+    box-shadow: 0 1em 3.28em -1em #1E90FF;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+}
+
+header:after {
+    position: absolute;
+    right: 0;
+    left: 0;
+    content: "";
+    width: 367px;
+    height: 167px;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    background: transparent;
+    box-shadow: 0 1em 3.28em -1em #1E90FF;
+    margin: 0 auto;
+    margin-top: 228px;
+    padding: 0;
+}
+
+.div-menu {
+    width: 1289px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#mainCircle {
+    position: relative;
+    width: 267px;
+    border-radius: 100%;
+    background: #211F30;
+    margin-top: 28px;
+    padding: 55px;
+}
+
+#circle {
+    position: relative;
+    width: 267px;
+    padding-top: 267px;
+    border-radius: 100%; /* сделать "резиновый" круг */
+    background: url('/MAXon28.jpg') center white;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: 267px;
+    font-size: 34px;
+    font-weight: 1000;
+    box-shadow: 0 0 67px 1.28px #32384D;
+    color: #E29930;
+}
+
+#circle span {
+    position: absolute;
+    left: 50%; /* все буквы собрать в одну точку по середине */
+    width: 0; /* убрать отступ */
+}
+
+#circle span:nth-of-type(-n+16) {
+    bottom: 50%;
+    transform-origin: 0% 100%;
+    padding-bottom: 50%; /* от значения свойства зависит приближение текста к центру круга */
+}
+
+#circle span:nth-of-type(1) {
+    color: #1E90FF;
+    transform: rotate(255deg);
+}
+
+#circle span:nth-of-type(2) {
+    transform: rotate(274deg);
+}
+
+#circle span:nth-of-type(3) {
+    transform: rotate(285deg);
+}
+
+#circle span:nth-of-type(4) {
+    transform: rotate(294deg);
+}
+
+#circle span:nth-of-type(5) {
+    transform: rotate(302deg);
+}
+
+#circle span:nth-of-type(6) {
+    transform: rotate(311deg);
+}
+
+#circle span:nth-of-type(7) {
+    transform: rotate(320deg);
+}
+
+#circle span:nth-of-type(8) {
+    transform: rotate(329deg);
+}
+
+#circle span:nth-of-type(9) {
+    transform: rotate(340deg);
+}
+
+#circle span:nth-of-type(10) {
+    transform: rotate(16deg);
+}
+
+#circle span:nth-of-type(11) {
+    transform: rotate(29deg);
+}
+
+#circle span:nth-of-type(12) {
+    transform: rotate(38deg);
+}
+
+#circle span:nth-of-type(13) {
+    transform: rotate(47deg);
+}
+
+#circle span:nth-of-type(14) {
+    transform: rotate(56deg);
+}
+
+#circle span:nth-of-type(15) {
+    transform: rotate(65deg);
+}
+
+#circle span:nth-of-type(16) {
+    transform: rotate(84deg);
+}
+
+/* нижние 17 букв «shpargalkablog.ru» */
+#circle span:nth-last-of-type(-n+15) {
+    top: 50%;
+    transform-origin: 50% 0;
+    padding-top: 50%;
+    background: #211f30;
+    color: #1E90FF;
+}
+
+#circle span:nth-last-of-type(1) {
+    transform: rotate(292deg);
+}
+
+#circle span:nth-last-of-type(2) {
+    transform: rotate(301deg);
+}
+
+#circle span:nth-last-of-type(3) {
+    transform: rotate(310deg);
+}
+
+#circle span:nth-last-of-type(4) {
+    transform: rotate(319deg);
+}
+
+#circle span:nth-last-of-type(5) {
+    transform: rotate(328deg);
+}
+
+#circle span:nth-last-of-type(6) {
+    transform: rotate(337deg);
+}
+
+#circle span:nth-last-of-type(7) {
+    transform: rotate(346deg);
+}
+
+#circle span:nth-last-of-type(8) {
+    transform: rotate(355deg);
+}
+
+#circle span:nth-last-of-type(9) {
+    transform: rotate(4deg);
+}
+
+#circle span:nth-last-of-type(10) {
+    transform: rotate(13deg);
+}
+
+#circle span:nth-last-of-type(11) {
+    transform: rotate(22deg);
+}
+
+#circle span:nth-last-of-type(12) {
+    transform: rotate(40deg);
+}
+
+#circle span:nth-last-of-type(13) {
+    transform: rotate(49deg);
+}
+
+#circle span:nth-last-of-type(14) {
+    transform: rotate(58deg);
+}
+
+#circle span:nth-last-of-type(15) {
+    transform: rotate(63deg);
+}
+
+.div-menu nav {
+    width: 455px;
+    background: transparent;
+    align-self: center;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+}
+
+.rightNav {
+    justify-content: flex-start;
+}
+
+.leftNav {
+    justify-content: flex-end;
+}
+
+.div-menu nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+}
+
+.rightMenu {
+    padding-left: 28px;
+}
+
+.leftMenu {
+    padding-left: 0;
+    padding-right: 28px;
+}
+
+.div-menu nav li {
+    align-self: center;
+    display: inline-block;
+}
+
+.rightMenu li {
+    margin-right: 55px;
+}
+
+.leftMenu li {
+    margin-left: 55px;
+}
+
+.div-menu nav a {
+    color: #1E90FF;
+    font-size: 22px;
+    font-family: cursive;
+    font-weight: 1028;
+    text-decoration: none;
+    transition: 1.28s;
+    text-align: center;
+}
+
+.authorization {
+    margin-right: -40px;
+}
+
+.a-brand {
+    width: 379px;
+    height: 155px;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.popupMenu {
+    display: none;
+    visibility: collapse;
+}
+
+.div-main {
+    padding-top: 428px;
+    padding-bottom: 67px;
+    min-height: 928px;
+    -webkit-backdrop-filter: blur(2.55px);
+    -moz-backdrop-filter: blur(2.55px);
+    backdrop-filter: blur(2.55px);
+    -o-filter: blur(2.55px);
+    -ms-filter: blur(2.55px);
+}
+
+main {
+    height: auto;
+}
+
+footer {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    min-width: 728px;
+    white-space: nowrap;
+    background: #211F30;
+    color: whitesmoke;
+}
+
+.divContacts {
+    width: 94%;
+    min-width: 467px;
+    margin: 0 auto;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.divContacts p {
+    width: 100%;
+    font-size: 17px;
+    color: #e29930;
+    font-weight: bold;
+    text-align: center;
+    margin: 19px 0;
+}
+
+.contactsList {
+    display: flex;
+}
+
+.contactListWithoutText {
+    display: none;
+}
+
+.contactsList, .contactListWithoutText {
+    justify-content: space-around;
+}
+
+.divPrivacy {
+    width: 94%;
+    min-width: 467px;
+    margin: 0 auto;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.divPrivacy p {
+    width: 100%;
+    font-size: 17px;
+    color: #e29930;
+    font-weight: bold;
+    text-align: center;
+    margin: 19px 0;
+}
+
+.privacyList {
+    display: flex;
+    justify-content: center;
+}
+
+.privacyList a {
+    margin: 0 55px;
+}
+
+.contactsList, .contactListWithoutText, .privacyList {
+    width: 94%;
+    align-items: center;
+    align-content: center;
+    margin: 0;
+    margin-bottom: 19px;
+}
+
+.contactsList a, .contactListWithoutText a, .privacyList a {
+    font-size: 16px;
+    text-decoration: none;
+    color: #1e90ff;
+}
+
+.divCompany {
+    width: 428px;
+    margin: 0 auto;
+    display: flex;
+    line-height: 98px;
+}
+
+.divCompany p {
+    width: 100%;
+    font-size: 17px;
+    color: #1e90ff;
+    text-align: center;
+    margin: 0;
+}
+
+input[type=checkbox] {
+    visibility: collapse;
+    display: none;
+}
+
+@media screen and (max-width: 1289px) {
+    .div-menu nav {
+        width: 410.5px;
+    }
+
+    .rightMenu li {
+        margin-right: 40px;
+    }
+
+    .leftMenu li {
+        margin-left: 40px;
+    }
+}
+
+@media screen and (max-width: 1228px) {
+    .div-menu nav a {
+        font-size: 19px;
+    }
+}
+
+@media screen and (max-width: 1067px) {
+    .rightNav, .leftNav {
+        display: none;
+        visibility: collapse;
+    }
+
+    .authorization {
+        margin-right: 0;
+    }
+
+    .popupMenu {
+        position: absolute;
+        top: 19px;
+        right: 0;
+        margin-right: 28px;
+        width: 56px;
+        height: 56px;
+        background: #211f30;
+        background: rgba(33, 31, 48, 0.97);
+        opacity: 0.94;
+        transform: translate(0px);
+        transition: transform .7s ease-in-out;
+        cursor: pointer;
+        z-index: 28;
+        border: none;
+        border-radius: 360px;
+        display: block;
+        visibility: visible;
+    }
+
+    .popupMenu:focus {
+        transform: scale(100) translate(0px);
+        cursor: default;
+        outline: none;
+        min-width: 728px;
+    }
+
+    .popupMenu:focus ~ .rightNav, .popupMenu:focus ~ .leftNav {
+        width: auto;
+        position: absolute;
+        visibility: visible;
+        margin: 0 auto;
+        display: block;
+        opacity: 1;
+        z-index: 40;
+        text-align: center;
+        padding: 0;
+        transition: transform .5s ease-in-out;
+    }
+
+    .popupMenu:focus ~ .rightNav {
+        grid-area: rightNav;
+        top: 148px;
+    }
+
+    .popupMenu:focus ~ .leftNav {
+        grid-area: leftNav;
+        top: 28px;
+    }
+
+    .popupMenu ~ .rightNav, .popupMenu ~ .leftNav {
+        display: none;
+        visibility: collapse;
+    }
+
+    .popupMenu:focus ~ .rightNav ul, .popupMenu:focus ~ .leftNav ul {
+        width: auto;
+        flex-direction: column;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .popupMenu:focus ~ .rightNav ul li, .popupMenu:focus ~ .leftNav ul li {
+        margin: 0 auto;
+        padding: 0;
+        height: 40px;
+    }
+
+    .popupMenu:focus ~ .rightNav ul li a, .popupMenu:focus ~ .leftNav ul li a {
+        width: auto;
+        font-size: 22px;
+    }
+
+    .rightNav:hover, .leftNav:hover {
+        z-index: 40;
+    }
+    /**** BURGER ****/
+    button + span {
+        position: absolute;
+        top: 37px;
+        right: 42px;
+        width: 28px;
+        height: 3px;
+        padding: 10px 0;
+        background-clip: content-box;
+        background-color: #1e90ff;
+        pointer-events: none;
+        transition: background-color .5s ease-in-out;
+        visibility: visible;
+        cursor: pointer;
+        z-index: 28;
+        margin: 0 auto;
+    }
+
+    button + span:before, button + span:after {
+        position: absolute;
+        background: #1e90ff;
+        content: '';
+        width: 28px;
+        height: 3px;
+        transition: transform .7s ease-in-out;
+        z-index: 28;
+        pointer-events: none;
+        cursor: pointer;
+    }
+
+    button + span:before {
+        top: 2px;
+    }
+
+    button + span:after {
+        bottom: 2px;
+    }
+
+    button:focus + span {
+        background-color: transparent;
+        pointer-events: auto;
+    }
+
+    button:focus + span:before {
+        transform: rotate(44deg) translate(5px, 6px);
+        cursor: pointer;
+    }
+
+    button:focus + span:after {
+        transform: rotate(-44deg) translate(5px, -6px);
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 855px) {
+    .contactsList {
+        display: none;
+    }
+
+    .contactListWithoutText {
+        display: flex;
+    }
+
+    .privacyList a {
+        margin: 0 19px;
+    }
+}

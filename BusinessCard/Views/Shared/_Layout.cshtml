@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"] | MAXon28</title>
+    <link rel="stylesheet" href="~/css/master.css"/>
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+</head>
+<body>
+    <header>
+        <div class="div-menu">
+            <input type="checkbox" id="toggle"/>
+            <button class="popupMenu"></button>
+            <span></span>
+            <nav class="leftNav">
+                <ul class="leftMenu" tabindex="1">
+                    <li>
+                        <a style="text-decoration: none;" asp-area="" asp-controller="Market" asp-action="Phone">Обо мне</a>
+                    </li>
+                    <li>
+                        <a style="text-decoration: none;" asp-area="" asp-controller="Market" asp-action="Phone">Работа</a>
+                    </li>
+                    <li>
+                        <a style="text-decoration: none;" asp-area="" asp-controller="Market" asp-action="Phone">Проекты</a>
+                    </li>
+                </ul>
+            </nav>
+            <a class="a-brand navbar-brand" asp-area="" asp-controller="BusinessCard" asp-action="Card">
+                <div id="mainCircle">
+                    <div id="circle">
+                        <span>~</span>
+                        <span>Б</span>
+                        <span>е</span>
+                        <span>з</span>
+                        <span>у</span>
+                        <span>г</span>
+                        <span>л</span>
+                        <span>ы</span>
+                        <span>й</span>
+                        <span>М</span>
+                        <span>а</span>
+                        <span>к</span>
+                        <span>с</span>
+                        <span>и</span>
+                        <span>м</span>
+                        <span>~</span>
+                        <span>.</span>
+                        <span>N</span>
+                        <span>E</span>
+                        <span>T</span>
+                        <span>Р</span>
+                        <span>а</span>
+                        <span>з</span>
+                        <span>р</span>
+                        <span>а</span>
+                        <span>б</span>
+                        <span>о</span>
+                        <span>т</span>
+                        <span>ч</span>
+                        <span>и</span>
+                        <span>к</span>
+                    </div>
+                </div>
+            </a>
+            <nav class="rightNav" tabindex="1">
+                <ul class="rightMenu">
+                    <li>
+                        <a style="text-decoration: none;" asp-area="" asp-controller="Market" asp-action="Phone">Блог</a>
+                    </li>
+                    <li>
+                        <a style="text-decoration: none;" asp-area="" asp-controller="Market" asp-action="Phone">Игра</a>
+                    </li>
+                    <li>
+                        <a class="authorization" style="text-decoration: none;" asp-area="" asp-controller="Market" asp-action="Phone">Войти</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="div-main">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    <footer>
+        <div class="divContacts">
+            <p>Контакты</p>
+            <div class="contactsList">
+                <a href="tel:+79162185817"><i class="fa fa-phone fa-lg"></i> 8-916-218-58-17</a>
+                <a href="mailto:max.ronald9@gmail.com"><i class="fa fa-envelope fa-lg"></i> max.ronald9@gmail.com</a>
+                <a href="https://t.me/maxon2812"><i class="fa fa-telegram fa-lg"></i> Чат в Telegram</a>
+                <a href="https://api.whatsapp.com/send?phone=79162185817"><i class="fa fa-whatsapp fa-lg"></i> Чат в What's App</a>
+            </div>
+            <div class="contactListWithoutText">
+                <a href="tel:+79162185817"><i class="fa fa-phone fa-lg"></i></a>
+                <a href="mailto:max.ronald9@gmail.com"><i class="fa fa-envelope fa-lg"></i></a>
+                <a href="https://t.me/maxon2812"><i class="fa fa-telegram fa-lg"></i></a>
+                <a href="https://api.whatsapp.com/send?phone=79162185817"><i class="fa fa-whatsapp fa-lg"></i></a>
+            </div>
+        </div>
+        <div class="divPrivacy">
+            <p>Юридическая информация</p>
+            <div class="privacyList">
+                <a asp-area="" asp-controller="LegalInformation" asp-action="PrivacyPolicy">Политика конфиденциальности</a>
+                <a asp-area="" asp-controller="LegalInformation" asp-action="UserAgreement">Пользовательское соглашение</a>
+            </div>
+        </div>
+        <div class="divCompany">
+            <p>&copy; Безуглый Максим, 2020-2021. Сайт-портфолио.</p>
+        </div>
+    </footer>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/master.js"></script>
+</body>
+</html>
