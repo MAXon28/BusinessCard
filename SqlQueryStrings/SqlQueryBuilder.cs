@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 namespace SqlQueryStrings
 {
+    internal enum TypeOfSelect
+    {
+        One,
+        All
+    }
+
     /// <summary>
     /// Основной класс библиотеки, который составляет базовые (INSERT, SELECT, UPDATE, DELETE) запросы к таблице в базе данных по определённой сущности (.NET тип = таблица в SQL Server)
     /// </summary>
@@ -20,31 +27,33 @@ namespace SqlQueryStrings
         /// 
         /// </summary>
         private static readonly string _selectAllQueryTemplate = @"SELECT * 
-                                                                   FROM table_name
-                                                                        INNER JOIN second_table_name
-                                                                        ON table_name.foreign_key = second_table_name.Id;";
+                                                                   FROM table_name;";
 
         /// <summary>
         /// 
         /// </summary>
-        private static readonly string _selectQueryTemplate = @"SELECT * 
-                                                                FROM table_name
-                                                                     INNER JOIN second_table_name
-                                                                     ON table_name.foreign_key = second_table_name.Id
-                                                                WHERE Id = @value;";
+        private static readonly string _selectOneQueryTemplate = @"SELECT * 
+                                                                   FROM table_name
+                                                                   WHERE Id = @id_value;";
 
         /// <summary>
         /// 
         /// </summary>
         private static readonly string _updateQueryTemplate = @"UPDATE table_name
-                                                                SET table_column = value
-                                                                WHERE Id = @value;";
+                                                                SET table_column = @update_value
+                                                                WHERE Id = @id_value;";
 
         /// <summary>
         /// 
         /// </summary>
         private static readonly string _deleteQueryTemplate = @"DELETE table_name
-                                                                WHERE Id = @value;";
+                                                                WHERE Id = @id_value;";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static readonly string _joinTemplate = @"               INNER JOIN second_table_name
+                                                                        ON table_name.foreign_key = second_table_name.Id";
 
         /// <summary>
         /// Получить базовые SQL-запросы по текущему типу
@@ -65,11 +74,11 @@ namespace SqlQueryStrings
             var sqlTableName = GetSqlTableName(type);
             var sqlTableColumns = GetSqlTableColumns(type, out var keysDictionary);
 
-            var insertQuery = "";
-            var selectAllQuery = "";
-            var selectQuery = "";
-            var updateQuery = "";
-            var deleteQuery = "";
+            queriesDictionary.Add("INSERT", GetInsertQuery(sqlTableName, sqlTableColumns));
+            queriesDictionary.Add("SELECT_ALL", GetSelectQuery(sqlTableName, keysDictionary, TypeOfSelect.All));
+            queriesDictionary.Add("SELECT", GetSelectQuery(sqlTableName, keysDictionary, TypeOfSelect.One));
+            queriesDictionary.Add("UPDATE", GetUpdateQuery(sqlTableName, sqlTableColumns));
+            queriesDictionary.Add("DELETE", GetDeleteQuery(sqlTableName));
 
             return queriesDictionary;
         }
@@ -102,14 +111,14 @@ namespace SqlQueryStrings
         }
 
         /// <summary>
-        /// 
+        /// Получить список столбцов в SQL-таблице
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="keysDictionary"></param>
-        /// <returns></returns>
-        private static List<SqlTableColumn> GetSqlTableColumns(Type type, out Dictionary<string,string> keysDictionary)
+        /// <param name="type"> Тип .NET, по которому определяются столбцы таблицы в SQL </param>
+        /// <param name="keysDictionary"> Выходной параметр, который хранит в себе словарь соответствия внешнго ключа и связанной таблицы </param>
+        /// <returns> Список столбцов в SQL-таблице </returns>
+        private static List<string> GetSqlTableColumns(Type type, out Dictionary<string,string> keysDictionary)
         {
-            var sqlTableColumns = new List<SqlTableColumn>();
+            var sqlTableColumns = new List<string>();
 
             keysDictionary = new Dictionary<string, string>();
 
@@ -118,7 +127,6 @@ namespace SqlQueryStrings
             foreach (var entityProperty in entityProperties)
             {
                 var columnName = entityProperty.Name.ToString();
-                var isForeignKey = false;
 
                 var attributesEnumerator = entityProperty.CustomAttributes.GetEnumerator();
 
@@ -127,20 +135,84 @@ namespace SqlQueryStrings
                     if (attributesEnumerator.Current.AttributeType.Name.Equals("SqlForeignKeyAttribute"))
                     {
                         columnName = attributesEnumerator.Current.ConstructorArguments[0].Value.ToString();
-                        isForeignKey = true;
                         keysDictionary.Add(columnName, attributesEnumerator.Current.ConstructorArguments[1].Value.ToString());
                     }
                 }
 
-                sqlTableColumns.Add(new SqlTableColumn(columnName, isForeignKey));
+                sqlTableColumns.Add(columnName);
             }
 
             return sqlTableColumns;
         }
 
-        private static string GetInsertQuery()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sqlTableName"></param>
+        /// <param name="sqlTableColumns"></param>
+        /// <returns></returns>
+        private static string GetInsertQuery(string sqlTableName, List<string> sqlTableColumns)
         {
-            return "";
+            var insertQuery = new StringBuilder(_insertQueryTemplate.Replace("table_name", sqlTableName));
+            insertQuery.Replace("table_columns", string.Join(", ", sqlTableColumns));
+            insertQuery.Replace("values", string.Join(", ", sqlTableColumns.Select(sqlTableColumn => $"@{sqlTableColumn}")));
+            return insertQuery.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sqlTableName"></param>
+        /// <param name="keysDictionary"></param>
+        /// <param name="typeOfSelect"></param>
+        /// <returns></returns>
+        private static string GetSelectQuery(string sqlTableName, Dictionary<string, string> keysDictionary, TypeOfSelect typeOfSelect)
+        {
+            var selectQueryTemplate = typeOfSelect == TypeOfSelect.One ? _selectOneQueryTemplate : _selectAllQueryTemplate;
+
+            var selectAllQuery = new StringBuilder(selectQueryTemplate.Replace("table_name", sqlTableName));
+
+            foreach (var keyDictionary in keysDictionary)
+            {
+                selectAllQuery.Insert(selectAllQuery.Length - (typeOfSelect == TypeOfSelect.One ? 22 : 2), _joinTemplate);
+                selectAllQuery.Replace("table_name", sqlTableName);
+                selectAllQuery.Replace("second_table_name", keyDictionary.Value);
+                selectAllQuery.Replace("foreign_key", keyDictionary.Key);
+            }
+
+            return selectAllQuery.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sqlTableName"></param>
+        /// <param name="sqlTableColumns"></param>
+        /// <returns></returns>
+        private static string GetUpdateQuery(string sqlTableName, List<string> sqlTableColumns)
+        {
+            var updateQuery = new StringBuilder(_updateQueryTemplate.Replace("table_name", sqlTableName));
+
+            var listOfUpdateStrings = new List<string>();
+
+            foreach (var sqlTableColumn in sqlTableColumns)
+                listOfUpdateStrings.Add($"{sqlTableColumn} = @{sqlTableColumn}");
+
+            var updateStrings = string.Join(",\n\t", listOfUpdateStrings);
+
+            updateQuery.Replace("table_column = @update_value", updateStrings);
+
+            return updateQuery.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sqlTableName"></param>
+        /// <returns></returns>
+        private static string GetDeleteQuery(string sqlTableName)
+        {
+            return _deleteQueryTemplate.Replace("table_name", sqlTableName);
         }
     }
 }

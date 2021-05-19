@@ -35,7 +35,7 @@ namespace BusinessCard.DataAccessLayer
         {
             using var dbConnection = _dbConnectionKeeper.GetDbConnection();
 
-            var inserted = await dbConnection.InsertAsync(newData);
+            //var inserted = await dbConnection.InsertAsync(newData);
 
             return 1;
         }
@@ -60,6 +60,8 @@ namespace BusinessCard.DataAccessLayer
             using var dbConnection = _dbConnectionKeeper.GetDbConnection();
 
             var type = typeof(TEntity);
+
+            return true;
 
             //Console.WriteLine(type.ToString());
 
