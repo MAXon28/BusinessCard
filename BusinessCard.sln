@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessCard.BusinessLogicL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessCard.DataAccessLayer", "BusinessCard.DataAccessLayer\BusinessCard.DataAccessLayer.csproj", "{337D925A-E328-4C70-9C41-6261F8155B26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlQueryStrings", "SqlQueryStrings\SqlQueryStrings.csproj", "{05BA48AD-2221-4CCD-8EC7-A237D3768A5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlQueryStrings", "SqlQueryStrings\SqlQueryStrings.csproj", "{05BA48AD-2221-4CCD-8EC7-A237D3768A5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlQueryStrings.Tests", "SqlQueryStrings.Test\SqlQueryStrings.Tests.csproj", "{A8D875DF-FA82-4F44-9589-F69BAE71C722}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{05BA48AD-2221-4CCD-8EC7-A237D3768A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05BA48AD-2221-4CCD-8EC7-A237D3768A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05BA48AD-2221-4CCD-8EC7-A237D3768A5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8D875DF-FA82-4F44-9589-F69BAE71C722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8D875DF-FA82-4F44-9589-F69BAE71C722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8D875DF-FA82-4F44-9589-F69BAE71C722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8D875DF-FA82-4F44-9589-F69BAE71C722}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

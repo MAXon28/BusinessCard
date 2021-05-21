@@ -11,7 +11,7 @@ namespace BusinessCard.DataAccessLayer.Entities
 
         public int Priority { get; set; }
 
-        [SqlServerForeignKey("TypesOfFacts", "TypeId")]
+        [SqlForeignKey("TypesOfFacts", "TypeId")]
         public TypeOfFact Type { get; set; }
     }
 }

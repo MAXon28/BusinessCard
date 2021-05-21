@@ -3,7 +3,7 @@
 namespace SqlQueryStrings.Annotations
 {
     /// <summary>
-    /// 
+    /// Атрибут, который позволяет указать классу-модели .NET соответствующее ему название таблицы в базе данных
     /// </summary>
     public class SqlTableAttribute : Attribute
     {
@@ -13,7 +13,7 @@ namespace SqlQueryStrings.Annotations
         }
 
         /// <summary>
-        /// 
+        /// Название таблицы
         /// </summary>
         public string TableName { get; }
     }
