@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30709.132
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessCard", "BusinessCard\BusinessCard.csproj", "{74CB9DB0-A8A5-4F7C-8FE9-AA0D55B45E7D}"
 EndProject
@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessCard.BusinessLogicL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessCard.DataAccessLayer", "BusinessCard.DataAccessLayer\BusinessCard.DataAccessLayer.csproj", "{337D925A-E328-4C70-9C41-6261F8155B26}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlQueryStrings", "SqlQueryStrings\SqlQueryStrings.csproj", "{05BA48AD-2221-4CCD-8EC7-A237D3768A5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessCard.ConsoleSandbox", "BusinessCard.Console\BusinessCard.ConsoleSandbox.csproj", "{22E1AC3D-D745-42DD-A86C-04B5BE9F43E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlQueryStrings.Tests", "SqlQueryStrings.Test\SqlQueryStrings.Tests.csproj", "{A8D875DF-FA82-4F44-9589-F69BAE71C722}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperAssistant", "..\DapperAssistant\DapperAssistant.csproj", "{4DA0012B-1D2D-4642-B8C7-FEF27E53FF8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +31,14 @@ Global
 		{337D925A-E328-4C70-9C41-6261F8155B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{337D925A-E328-4C70-9C41-6261F8155B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{337D925A-E328-4C70-9C41-6261F8155B26}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05BA48AD-2221-4CCD-8EC7-A237D3768A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05BA48AD-2221-4CCD-8EC7-A237D3768A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05BA48AD-2221-4CCD-8EC7-A237D3768A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05BA48AD-2221-4CCD-8EC7-A237D3768A5F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8D875DF-FA82-4F44-9589-F69BAE71C722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8D875DF-FA82-4F44-9589-F69BAE71C722}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8D875DF-FA82-4F44-9589-F69BAE71C722}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8D875DF-FA82-4F44-9589-F69BAE71C722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22E1AC3D-D745-42DD-A86C-04B5BE9F43E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22E1AC3D-D745-42DD-A86C-04B5BE9F43E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22E1AC3D-D745-42DD-A86C-04B5BE9F43E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22E1AC3D-D745-42DD-A86C-04B5BE9F43E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DA0012B-1D2D-4642-B8C7-FEF27E53FF8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DA0012B-1D2D-4642-B8C7-FEF27E53FF8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DA0012B-1D2D-4642-B8C7-FEF27E53FF8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DA0012B-1D2D-4642-B8C7-FEF27E53FF8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

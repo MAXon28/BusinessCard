@@ -1,12 +1,22 @@
 using System;
-using BusinessCard.DataAccessLayer;
-using BusinessCard.DataAccessLayer.Repositories;
+using BusinessCard.BusinessLogicLayer.Interfaces;
+using BusinessCard.BusinessLogicLayer.Services;
+using DapperAssistant;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BusinessCard.DataAccessLayer.Interfaces.Content;
+using BusinessCard.DataAccessLayer.Repositories.Content;
+using BusinessCard.DataAccessLayer.Repositories.Data;
+using BusinessCard.DataAccessLayer.Interfaces.Data;
+using BusinessCard.DataAccessLayer.Interfaces.Content.Services;
+using BusinessCard.DataAccessLayer.Repositories.Content.Services;
+using BusinessCard.Services;
+using BusinessCard.DataAccessLayer.Interfaces.MAXonStore;
+using BusinessCard.DataAccessLayer.Repositories.MAXonStore;
 
 namespace BusinessCard
 {
@@ -30,7 +40,36 @@ namespace BusinessCard
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddScoped(dbConnectionKeeper => new DbConnectionKeeper(connection));
 
-            services.AddScoped<IFactAboutMeRepository, FactAboutMeRepository>();
+            //services.AddScoped(typeof(IRepository<>), typeof(StandardRepository<>));
+
+            services.AddScoped<IFactOnBusinessCardRepository, FactOnBusinessCardRepository>();
+            services.AddScoped<IBiographyRepository, BiographyRepository>();
+            services.AddScoped<ISkillRepository, SkillRepository>();
+            services.AddScoped<IExperienceRepository, ExperienceRepsoitory>();
+            services.AddScoped<IEducationRepository, EducationRepository>();
+            services.AddScoped<IWorkRepository, WorkRepository>();
+            services.AddScoped<IVacancyRepository, VacancyRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IShortDescriptionRepository, ShortDescriptionRepository>();
+            services.AddScoped<IRateRepository, RateRepository>();
+            services.AddScoped<IConditionRepository, ConditionRepository>();
+            services.AddScoped<IConditionValueRepository, ConditionValueRepository>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
+            services.AddScoped<IRuleRepository, RuleRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IProjectTypeRepository, ProjectTypeRepository>();
+            services.AddScoped<IProjectCategoryRepository, ProjectCategoryRepository>();
+            services.AddScoped<IProjectCompatibilityRepository, ProjectCompatibilityRepository>();
+
+            services.AddScoped<IBusinessCardService, BusinessCardService>();
+            services.AddScoped<IAboutMeService, AboutMeService>();
+            services.AddScoped<IWorkService, WorkService>();
+            services.AddScoped<ISelfEmployedService, SelfEmployedService>();
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<IRuleService, RuleService>();
+            services.AddScoped<IStoreService, StoreService>();
+
+            services.AddScoped<FileSaver>();
 
             services.AddMvc();
 
@@ -71,7 +110,7 @@ namespace BusinessCard
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=BusinessCard}/{action=Card}/{id?}");
+                    pattern: "{controller=MAXonBusinessCard}/{action=Card}/{id?}");
             });
         }
     }

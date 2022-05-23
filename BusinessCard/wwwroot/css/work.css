@@ -1,0 +1,475 @@
+﻿.body-work {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: linear-gradient(180deg, #E0FFFF, #edeef0);
+    //background: #edeef0;
+    background-size: cover;
+}
+
+.scene-work {
+    min-width: 728px;
+    margin: 40px auto;
+}
+
+.header {
+    font-weight: bold;
+    font-size: 40px;
+    font-family: system-ui;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #211F30;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 2px rgb(255 255 255 / 30%);
+    text-transform: uppercase;
+    opacity: 1;
+    transition: 1.28s opacity ease-in-out;
+}
+
+.box {
+    border-radius: 5px;
+    box-shadow: 0px 30px 40px -20px hsl(229, 6%, 66%);
+    padding: 30px;
+    margin: 20px;
+    border-top: 3px solid #87CEFA;
+    background: white;
+}
+
+.positionBox {
+    opacity: 0;
+    transition: 0.67s opacity ease-in-out;
+}
+
+.salaryBox {
+    opacity: 0;
+    transition: 1.28s opacity ease-in-out;
+}
+
+.scheduleBox {
+    opacity: 0;
+    transition: 1.40s opacity ease-in-out;
+}
+
+.technologyStackBox {
+    opacity: 0;
+    transition: 1.55s opacity ease-in-out;
+}
+
+.boxName {
+    color: #211F30;
+    font-size: 28px;
+    font-family: system-ui;
+    text-align: left;
+    font-weight: 600;
+}
+
+.positionData, .salaryData, .scheduleData, .technologyStackData {
+    color: black;
+    font-size: 22px;
+    font-family: system-ui;
+    overflow-wrap: break-word;
+}
+
+.boxPicture {
+    width: initial;
+    float: right;
+}
+
+.responseToResume {
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 30px;
+    opacity: 0;
+    transition: 1.67s opacity ease-in-out;
+}
+
+.contacts {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.responseToResume .contacts a {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 22px;
+    font-family: system-ui;
+    font-weight: 500;
+    text-decoration: none;
+    background-color: #E29930;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 2px rgb(255 255 255 / 30%);
+    margin-top: 28.5px;
+}
+
+.responseToResume .contacts a i{
+    margin-top: 12px;
+    text-align: center;
+    line-height: normal;
+}
+
+.phone, .email, .telegram, .whatsUp {
+    display: none;
+}
+
+.inMySite {
+    grid-area: inMySite;
+    margin-top: 28px;
+}
+
+.inMySite p {
+    font-weight: bold;
+    font-size: 28px;
+    font-family: system-ui;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #211F30;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 2px rgb(255 255 255 / 30%);
+}
+
+.inMySite p a {
+    font-weight: bold;
+    font-size: 28px;
+    font-family: system-ui;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #87CEFA;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 2px rgb(255 255 255 / 30%);
+}
+
+.notResume {
+    opacity: 0;
+    transition: 1.40s opacity ease-in-out;
+    margin: 67px auto;
+}
+
+.notResume p {
+    font-weight: bold;
+    font-size: 40px;
+    font-family: system-ui;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #211F30;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 2px rgb(255 255 255 / 30%);
+}
+
+.loadedResponseToResume {
+    display: flex;
+}
+
+.loadedNotResume {
+    display: contents;
+}
+
+.skip {
+    display: none;
+}
+
+.data_effect {
+    opacity: 1;
+}
+
+.no_data_effect {
+    opacity: 0;
+}
+
+@media (min-width: 928px) {
+    .loaded {
+        display: flex;
+    }
+
+    .resume1 {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .resume2 {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .box-down {
+        position: relative;
+        top: 150px;
+    }
+
+    .box {
+        width: 22%;
+    }
+}
+
+@media (max-width: 927px) {
+    .contacts {
+        display: none;
+    }
+
+    .loadedResponseToResume {
+        display: grid;
+    }
+
+    .responseToResume {
+        grid-template-areas: "phone email"
+            "telegram whatsUp"
+            "inMySite inMySite";
+        grid-template-rows: 128px 128px auto;
+        grid-template-columns: 50% 50%;
+    }
+
+    .phone a, .email a, .telegram a, .whatsUp a {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-size: 22px;
+        font-family: system-ui;
+        font-weight: 500;
+        text-decoration: none;
+        background-color: #E29930;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 2px 2px 2px rgb(255 255 255 / 30%);
+        margin-top: 28.5px;
+    }
+
+    .phone a i, .email a i, .telegram a i, .whatsUp a i {
+        margin-top: 12px;
+        text-align: center;
+        line-height: normal;
+    }
+
+    .phone, .email, .telegram, .whatsUp {
+        display: block;
+    }
+
+
+    .phone {
+        grid-area: phone;
+    }
+
+    .email {
+        grid-area: email;
+    }
+
+    .telegram {
+        grid-area: telegram;
+    }
+
+    .whatsUp {
+        grid-area: whatsUp;
+    }
+
+    .inMySite {
+        grid-area: inMySite;
+    }
+
+    .box {
+        width: 50%;
+        margin: 20px auto;
+    }
+
+    .boxName, .positionData, .salaryData, .scheduleData, .technologyStackData {
+        text-align: center;
+    }
+
+    .boxPicture {
+        display: flex;
+        margin: 0 auto;
+        justify-content: center;
+        float: none;
+    }
+
+    .positionBox {
+        transition: 1.28s opacity ease-in-out;
+    }
+
+    .salaryBox {
+        transition: 1.40s opacity ease-in-out;
+    }
+
+    .scheduleBox {
+        transition: 0.67s opacity ease-in-out;
+    }
+}
+
+/* Spinner */
+.reverse-spinner {
+    position: relative;
+    width: 167px;
+    height: 167px;
+    margin: 128px auto;
+    border-radius: 50%;
+}
+
+.reverse-spinner::after {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    content: "";
+    border: 4px solid transparent;
+    border-top-color: #87CEFA;
+    border-left-color: #87CEFA;
+    border-radius: 50%;
+    -webkit-animation: spinBack 1.28s linear infinite;
+    animation: spinBack 1.28s linear infinite;
+}
+
+-webkit-@keyframes spin {
+    -webkit-from
+
+{
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+-webkit-to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spinBack {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(-720deg);
+        transform: rotate(-720deg);
+    }
+}
+
+@keyframes spinBack {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(-720deg);
+        transform: rotate(-720deg);
+    }
+}
+
+:root {
+    --dur1: 1s;
+    --dur2: 6s;
+    font-size: calc(16px + (32 - 16)*(100vw - 320px)/(2560 - 320));
+}
+
+
+.status {
+    position: absolute;
+    margin: 74px 41.69px 0 41.69px;
+    animation: fadeIn linear forwards;
+    text-align: center;
+    color: #211F30;
+    font-size: 19px;
+}
+
+.status__dot {
+    animation: appear1 var(--dur1) var(--dur1) steps(1,start) infinite;
+    display: inline-block;
+    color: #211F30;
+}
+
+    .status__dot:nth-child(2) {
+        animation: appear2 var(--dur1) var(--dur1) steps(1,start) infinite;
+    }
+
+    .status__dot:nth-child(3) {
+        animation: appear3 var(--dur1) var(--dur1) steps(1,start) infinite;
+    }
+
+@keyframes fadeIn {
+    from, 67% {
+        opacity: 0;
+    }
+
+    83.3%, to {
+        opacity: 1;
+    }
+}
+
+@keyframes appear1 {
+    from {
+        visibility: hidden;
+    }
+
+    33%, to {
+        visibility: visible;
+    }
+}
+
+@keyframes appear2 {
+    from, 33% {
+        visibility: hidden;
+    }
+
+    67%, to {
+        visibility: visible;
+    }
+}
+
+@keyframes appear3 {
+    from, 67% {
+        visibility: hidden;
+    }
+
+    to {
+        visibility: visible;
+    }
+}

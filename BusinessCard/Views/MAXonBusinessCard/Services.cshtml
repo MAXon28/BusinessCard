@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Услуги";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="widwidthevice-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/service.css" runat="server" />
+    <link rel="stylesheet" href="~/css/chief-slider.min.css">
+    <script defer src="~/js/chief-slider.min.js"></script>
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-service">
+    <div class="scene-service">
+        <p class="serviceHeader">Услуги</p>
+        <div class="reverse-spinner skip">
+            <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+        </div>
+        <div id="services" class="skip"></div>
+        <div id="moreDetailed" class="aboutService skip">
+            <div class="informationBlock">
+                <p style="color: #211f30; font-size: 28px; align-self: center; font-weight: bold; padding: 0; min-width: 167px;" class="serviceName"></p>
+                <div class="navigation">
+                    <button id="buttonDescription">Описание</button>
+                    <button id="buttonReviews" onclick="GetReviews()">Отзывы</button>
+                </div>
+                <div class="right_informationBlock">
+                    <p style="font-size: 28px; margin: 0 12px;" class="price"></p>
+                    <a id="serviceTaskButton" style="margin: 0" class="createTaskButton">Оформить заявку</a>
+                </div>
+            </div>
+            <div class=separator></div>
+            <div class="preloader loaded">
+                <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="currentColor"
+                            d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+                    </path>
+                </svg>
+            </div>
+            <div id="description" class="descriptionBlock skip">
+                <p>Тестовый прогон. Тестовый прогон. Тестовый прогон. Тестовый прогон. Тестовый прогон. Тестовый прогон. Тестовый прогон. Тестовый прогон. Тестовый прогон.</p>
+            </div>
+            <div id="reviews" class="container skip"></div>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        <symbol id="star" viewBox="0 0 26 28">
+            <path d="M26 10.109c0 .281-.203.547-.406.75l-5.672 5.531 1.344 7.812c.016.109.016.203.016.313 0 .406-.187.781-.641.781a1.27 1.27 0 0 1-.625-.187L13 21.422l-7.016 3.687c-.203.109-.406.187-.625.187-.453 0-.656-.375-.656-.781 0-.109.016-.203.031-.313l1.344-7.812L.39 10.859c-.187-.203-.391-.469-.391-.75 0-.469.484-.656.875-.719l7.844-1.141 3.516-7.109c.141-.297.406-.641.766-.641s.625.344.766.641l3.516 7.109 7.844 1.141c.375.063.875.25.875.719z"/>
+        </symbol>
+    </svg>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/service.js"></script>
+</body>
+</html>

@@ -2,9 +2,6 @@
     margin: 0;
     padding: 0;
     background: url('/backgroundMain.jpg')no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
 }
 
@@ -20,7 +17,6 @@
     height: 100%;
     transition: transform 1s;
     transform-style: preserve-3d;
-    cursor: pointer;
     position: relative;
     border-radius: 9px;
 }
@@ -45,44 +41,207 @@
 }
 
 .card__face--front {
-    background: #274355;
+    background: #211F30;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: stretch;
     align-items: center;
     padding: 0;
+    overflow: hidden;
 }
 
-.frontRight {
-    width: 427px;
-    height: 100%;
-    color: #1E90FF;
+.container_corner_front {
+    position: absolute;
+    cursor: pointer;
+}
+
+.container_corner_back {
+    position: absolute;
+    cursor: pointer;
+    z-index: 1003;
+}
+
+.container_corner_front:hover, .container_corner_back:hover {
+    box-shadow: 0 0 28px white;
+}
+
+.container__corner--br {
+    width: 128px;
+    height: 128px;
+    right: -67px;
+    bottom: -67px;
+    transform: rotate(-45deg);
+    background: #87CEEB;
+    font-family: Georgia;
+}
+
+.container__corner--br i {
+    color: #211F30;
+    font-weight: normal;
+    cursor: pointer;
+    text-shadow: -1px -1px #000,
+                0 1px 0 #444;
+    transition: all 1s;
+}
+
+.container_main_content {
+    display: flex;
+    flex-direction: row;
+}
+
+.container_information {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    padding-top: 67px;
+    padding-right: 28px;
+    padding-left: 28px;
+}
+
+.container_information p {
+    text-align: right;
+    margin: 0;
+}
+
+.name {
+    color: #E29930;
+    font-family: monospace;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 40px;
+}
+
+.profession {
+    color: #87CEEB;
+    font-family: system-ui;
+    font-size: 27px;
+    font-weight: normal;
+}
+
+.container_quote {
+    display: flex;
+    align-items: center;
+    padding-top: 67px;
+    padding-right: 28px;
+    padding-left: 28px;
+}
+
+.container_quote svg {
+    font-size: 27px;
+    color: #E29930;
+}
+
+.container_quote p {
+    font-size: 27px;
+    color: #E29930;
+    text-align: justify;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: normal;
+}
+
+.container_contacts {
+    width: 100%;
+    display: grid;
+    grid-template-areas: "Phone Telegram"
+        "Email WhatsUp";
+    grid-template-rows: 67px 67px;
+    grid-template-columns: 50% 50%;
+    grid-row-gap: 1px;
+    grid-column-gap: 1px;
+    justify-items: center;
+    align-items: center;
+}
+
+.container_contacts a {
+    text-align: center;
+    font-size: 19px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.phone {
+    color: #87CEEB;
+    grid-area: Phone;
+}
+
+.email {
+    color: #87CEEB;
+    grid-area: Email;
+}
+
+.telegram {
+    color: #E29930;
+    grid-area: Telegram;
+}
+
+.whatsUp {
+    color: #E29930;
+    grid-area: WhatsUp;
 }
 
 .frontSeparator {
-    width: 1px;
-    height: 90%;
-    background: white;
-    margin: 5% auto;
-}
-
-.frontLeft {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #274355;
-    width: 267px;
-    height: 100%;
-    border-radius: 9px 0 0 9px;
-}
-
-.frontLeft p{
-    font-size: 22px;
-    color: #1E90FF;
+    width: 93%;
+    height: 1px;
+    background: #87CEEB;
+    margin: auto 28px;
 }
 
 .card__face--back {
-    background: #2C4748;
+    background: #211F30;
     transform: rotateY(-180deg);
+    overflow: hidden;
+}
+
+#back { }
+
+.card__face--back p {
+    text-align: justify;
+    padding: 0 5%;
+    font-family: system-ui;
+}
+
+.preloader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #211F30;
+    z-index: 1001;
+    transition: 0.3s opacity;
+    opacity: 1;
+}
+
+.preloader__image {
+    width: 70px;
+    height: 70px;
+    margin-top: 25%;
+    text-align: center;
+    animation: preloader-rotate 1s infinite linear;
+    color: #E29930;
+}
+
+@keyframes preloader-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loaded_hiding {
+    display: block;
+}
+
+.loaded {
+    display: none;
+}
+
+.header_of_mini_facts {
+    font-size: 28px;
+    color: #E29930;
+    font-weight: 700;
+}
+
+.fact {
+    font-size: 27px;
+    color: #87CEEB;
+    font-weight: normal;
 }

@@ -1,0 +1,127 @@
+﻿@{
+    ViewData["Title"] = "Работа";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/work.css" runat="server" />
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-work">
+    <div class="scene-work">
+        <p class="header">Резюме</p>
+        <div class="notResume skip">
+            <p>В данный момент в работе не нуждаюсь.</p>
+            <p>Большое спасибо, что проявляете интерес к моей персоне!</p>
+        </div>
+        <div class="reverse-spinner skip">
+            <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+        </div>
+        <div class="resume1 skip">
+            <div class="box scheduleBox box-down">
+                <p class="boxName">График работы</p>
+                <p class="scheduleData"></p>
+                <div class="boxPicture">
+                    <svg id="SvgjsSvg1088" width="67" height="67" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs">
+                        <defs id="SvgjsDefs1089"></defs>
+                        <g id="SvgjsG1090" transform="matrix(1,0,0,1,0,0)">
+                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48" viewBox="0 0 48 48" width="67" height="67">
+                                <path fill="#fb9400" d="M34.842 22.488C34.398 24.44 34 25 32.738 25c-1.657 0-2.879-1.149-2.879-2.519s1.343-2.481 3-2.481C34.818 20 35.295 20.497 34.842 22.488zM13.158 22.488C13.602 24.44 14 25 15.262 25c1.657 0 2.879-1.149 2.879-2.519S16.798 20 15.141 20C13.182 20 12.705 20.497 13.158 22.488z" class="colorfb8c00 svgShape"></path>
+                                <path fill="#bf760c" d="M37.017,37.121C35.615,35.208,28,32,28,32h-4h-4c0,0-7.615,3.208-9.017,5.121C9.289,39.433,9,43,9,43	h30C39,43,38.711,39.433,37.017,37.121z" class="colorbf360c svgShape"></path>
+                                <path fill="#fb9400" d="M20,23v9c0,2.959,4,5,4,5s4-2.011,4-5v-9H20z" class="colorfb8c00 svgShape"></path>
+                                <path fill="#ffb64d" d="M14 17.746C14 27.739 19.381 32 24 32V9C18.212 9 14 14.015 14 17.746zM34 17.746C34 27.739 28.619 32 24 32V9C29.788 9 34 14.015 34 17.746z" class="colorffb74d svgShape"></path>
+                                <path fill="#8d7c63" d="M24,5c-5.523,0-11,3.477-11,9c0,4.228,1.569,9,1.569,9S15,19.792,15,17c9.167,0,14-5,14-5
+	s0.75,3.833,4,5c0.201,4.312,0.424,6,0.424,6S35,17.562,35,14c0-4.031-1.969-7-6-7C29,7,27.394,5,24,5z" class="color8d6e63 svgShape"></path>
+                                <path fill="#ffffff" d="M30 22c0 0-.895 1-2 1s-2-1-2-1 .895-1 2-1S30 22 30 22zM22 22c0 0-.895 1-2 1s-2-1-2-1 .895-1 2-1S22 22 22 22z" class="colorfff svgShape"></path>
+                                <path fill="#e29930" d="M22.517,25.707c0,0,0.657,0.283,1.483,0.283s1.483-0.283,1.483-0.283S25.057,26.774,24,26.774
+	S22.517,25.707,22.517,25.707z" class="colorfca230 svgShape"></path>
+                                <path fill="#6d5b41" d="M30.5 19.397c0 0-1.107-.397-2.5-.397s-2-.008-2-.502C26 18.005 26.71 18 28 18 29.782 18 30.5 19.397 30.5 19.397zM17.5 19.397c0 0 1.107-.397 2.5-.397s2-.008 2-.502C22 18.005 21.29 18 20 18 18.218 18 17.5 19.397 17.5 19.397z" class="color6d4c41 svgShape"></path>
+                                <path fill="#ffcb80" d="M31.842,27H16.158c1.992,3.432,5.052,5,7.842,5S29.849,30.432,31.842,27z" class="colorffcc80 svgShape"></path>
+                                <path fill="#c5bcb0" d="M35.071,42.077l0.846-11C35.962,30.496,35.503,30,34.92,30H13.08c-0.583,0-1.042,0.496-0.997,1.077
+	l0.846,11C12.969,42.598,13.403,43,13.926,43h20.148C34.597,43,35.031,42.598,35.071,42.077z" class="colorb0bec5 svgShape"></path>
+                                <circle cx="24" cy="38" r="2" fill="#f1efec" class="coloreceff1 svgShape"></circle>
+                                <path fill="#fb9400" d="M21.5,27.603c0,0,1.107,0.397,2.5,0.397s2.5-0.397,2.5-0.397S25.485,29,24,29
+	S21.5,27.603,21.5,27.603z" class="colorfb8c00 svgShape"></path>
+                                <path fill="#3e3323" d="M20 23c.347 0 .668-.103.952-.238C20.843 22.328 20.468 22 20 22s-.843.328-.952.762C19.332 22.897 19.653 23 20 23zM28 23c.347 0 .668-.103.952-.238C28.843 22.328 28.468 22 28 22s-.843.328-.952.762C27.332 22.897 27.653 23 28 23z" class="color3e2723 svgShape"></path>
+                            </svg>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            <div class="box positionBox">
+                <p class="boxName">Позиция</p>
+                <p class="positionData"></p>
+                <div class="boxPicture">
+                    <svg id="SvgjsSvg1030" width="67" height="67" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs"><defs id="SvgjsDefs1031"></defs><g id="SvgjsG1032" transform="matrix(1,0,0,1,0,0)"><svg xmlns="http://www.w3.org/2000/svg" width="67" height="67" viewBox="0 0 48 48"><g transform="translate(0 -1004.362)" fill="#a6fff2" class="color000 svgShape"><circle cx="24" cy="1028.362" r="24" fill="#74f9ff" fill-rule="evenodd" class="coloref4c45 svgShape"></circle><g transform="translate(67.075 -495.33) scale(.96044)" fill="#a6fff2" class="color000 svgShape"><path style="isolation:auto;mix-blend-mode:normal" fill="#e8ffe8" d="m -51.451284,1602.0769 -0.68599,-6.6169 -4.42898,0 1e-5,-5.5445 -1.93411,0 3.66301,-7.2783 c 0.80991,-5.3117 5.74901,-8.9378 11.07421,-8.1299 5.3252,0.8079 8.96025,5.7347 8.15034,11.0466 l -4.43613,9.6903 0.56294,6.8327" color="#000" overflow="visible" class="colorfcd062 svgShape"></path><path style="isolation:auto;mix-blend-mode:normal" fill="#0c7786" d="m -49.5,1582.7713 1.017301,0 a 4.0909092,4.0909091 0 0 0 0.520196,1.2677 l -0.715393,0.7155 1.285506,1.2856 0.717402,-0.7174 a 4.0909092,4.0909091 0 0 0 1.266004,0.5238 l -1.9e-5,1.0157 1.81811,0 -10e-7,-1.0174 a 4.0909092,4.0909091 0 0 0 1.267807,-0.5203 l 0.715399,0.7156 1.285704,-1.2856 -0.717415,-0.7172 a 4.0909092,4.0909091 0 0 0 0.523818,-1.2661 l 1.015492,1e-4 -7e-6,-1.8182 -1.017301,0 a 4.0909092,4.0909091 0 0 0 -0.520201,-1.2677 l 0.715606,-0.7156 -1.285693,-1.2856 -0.717216,0.7175 a 4.0909092,4.0909091 0 0 0 -1.266001,-0.5239 l 2e-5,-1.0157 -1.818111,10e-5 -4e-6,1.0173 a 4.0909092,4.0909091 0 0 0 -1.267805,0.5203 l -0.715588,-0.7156 -1.285511,1.2856 0.717416,0.7173 a 4.0909092,4.0909091 0 0 0 -0.523821,1.266 l -1.015678,-10e-5 -1.6e-5,1.8183 z" color="#000" overflow="visible" class="color0c5286 svgShape"></path><path d="m -45.841855,1582.2217 c 0.19759,0.7374 0.963658,1.1797 1.701046,0.9821 0.737484,-0.1976 1.180176,-0.9638 0.982586,-1.7012 -0.197585,-0.7374 -0.964044,-1.1795 -1.701529,-0.9819 -0.737484,0.1976 -1.179688,0.9636 -0.982103,1.701 z" style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal" fill="#e8ffe8" stroke="#00e0ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.041" color="#000" font-family="sans-serif" font-weight="400" overflow="visible" class="colorfcd062 svgShape colorStroke406b95 svgStroke"></path><path style="isolation:auto;mix-blend-mode:normal" fill="#75ee75" d="m -37.115234,548.39648 -0.210938,0.78516 a 3.2727216,3.2727211 0 0 0 -1.08789,0.14063 l -0.404297,-0.70118 -1.259766,0.72657 0.40625,0.70312 a 3.2727216,3.2727211 0 0 0 -0.666016,0.86914 l -0.785156,-0.20898 -0.376953,1.40429 0.785156,0.21094 a 3.2727216,3.2727211 0 0 0 0.140625,1.08789 l -0.701172,0.4043 0.726563,1.25976 0.703125,-0.40624 a 3.2727216,3.2727211 0 0 0 0.869141,0.66601 l -0.208985,0.78516 1.404297,0.37695 0.210938,-0.78516 a 3.2727216,3.2727211 0 0 0 1.08789,-0.14062 l 0.404297,0.70117 1.259766,-0.72656 -0.40625,-0.70313 a 3.2727216,3.2727211 0 0 0 0.667968,-0.86914 l 0.783203,0.20899 0.376954,-1.4043 -0.785157,-0.21094 a 3.2727216,3.2727211 0 0 0 -0.140625,-1.08789 l 0.701172,-0.4043 -0.726562,-1.25976 -0.703125,0.40625 a 3.2727216,3.2727211 0 0 0 -0.869141,-0.66797 l 0.208984,-0.7832 -1.404296,-0.37696 z m -0.417969,3.44727 c 0.07858,-0.0109 0.160658,-0.006 0.242187,0.0156 0.326258,0.087 0.520898,0.42204 0.433594,0.74804 -0.08743,0.326 -0.422088,0.51904 -0.748047,0.43164 l -0.002,0 c -0.326178,-0.087 -0.518977,-0.42194 -0.43164,-0.74804 0.06561,-0.24465 0.270114,-0.41463 0.505859,-0.44727 z" color="#000" overflow="visible" transform="translate(0 1020.362)" class="coloree7581 svgShape"></path><path d="m -38.521752,1572.5227 c -0.158003,0.5899 0.195878,1.2028 0.785896,1.3608 0.589812,0.1581 1.203063,-0.1956 1.361259,-0.7856 0.158002,-0.5899 -0.196111,-1.2028 -0.786116,-1.3609 -0.589921,-0.1581 -1.202844,0.1957 -1.361039,0.7857 z" style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal" fill="none" stroke="#0c7786" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.041" color="#000" font-family="sans-serif" font-weight="400" overflow="visible" class="colorStroke0c5286 svgStroke"></path></g></g></svg></g></svg>
+                </div>
+            </div>
+            <div class="box salaryBox box-down">
+                <p class="boxName">Зарплата (в месяц)</p>
+                <p class="salaryData"></p>
+                <div class="boxPicture">
+                    <svg id="SvgjsSvg1043" width="67" height="67" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs"><defs id="SvgjsDefs1044"></defs><g id="SvgjsG1045" transform="matrix(1,0,0,1,0,0)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="67" height="67"><g data-name="Layer 1 copy" fill="#000000" class="color000 svgShape"><rect width="37.447" height="21.434" x="7.859" y="10.844" fill="#569f7d" transform="rotate(-10.943 26.58 21.563)" class="color569f7d svgShape"></rect><rect width="37.447" height="21.434" x="4.372" y="15.125" fill="#60b18b" transform="rotate(-5.938 23.096 25.837)" class="color60b18b svgShape"></rect><rect width="37.447" height="21.434" x="1" y="19.081" fill="#8ed8b5" class="color8ed8b5 svgShape"></rect><path fill="#b1dfbc" d="M35,34.478A3.007,3.007,0,0,0,32,37.485H7.453a3.007,3.007,0,0,0-3.008-3.007V25.119a3.008,3.008,0,0,0,3.008-3.008H32A3.007,3.007,0,0,0,35,25.119Z" class="colorb1dfbc svgShape"></path><circle cx="19.724" cy="29.798" r="4.512" fill="#8ed8b5" class="color8ed8b5 svgShape"></circle><polygon fill="#60b18b" points="41.346 9.771 45.046 28.907 47 28.529 42.931 7.485 6.165 14.594 6.534 16.502 41.346 9.771" class="color60b18b svgShape"></polygon><polygon fill="#8ed8b5" points="39.025 15.532 41.024 34.752 42.827 34.565 40.61 13.246 3.364 17.12 3.582 19.219 39.025 15.532" class="color8ed8b5 svgShape"></polygon><polygon fill="#b1dfbc" points="1 19.081 1 21.111 36.4 21.111 36.4 40.515 38.447 40.515 38.447 19.081 1 19.081" class="colorb1dfbc svgShape"></polygon><path fill="#8ed8b5" d="M5.268 24.99a2.987 2.987 0 0 1-.823.129v1.214A3 3 0 0 0 5.268 24.99zM30.748 37.485H32a2.981 2.981 0 0 1 .136-.849A2.988 2.988 0 0 0 30.748 37.485z" class="color8ed8b5 svgShape"></path><path fill="#c1ecd0" d="M32,22.111H7.453a2.989,2.989,0,0,1-.8,2.03h23.3a3.007,3.007,0,0,0,3.008,3.007v8.145A2.988,2.988,0,0,1,35,34.478V25.119A3.007,3.007,0,0,1,32,22.111Z" class="colorc1ecd0 svgShape"></path><path fill="#b1dfbc" d="M19.724,25.286a4.5,4.5,0,0,0-4.019,2.5,4.456,4.456,0,0,1,1.971-.472,4.512,4.512,0,0,1,4.512,4.512,4.459,4.459,0,0,1-.493,2.01,4.5,4.5,0,0,0-1.971-8.552Z" class="colorb1dfbc svgShape"></path></g><g data-name="Layer 1 copy 2" fill="#000000" class="color000 svgShape"><path fill="#1c1c1b" d="M38.447,41.515H1a1,1,0,0,1-1-1V19.081a1,1,0,0,1,1-1H38.447a1,1,0,0,1,1,1V40.515A1,1,0,0,1,38.447,41.515ZM2,39.515H37.447V20.081H2Z" class="color1c1c1b svgShape"></path><path fill="#1c1c1b" d="M32,38.485H7.453a1,1,0,0,1-1-1,2.01,2.01,0,0,0-2.008-2.007,1,1,0,0,1-1-1V25.119a1,1,0,0,1,1-1,2.011,2.011,0,0,0,2.008-2.008,1,1,0,0,1,1-1H32a1,1,0,0,1,1,1A2.01,2.01,0,0,0,35,24.119a1,1,0,0,1,1,1v9.359a1,1,0,0,1-1,1,2.009,2.009,0,0,0-2.007,2.007A1,1,0,0,1,32,38.485Zm-23.669-2h22.8A4.025,4.025,0,0,1,34,33.6V25.992a4.023,4.023,0,0,1-2.881-2.881H8.326a4.021,4.021,0,0,1-2.881,2.881V33.6A4.023,4.023,0,0,1,8.326,36.485Z" class="color1c1c1b svgShape"></path><path fill="#1c1c1b" d="M19.724,35.31A5.512,5.512,0,1,1,25.235,29.8,5.519,5.519,0,0,1,19.724,35.31Zm0-9.023A3.512,3.512,0,1,0,23.235,29.8,3.515,3.515,0,0,0,19.724,26.287Z" class="color1c1c1b svgShape"></path><path fill="#1c1c1b" d="M40.819,35.788a1,1,0,0,1-.1-1.995l1.154-.121-2.03-19.327L7.65,17.725a1,1,0,0,1-.209-1.99l33.184-3.484a1,1,0,0,1,1.1.89l2.239,21.317a1,1,0,0,1-.89,1.1l-2.149.226C40.889,35.786,40.854,35.788,40.819,35.788Z" class="color1c1c1b svgShape"></path><path fill="#1c1c1b" d="M45.367,29.848a1,1,0,0,1-.188-1.982l.651-.125L42.168,8.655,10.827,14.667A1,1,0,1,1,10.45,12.7L42.774,6.5a1,1,0,0,1,1.17.793l4.038,21.051a1,1,0,0,1-.794,1.17l-1.632.313A1.024,1.024,0,0,1,45.367,29.848Z" class="color1c1c1b svgShape"></path></g></svg></g></svg>
+                </div>
+            </div>
+        </div>
+        <div class="resume2 skip">
+            <div class="box technologyStackBox">
+                <p class="boxName">Стек технологий</p>
+                <p class="technologyStackData"></p>
+                <div class="boxPicture">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="67" height="67"><g fill="none"><path fill="#474F54" d="M64 0v41.25l-3.75 3.875H3.75L0 41.25V0z" /><path fill="#32393F" d="M64 0v41.25l-3.75 3.875H32V0z" /><path fill="#DADAE5" d="M22.625 50.875h18.75v11.25h-18.75z" /><path fill="#C9C9D3" d="M32 50.875h9.375v11.25H32z" /><path fill="#EFEFF4" d="M0 41.25h64v11.5H0z" /><path fill="#DADAE5" d="M32 41.25h32v11.5H32z" /><path fill="#EFEFF4" d="M15.125 60.25h33.75V64h-33.75z" /><path fill="#DADAE5" d="M32 60.25h16.875V64H32z" /><path fill="#549EF2" d="M20.75 7.5c-7.236 0-13.125 5.889-13.125 13.125S13.514 33.75 20.75 33.75s13.125-5.889 13.125-13.125S27.986 7.5 20.75 7.5zm0 18.75a5.631 5.631 0 01-5.625-5.625A5.631 5.631 0 0120.75 15a5.631 5.631 0 015.625 5.625 5.631 5.631 0 01-5.625 5.625z" /><g fill="#377FD2"><path d="M45.125 7.5H56.5v3.75H45.125zM37.625 7.5h3.75v3.75h-3.75zM45.125 22.5H56.5v3.75H45.125zM37.625 22.5h3.75v3.75h-3.75zM37.625 15H56.5v3.75H37.625zM37.625 30H56.5v3.75H37.625z" /></g></g></svg>
+                </div>
+            </div>
+        </div>
+        <div class="responseToResume skip">
+            <div class="contacts">
+                <a href="tel:+79162185817">
+                    8-916-218-58-17
+                    <i class="fa fa-phone fa-lg"></i>
+                </a>
+                <a href="mailto:maxim28it@gmail.com">
+                    maxim28it@gmail.com
+                    <i class="fa fa-envelope fa-lg"></i>
+                </a>
+                <a href="https://t.me/maxon2812">
+                    Чат в Telegram
+                    <i class="fa fa-telegram fa-lg"></i>
+                </a>
+                <a href="https://api.whatsapp.com/send?phone=79162185817">
+                    Чат в What's App
+                    <i class="fa fa-whatsapp fa-lg"></i>
+                </a>
+            </div>
+            <div class="phone">
+                <a href="tel:+79162185817">
+                    8-916-218-58-17
+                    <i class="fa fa-phone fa-lg"></i>
+                </a>
+            </div>
+            <div class="email">
+                <a href="mailto:maxim28it@gmail.com">
+                    maxim28it@gmail.com
+                    <i class="fa fa-envelope fa-lg"></i>
+                </a>
+            </div>
+            <div class="telegram">
+                <a href="https://t.me/maxon2812">
+                    Чат в Telegram
+                    <i class="fa fa-telegram fa-lg"></i>
+                </a>
+            </div>
+            <div class="whatsUp">
+                <a href="https://api.whatsapp.com/send?phone=79162185817">
+                    Чат в What's App
+                    <i class="fa fa-whatsapp fa-lg"></i>
+                </a>
+            </div>
+            <div class="inMySite">
+                <p>Оставить вакансию можно <a asp-area="" asp-controller="MAXonWork" asp-action="JobPlacement">здесь</a>.</p>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/work.js"></script>
+</body>
+</html>

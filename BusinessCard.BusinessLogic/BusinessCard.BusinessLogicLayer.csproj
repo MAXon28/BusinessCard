@@ -5,13 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Infrastructure - Копировать\ResumeConfiguration.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BusinessCard.DataAccessLayer\BusinessCard.DataAccessLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Services\" />
-    <Folder Include="DTO\" />
+    <Resource Include="Infrastructure - Копировать\ResumeConfiguration.xml" />
   </ItemGroup>
 
 </Project>

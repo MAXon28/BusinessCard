@@ -23,36 +23,39 @@ namespace SqlQueryStrings
         private static readonly string _selectAllQueryTemplate = @"SELECT * 
                                                                    FROM *table_name*";
 
+
         /// <summary>
-        /// Шаблон запроса выборки определённой строки из базы данных
+        /// Шаблон запроса выборки строк из базы данных
         /// </summary>
-        private static readonly string _selectOneQueryTemplate = @"SELECT * 
-                                                                   FROM *table_name*
-                                                                   WHERE Id = @id_value";
+        private static readonly string _selectQueryTemplate = @"SELECT * 
+                                                                FROM *table_name*
+                                                                WHERE *table_name*.*condition_field* *condition_sign* @*condition_field*";
 
         /// <summary>
         /// Шаблон запроса обновления определённой строки в базе данных
         /// </summary>
         private static readonly string _updateQueryTemplate = @"UPDATE *table_name*
                                                                 SET *table_column* = @update_value
-                                                                WHERE Id = @id_value";
+                                                                WHERE Id = @Id";
 
         /// <summary>
         /// Шаблон запроса удаления определённой строки из базы данных
         /// </summary>
         private static readonly string _deleteQueryTemplate = @"DELETE *table_name*
-                                                                WHERE Id = @id_value";
+                                                                WHERE Id = @Id";
 
         /// <summary>
         /// Шаблон JOIN
         /// </summary>
-        private static readonly string _joinTemplate = @"               INNER JOIN *second_table_name*
-                                                                        ON *table_name*.*foreign_key* = *second_table_name*.Id";
+        private static readonly string _joinTemplate = @" INNER JOIN *second_table_name*
+                                                          ON *table_name*.*foreign_key* = *second_table_name*.Id ";
 
         /// <summary>
         /// Получить базовые SQL-запросы по текущему типу
         /// </summary>
         /// <param name="type"> .NET тип, которому соответствует определённая таблица в SQL </param>
+        /// <param name="sqlTableName"> Выходной параметр, название таблицы в SQL </param>
+        /// <param name="relatedEntitiesDictionary"> Выходной параметр, словарь связанных сущностей </param>
         /// <returns> 
         /// Словарь базовых SQL-запросов по текущему типу (соответствие типов запросов к самим запросам: 
         /// INSERT - запрос добавление новых данных в таблицу,
@@ -61,14 +64,14 @@ namespace SqlQueryStrings
         /// UPDATE - запрос на обновление определённой строки в таблице
         /// DELETE - удаление определённой строки в таблице)
         /// </returns>
-        public static Dictionary<string, string> GetQueries(Type type)
+        public static Dictionary<string, string> GetQueries(Type type, out string sqlTableName, out Dictionary<Type, int> relatedEntitiesDictionary)
         {
             var queriesDictionary = new Dictionary<string, string>();
 
-            var sqlTableName = GetSqlTableName(type);
-            var sqlTableColumns = GetSqlTableColumns(type, out var keysDictionary);
+            sqlTableName = GetSqlTableName(type);
+            var sqlTableColumns = GetSqlTableColumns(type, out var keysDictionary, out relatedEntitiesDictionary);
 
-            queriesDictionary.Add("INSERT", GetInsertQuery(sqlTableName, sqlTableColumns));
+            queriesDictionary.Add("INSERT", GetInsertQuery(sqlTableName, sqlTableColumns.Skip(1).ToList()));
             queriesDictionary.Add("SELECT_ALL", GetSelectQuery(sqlTableName, keysDictionary, TypeOfSelect.All));
             queriesDictionary.Add("SELECT", GetSelectQuery(sqlTableName, keysDictionary, TypeOfSelect.One));
             queriesDictionary.Add("UPDATE", GetUpdateQuery(sqlTableName, sqlTableColumns));
@@ -109,30 +112,37 @@ namespace SqlQueryStrings
         /// </summary>
         /// <param name="type"> Тип .NET, по которому определяются столбцы таблицы в SQL </param>
         /// <param name="keysDictionary"> Выходной параметр, который хранит в себе словарь соответствия внешнго ключа и связанной таблицы </param>
+        /// <param name="relatedEntitiesDictionary"> Выходной параметр, словарь связанных сущностей </param>
         /// <returns> Список столбцов в SQL-таблице </returns>
-        private static List<string> GetSqlTableColumns(Type type, out Dictionary<string,string> keysDictionary)
+        private static List<string> GetSqlTableColumns(Type type, out Dictionary<string, string> keysDictionary, out Dictionary<Type, int> relatedEntitiesDictionary)
         {
             var sqlTableColumns = new List<string>();
 
             keysDictionary = new Dictionary<string, string>();
 
+            relatedEntitiesDictionary = new Dictionary<Type, int>();
+
             var entityProperties = type.GetProperties();
 
-            foreach (var entityProperty in entityProperties)
+            for (var i = 0; i < entityProperties.Length; i++)
             {
-                var columnName = entityProperty.Name.ToString();
+                var columnName = entityProperties[i].Name.ToString();
 
-                var attributesEnumerator = entityProperty.CustomAttributes.GetEnumerator();
+                var customAttributes = entityProperties[i].CustomAttributes.ToList();
 
-                while (attributesEnumerator.MoveNext())
+                if (customAttributes.Select(attribute => attribute.AttributeType.Name).Where(name => name.Equals("NotSqlColumnAttribute")).ToList().Count > 0)
                 {
-                    if (attributesEnumerator.Current.AttributeType.Name.Equals("SqlForeignKeyAttribute"))
-                    {
-                        var foreignKeyTableName = attributesEnumerator.Current.ConstructorArguments[0].Value.ToString();
-                        var foreignKey = attributesEnumerator.Current.ConstructorArguments[1].Value.ToString();
+                    Console.WriteLine(entityProperties[i].PropertyType);
 
-                        if (!string.IsNullOrEmpty(foreignKey))
-                            columnName = foreignKey;
+                    relatedEntitiesDictionary.Add(entityProperties[i].PropertyType, i);
+                    continue;
+                }
+
+                foreach (var attribute in customAttributes)
+                {
+                    if (attribute.AttributeType.Name.Equals("SqlForeignKeyAttribute"))
+                    {
+                        var foreignKeyTableName = attribute.ConstructorArguments[0].Value.ToString();
 
                         keysDictionary.Add(columnName, foreignKeyTableName);
                     }
@@ -167,13 +177,13 @@ namespace SqlQueryStrings
         /// <returns> Запрос выборки </returns>
         private static string GetSelectQuery(string sqlTableName, Dictionary<string, string> keysDictionary, TypeOfSelect typeOfSelect)
         {
-            var selectQueryTemplate = typeOfSelect == TypeOfSelect.One ? _selectOneQueryTemplate : _selectAllQueryTemplate;
+            var selectQueryTemplate = typeOfSelect == TypeOfSelect.One ? _selectQueryTemplate : _selectAllQueryTemplate;
 
             var selectAllQuery = new StringBuilder(selectQueryTemplate.Replace("*table_name*", sqlTableName));
 
             foreach (var keyDictionary in keysDictionary)
             {
-                selectAllQuery.Insert(selectAllQuery.Length - (typeOfSelect == TypeOfSelect.One ? 21 : 0), _joinTemplate);
+                selectAllQuery.Insert(selectAllQuery.Length - (typeOfSelect == TypeOfSelect.One ? 34 : 0), _joinTemplate);
                 selectAllQuery.Replace("*second_table_name*", keyDictionary.Value);
                 selectAllQuery.Replace("*table_name*", sqlTableName);
                 selectAllQuery.Replace("*foreign_key*", keyDictionary.Key);

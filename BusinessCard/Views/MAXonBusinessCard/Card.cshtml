@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Визитка";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/card.css" runat="server" />
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-card">
+    <div class="scene scene--card">
+        <div class="card">
+            <div class="card__face card__face--front">
+                <div>
+                    <div class="container_corner_front container__corner--br">
+                        <i class="fa fa-repeat fa-lg" style="font-size: 19px;"></i>
+                    </div>
+                </div>
+
+                <div class="container_main_content">
+                    <div class="container_quote">
+                        <svg width="328" height="167" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <title>background</title>
+                                <rect fill="#211f30" id="canvas_background" height="169" width="330" y="-1" x="-1" />
+                                <g wfd-invisible="true" display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+                                    <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%" />
+                                </g>
+                            </g>
+                            <g>
+                                <title>Layer 1</title>
+                                <rect rx="3" stroke="#87ceeb" id="svg_2" height="79.000002" width="123.999999" y="16.75" x="101.999998" stroke-width="3" fill="#211f30" />
+                                <line stroke-linecap="null" stroke-linejoin="null" id="svg_4" y2="139.953125" x2="164" y1="98.953125" x1="164" fill-opacity="null" stroke-width="3" stroke="#87ceeb" fill="none" />
+                                <ellipse ry="7" rx="23.5" id="svg_6" cy="132.953125" cx="164" stroke-width="3" stroke="#87ceeb" fill="#211f30" />
+                                <text font-style="italic" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_7" y="64.953125" x="109" stroke-width="0" stroke="#87ceeb" fill="#e29930">MAXon28</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="container_information">
+                        <p class="name">Безуглый Максим Викторович</p>
+                        <p class="profession">.NET разработчик</p>
+                    </div>
+                </div>
+
+                <div class="frontSeparator"></div>
+
+                <div class="container_contacts">
+                    <a class="phone" href="tel:+79162185817"><i class="fa fa-phone fa-lg"></i> 8-916-218-58-17</a>
+                    <a class="email" href="mailto:maxim28it@gmail.com"><i class="fa fa-envelope fa-lg"></i> maxim28it@gmail.com</a>
+                    <a class="telegram" href="https://t.me/maxon2812"><i class="fa fa-telegram fa-lg"></i> Чат в Telegram</a>
+                    <a class="whatsUp" href="https://api.whatsapp.com/send?phone=79162185817"><i class="fa fa-whatsapp fa-lg"></i> Чат в What's App</a>
+                </div>
+            </div>
+            <div class="card__face card__face--back" id="back">
+                <div>
+                    <div class="container_corner_back container__corner--br">
+                        <i class="fa fa-repeat fa-lg" style="font-size: 19px;"></i>
+                    </div>
+                </div>
+
+                <div class="preloader loaded">
+                    <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+                        </path>
+                    </svg>
+                </div>
+
+                <p class="header_of_mini_facts">Коротко обо мне:</p>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/card.js"></script>
+</body>
+</html>
