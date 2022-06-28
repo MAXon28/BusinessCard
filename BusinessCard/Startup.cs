@@ -60,6 +60,9 @@ namespace BusinessCard
             services.AddScoped<IProjectTypeRepository, ProjectTypeRepository>();
             services.AddScoped<IProjectCategoryRepository, ProjectCategoryRepository>();
             services.AddScoped<IProjectCompatibilityRepository, ProjectCompatibilityRepository>();
+            services.AddScoped<IProjectImageRepository, ProjectImageRepository>();
+            services.AddScoped<IProjectReviewRepository, ProjectReviewRepository>();
+            services.AddScoped<IProjectTechnicalRequirementValueRepository, ProjectTechnicalRequirementValueRepository>();
 
             services.AddScoped<IBusinessCardService, BusinessCardService>();
             services.AddScoped<IAboutMeService, AboutMeService>();
@@ -68,6 +71,7 @@ namespace BusinessCard
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<IRuleService, RuleService>();
             services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<IProjectReviewService, ProjectReviewService>();
 
             services.AddScoped<FileSaver>();
 

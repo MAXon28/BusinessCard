@@ -54,7 +54,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
         public async Task<ProjectInformation> GetProjectInformationAsync()
         {
             const string sqlQuery = @"SELECT  COUNT(project.Id) AS ProjectsCount,
-		                                      SUM(project.DownloadsCount) AS AllDownloadsCount,
+		                                      SUM(project.ClicksCount) AS AllClicksCount,
 		                                      (SELECT AVG (CONVERT (float, projectReview.Rating))
 		                                       FROM ProjectReviews projectReview) AS AvgRatingAllProjects
                                       FROM Projects project;";
@@ -72,7 +72,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
                         AllProjectsAvgRating = allProjectsAvgRating
                     };
                 },
-                splitOn: "ProjectsCount,AllDownloadsCount,AvgRatingAllProjects")).FirstOrDefault();
+                splitOn: "ProjectsCount,AllClicksCount,AvgRatingAllProjects")).FirstOrDefault();
         }
     }
 }

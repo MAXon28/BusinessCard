@@ -30,7 +30,37 @@ namespace BusinessCard.BusinessLogicLayer.DTOs.Store
         /// <summary>
         /// 
         /// </summary>
+        public int? ClicksCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ProjectUrl { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public List<string> Compatibilities { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string VideoUrl { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CodeUrl { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CreationDate { get; set; }
 
         /// <summary>
         /// 
@@ -46,5 +76,35 @@ namespace BusinessCard.BusinessLogicLayer.DTOs.Store
         /// 
         /// </summary>
         public string Icon { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ClickTypeDto ClickType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<ProjectImageDto> Images { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CodeLevelDto CodeLevel { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public RatingStatisticDto RatingStatistic { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ProjectReviewDto Review { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Dictionary<string, string> TechnicalRequirements { get; set; }
     }
 }

@@ -44,7 +44,7 @@
     align-items: center;
     background: white;
     border-radius: 10px;
-    box-shadow: 0px 6px 10px rgb(0 0 0 / 25%);
+    box-shadow: 0 4px 16px #ccc;
     transition: all 0.2s;
 }
 
@@ -152,7 +152,7 @@
     margin-left: 128px;
     border-radius: 9px;
     padding: 28px;
-    box-shadow: 0px 6px 10px rgb(0 0 0 / 25%);
+    box-shadow: 0 4px 16px #ccc;
 }
 
 .informationBlock {
@@ -247,7 +247,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid lightskyblue;
+    border: 1px solid #e0e0e0;
     border-radius: 28px;
     margin: 12px;
     overflow: hidden;
@@ -264,8 +264,8 @@
 }
 
 .u-icon-1 {
-    height: 34px;
-    width: 34px;
+    width: 28px;
+    height: 28px;
     color: #87cefa !important;
     margin: 19px 0;
 }
@@ -283,8 +283,7 @@
 
 .name {
     font-family: Oswald, sans-serif !important;
-    font-size: 28px;
-    font-style: italic;
+    font-size: 27px;
     color: #211f30;
     margin: 12px 12px;
     margin-bottom: 0;
@@ -295,7 +294,7 @@
 
 .review {
     text-align: center;
-    font-size: 28px;
+    font-size: 22px;
     line-height: 1.28;
     color: #211f30;
     max-height: 228px;
@@ -337,9 +336,10 @@
 
 .date {
     font-family: Oswald, sans-serif !important;
-    font-size: 22px;
+    font-size: 19px;
     color: #cdcac7;
     margin: 0;
+    margin-bottom: 12px;
 }
 
 /*
@@ -370,7 +370,7 @@ CORE STYLES
     display: var(--ratingDisplay, flex);
     font-size: var(--ratingSize, 1rem);
     color: var(--uiRatingColor);
-    margin-top: 12px;
+    margin-top: 28px;
 }
 
 .rating__item {
@@ -385,8 +385,8 @@ CORE STYLES
 
 .rating__star {
     display: block;
-    width: 1em;
-    height: 1em;
+    width: 28px;
+    height: 28px;
     fill: currentColor;
 }
 

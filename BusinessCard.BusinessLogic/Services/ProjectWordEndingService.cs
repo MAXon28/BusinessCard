@@ -3,7 +3,7 @@
 namespace BusinessCard.BusinessLogicLayer.Services
 {
     /// <inheritdoc cref="WordEndingService"/>
-    internal class ProjectWordEndingService : WordEndingService
+    public class ProjectWordEndingService : WordEndingService
     {
         public ProjectWordEndingService() : base()
         {

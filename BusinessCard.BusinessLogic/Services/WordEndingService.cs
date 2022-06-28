@@ -3,7 +3,7 @@
     /// <summary>
     /// Сервис окончания слова (для более правильного вывода слов при подсчёте значений)
     /// </summary>
-    internal abstract class WordEndingService
+    public abstract class WordEndingService
     {
         /// <summary>
         /// 

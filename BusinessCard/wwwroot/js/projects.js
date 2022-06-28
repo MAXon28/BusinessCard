@@ -620,7 +620,7 @@ function SetProjects(projects) {
         leftPartBlock.className = "leftPartBlock";
 
         if (projects[i].icon != null)
-            leftPartBlock.innerHTML = '<img class="projectIcon" src="/' + projects[i].icon + '">';
+            leftPartBlock.innerHTML = '<img class="projectIcon" src="' + projects[i].icon + '">';
 
         var projectName = document.createElement("p");
         projectName.className = "projectName";

@@ -42,7 +42,7 @@ namespace BusinessCard.DataAccessLayer.Entities.Data
         /// 
         /// </summary>
         public string Address { get; set; }
-#nullable enable
+
         /// <summary>
         /// 
         /// </summary>
@@ -52,7 +52,7 @@ namespace BusinessCard.DataAccessLayer.Entities.Data
         /// 
         /// </summary>
         public int? SalaryTo { get; set; }
-#nullable disable
+
         /// <summary>
         /// 
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿namespace BusinessCard.BusinessLogicLayer.Services
 {
     /// <inheritdoc cref="WordEndingService"/>
-    internal class DownloadWordEndingService : WordEndingService
+    public class DownloadWordEndingService : WordEndingService
     {
         public DownloadWordEndingService()
         {

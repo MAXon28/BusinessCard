@@ -9,73 +9,92 @@
     <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
     <link rel="stylesheet" href="~/css/font-awesome.css" runat="server" />
     <link rel="stylesheet" href="~/css/font-awesome.min.css" runat="server" />
+    <link rel="stylesheet" href="~/css/chief-slider.min.css">
+    <script defer src="~/js/chief-slider.min.js"></script>
     <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
     <title>@ViewData["Title"] | MAXon28</title>
 </head>
 <body class="body-project">
     <div class="scene-project">
         <div class="data">
-            <div class="mainBlock">
-                <div class="nameBlock">
-                    <img class="projectIcon" src="/chat.ico">
-                    <p class="projectName">Bezu Chat</p>
-                </div>
-                <div class="downloadsCountBlock">
-                    <p class="value">1</p>
-                    <p class="text">Скачивания</p>
-                </div>
-                <button class="download">Скачать</button>
-                <div class="ratingInformationBlock">
-                    <div class="ratingBlock">
-                        <div class="ratingValueBlock">
-                            <p class="value" style="margin-right: 3px;">5</p>
-                            <label class="rating__item" style="color: gold; margin-left: 3px">
-                                <svg class="rating__star"><use xlink:href="#star"></use></svg>
-                            </label>
-                        </div>
-                        <p class="text">Среднее</p>
-                    </div>
-                    <div class="separator vertical"></div>
-                    <div class="countReviewsBlock">
-                        <p class="value">1</p>
-                        <p class="text">Оценки</p>
-                    </div>
-                </div>
-            </div>
+            <div class="mainBlock"></div>
             <div class="informationBlock">
-                <div class="dataBlock">
+                <div id="screenshots" class="dataBlock skip">
                     <p class="header">Скриншоты</p>
                     <div class="separator horizontal"></div>
-                    <div class="images">
-
-                    </div>
-                    <p class="informationText">Тут будут скриншоты</p>
                 </div>
-                <div class="dataBlock">
+                <div id="video" class="dataBlock skip">
                     <p class="header">Видео</p>
                     <div class="separator horizontal"></div>
-                    <p class="informationText">Ссылка на видео</p>
                 </div>
-                <div class="dataBlock">
+                <div id="code" class="dataBlock skip">
                     <p class="header">Разработка</p>
                     <div class="separator horizontal"></div>
-                    <p class="informationText">Ссылка на код</p>
-                    <p class="informationText">Уровень кода</p>
                 </div>
-                <div class="dataBlock">
-                    <p class="header">О приложении</p>
-                    <div class="separator horizontal"></div>
-                    <p class="informationText">"Чем меньше ты паришься, тем ты счастливее" - Боб Марли."Чем меньше ты паришься, тем ты счастливее" - Боб Марли."Чем меньше ты паришься, тем ты счастливее" - Боб Марли."Чем меньше ты паришься, тем ты счастливее" - Боб Марли.</p>
-                </div>
-                <div class="dataBlock">
-                    <p class="header">Технические требования</p>
-                    <div class="separator horizontal"></div>
-                    <p class="informationText">Операционная система: Windows</p>
-                </div>
-                <div class="dataBlock">
+                <div id="reviews" class="dataBlock skip">
                     <p class="header">Отзывы</p>
                     <div class="separator horizontal"></div>
-                    <p class="informationText">Операционная система: Windows</p>
+                    <div class="reviewStatisticBlock">
+                        <div class="generalStatisticBlock">
+                            <p class="informationText" style="font-size: 67px; margin: 5px 28px; line-height: normal;"></p>
+                            <p class="additionalText"></p>
+                        </div>
+                        <div class="detailStatisticBlock">
+                            <div id="fiveStars" class="ratingStatisticBlock">
+                                <p class="informationText" style="font-size: 12px; margin: 5px; line-height: normal;">5</p>
+                                <label class="rating__item" style="color: gold; font-size: 12px;">
+                                    <svg class="rating__star"><use xlink:href="#star"></use></svg>
+                                </label>
+                                <div class="animated-progress progress">
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div id="fourStars" class="ratingStatisticBlock">
+                                <p class="informationText" style="font-size: 12px; margin: 5px; line-height: normal;">4</p>
+                                <label class="rating__item" style="color: gold; font-size: 12px;">
+                                    <svg class="rating__star"><use xlink:href="#star"></use></svg>
+                                </label>
+                                <div class="animated-progress progress">
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div id="threeStars" class="ratingStatisticBlock">
+                                <p class="informationText" style="font-size: 12px; margin: 5px; line-height: normal;">3</p>
+                                <label class="rating__item" style="color: gold; font-size: 12px;">
+                                    <svg class="rating__star"><use xlink:href="#star"></use></svg>
+                                </label>
+                                <div class="animated-progress">
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div id="twoStars" class="ratingStatisticBlock">
+                                <p class="informationText" style="font-size: 12px; margin: 5px; line-height: normal;">2</p>
+                                <label class="rating__item" style="color: gold; font-size: 12px;">
+                                    <svg class="rating__star"><use xlink:href="#star"></use></svg>
+                                </label>
+                                <div class="animated-progress">
+                                    <span></span>
+                                </div>
+                            </div>
+                            <divi d="oneStars" class="ratingStatisticBlock">
+                                <p class="informationText" style="font-size: 12px; margin: 5px; line-height: normal;">1</p>
+                                <label class="rating__item" style="color: gold; font-size: 12px;">
+                                    <svg class="rating__star"><use xlink:href="#star"></use></svg>
+                                </label>
+                                <div class="animated-progress">
+                                    <span></span>
+                                </div>
+                            </divi>
+                        </div>
+                    </div>
+                </div>
+                <div id="information" class="dataBlock skip">
+                    <p class="header">О приложении</p>
+                    <div class="separator horizontal"></div>
+                </div>
+                <div id="technicalRequirement" class="dataBlock skip">
+                    <p class="header">Технические требования</p>
+                    <div class="separator horizontal"></div>
                 </div>
             </div>
         </div>
@@ -179,6 +198,6 @@
         </g>
     </svg>
     <script src="~/js/jquery-3.5.1.js"></script> 
-    <script src="~/js/projects.js"></script>
+    <script src="~/js/project.js"></script>
 </body>
 </html>

@@ -5,15 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace BusinessCard.BusinessLogicLayer.Services
-{
+{ 
+    /// <inheritdoc cref="IBusinessCardService"/>
     public class BusinessCardService : IBusinessCardService
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IFactOnBusinessCardRepository _factOnBusinessCardRepository;
 
-        public BusinessCardService(IFactOnBusinessCardRepository factOnBusinessCardRepository)
-        {
-            _factOnBusinessCardRepository = factOnBusinessCardRepository;
-        }
+        public BusinessCardService(IFactOnBusinessCardRepository factOnBusinessCardRepository) => _factOnBusinessCardRepository = factOnBusinessCardRepository;
 
         public async Task<List<string>> GetFactsAsync()
         {

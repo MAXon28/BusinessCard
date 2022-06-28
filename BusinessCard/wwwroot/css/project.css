@@ -50,6 +50,7 @@
     font-size: 40px;
     font-weight: bold;
     font-family: sans-serif;
+    text-align: center;
     color: #211f30;
     margin: 0 auto;
     padding: 0;
@@ -63,16 +64,17 @@
 }
 
 .download {
-    width: 128px;
     border: 0px;
     font-size: 22px;
     font-family: sans-serif;
     border-radius: 5px;
     background: #211f30;
     color: lightskyblue;
-    margin-top: 55px;
-    padding: 12px 0;
+    margin-top: 28px;
+    padding: 12px 28px;
     cursor: pointer;
+    text-decoration: none;
+    text-align: center;
 }
 
 .ratingInformationBlock {
@@ -122,7 +124,7 @@
 }
 
 .text {
-    font-size: 22px;
+    font-size: 19px;
     font-family: sans-serif;
     color: #211f30;
     margin: 0;
@@ -151,14 +153,13 @@
 }
 
 .informationBlock {
-    max-width: 928px;
-    margin-left: 28px;
+    width: calc(100% - 422px);
+    margin-left: 55px;
     display: flex;
     flex-direction: column;
 }
 
 .dataBlock {
-    display: flex;
     flex-direction: column;
     box-shadow: 0 4px 16px #ccc;
     border-radius: 12px;
@@ -177,8 +178,395 @@
 
 .informationText {
     font-size: 22px;
+    line-height: 28px;
     font-family: sans-serif;
     color: #211f30;
     text-align: justify;
     margin: 12px 28px;
+}
+
+.images {
+    margin: 12px 28px;
+}
+
+.slider__wrapper {
+    overflow: hidden;
+}
+
+.slider__item {
+    flex: 0 0 50%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 1280px) {
+    .slider__item {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+}
+
+.imageBlock {
+    width: 328px;
+    color: #e29930;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 12px;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    cursor: pointer;
+}
+
+.imageDescription {
+    font-family: Oswald, sans-serif !important;
+    font-size: 22px;
+    color: #cdcac7;
+    margin: 12px 12px;
+    margin-bottom: 0;
+    white-space: nowrap;
+    text-align: center;
+    width: 100%;
+    max-height: 228px;
+    height: auto;
+}
+
+.imagesFullWindow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(4 11 32 / 67%);
+    z-index: 1050;
+    backdrop-filter: blur(28px);
+    margin: 0 auto;
+    padding: 28px;
+}
+
+.imageBlockFullWindow {
+    width: 728px;
+    color: #e29930;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 12px;
+    overflow: hidden;
+}
+
+.skipButton {
+    position: relative;
+    margin: 0;
+    margin-right: 40px;
+    font-size: 40px;
+    font-family: sans-serif;
+    color: white;
+    cursor: pointer;
+    text-align: right;
+}
+
+.urlBlock {
+    display: flex;
+    flex-direction: row;
+}
+
+.videoUrlBlock {
+    justify-content: flex-start;
+    margin: 28px;
+}
+
+.codeUrlBlock {
+    justify-content: center;
+    margin: 28px auto;
+}
+
+.url {
+    font-size: 22px;
+    line-height: 28px;
+    font-family: sans-serif;
+    color: #e29930;
+    text-align: justify;
+    margin: 12px 5px;
+}
+
+.codeBlock {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.circle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0.5rem;
+    border-radius: 50%;
+    background: #FFCDB2;
+    overflow: hidden;
+}
+
+.circle.per-10 {
+    background-image: conic-gradient(#87cefa 10%, #e0e0e0  0);
+}
+
+.circle.per-20 {
+    background-image: conic-gradient(#87cefa 20%, #e0e0e0 0);
+}
+
+.circle.per-30 {
+    background-image: conic-gradient(#87cefa 30%, #e0e0e0 0);
+}
+
+.circle.per-40 {
+    background-image: conic-gradient(#87cefa 40%, #e0e0e0 0);
+}
+
+.circle.per-50 {
+    background-image: conic-gradient(#87cefa 50%, #e0e0e0 0);
+}
+
+.circle.per-60 {
+    background-image: conic-gradient(#87cefa 60%, #e0e0e0 0);
+}
+
+.circle.per-10 {
+    background-image: conic-gradient(#87cefa 10%, #e0e0e0 0);
+}
+
+.circle.per-20 {
+    background-image: conic-gradient(#87cefa 20%, #e0e0e0 0);
+}
+
+.circle.per-30 {
+    background-image: conic-gradient(#87cefa 30%, #e0e0e0 0);
+}
+
+.circle.per-100 {
+    background-image: conic-gradient(#87cefa 100%, #e0e0e0 0);
+}
+
+.circle .inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 112px;
+    height: 112px;
+    background: #fff;
+    border-radius: 50%;
+    font-size: 28px;
+    font-weight: 700;
+    color: #211f30;
+    font-family: cursive;
+}
+
+.reviewStatisticBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 28px 0;
+}
+
+.generalStatisticBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.additionalText {
+    font-size: 19px;
+    font-family: sans-serif;
+    color: #cdcac7;
+    margin: 0;
+}
+
+.detailStatisticBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.ratingStatisticBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+}
+
+.animated-progress {
+    width: 167px;
+    height: 12px;
+    border-radius: 7px;
+    margin: 5px;
+    background: #e0e0e0;
+    overflow: hidden;
+    position: relative;
+}
+
+.animated-progress span {
+    height: 100%;
+    display: block;
+    width: 0;
+    line-height: 30px;
+    position: absolute;
+    text-align: end;
+}
+
+.progress span {
+    background-color: #87cefa;
+}
+
+.reviewBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 28px 28px;
+}
+
+.joinBlock {
+    display: flex;
+    flex-direction: row;
+}
+
+.rating {
+    width: min-content;
+    --uiRatingColor: var(--ratingColor, #eee);
+    --uiRatingColorActive: var(--ratingColorActive, #ffcc00);
+    display: var(--ratingDisplay, flex);
+    font-size: var(--ratingSize, 22px);
+    color: var(--uiRatingColor);
+}
+
+.reviewText {
+    height: auto;
+    max-height: 340px;
+    overflow: hidden;
+}
+
+.descriptionText {
+    height: auto;
+    max-height: 528px;
+    overflow: hidden;
+}
+
+.turningAroundButton {
+    margin: 0 28px 12px;
+    text-decoration: underline;
+    color: #cdcac7;
+    background: white;
+    font-size: 19px;
+    border: 0;
+    cursor: pointer;
+    transition: ease 0.67s;
+    font-family: system-ui;
+    font-weight: 400;
+}
+
+.visible {
+    display: flex;
+}
+
+.skip {
+    visibility: hidden;
+}
+
+.date {
+    margin-top: 128px;
+    margin-bottom: 28px;
+}
+
+@media (min-width: 855px) and (max-width: 1024px) {
+    .data {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mainBlock {
+        width: 100%;
+        display: grid;
+        grid-template-areas: "nameicon type counter button"
+            "nameicon category review date";
+        grid-template-rows: 60% 40%;
+        grid-template-columns: 30% 20% 30% 20%;
+        position: relative;
+        margin-bottom: 28px;
+    }
+
+    .nameBlock {
+        grid-area: nameicon;
+        margin: 12px auto;
+    }
+
+    .type {
+        grid-area: type;
+        text-align: center;
+        margin: 12px auto;
+        align-self: flex-end;
+    }
+
+    .category {
+        grid-area: category;
+        text-align: center;
+        margin: 12px auto;
+        align-self: flex-start;
+    }
+
+    .downloadsCountBlock {
+        grid-area: counter;
+        margin: 28px auto auto;
+        align-self: flex-end;
+    }
+
+    .download {
+        grid-area: button;
+        margin: 0 auto;
+        padding: 12px 0;
+        width: 128px;
+    }
+
+    .ratingInformationBlock {
+        grid-area: review;
+        margin: 0 auto;
+        align-self: flex-start;
+    }
+
+    .date {
+        grid-area: date;
+        text-align: center;
+        margin: 0;
+    }
+}
+
+@media (max-width: 855px) {
+    .data {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mainBlock {
+        width: 100%;
+        position: relative;
+        margin-bottom: 28px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .informationBlock {
+        width: 100%;
+        margin: 0;
+    }
 }

@@ -16,7 +16,16 @@ namespace BusinessCard.Controllers
         /// </summary>
         private readonly IStoreService _storeService;
 
-        public MAXonStoreController(IStoreService storeService) => _storeService = storeService;
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly IProjectReviewService _projectReviewService;
+
+        public MAXonStoreController(IStoreService storeService, IProjectReviewService projectReviewService)
+        {
+            _storeService = storeService;
+            _projectReviewService = projectReviewService;
+        }
 
         /// <summary>
         /// 
@@ -67,6 +76,23 @@ namespace BusinessCard.Controllers
         /// <param name="projectId">  </param>
         /// <returns></returns>
         public IActionResult Project(int projectId) => View();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"> </param>
+        /// <returns>  </returns>
+        [HttpGet]
+        public async Task<JsonResult> GetProject(int projectId) => Json(await _storeService.GetProjectInformationAsync(projectId));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="direction">  </param>
+        /// <param name="currentReviewId">  </param>
+        /// <returns>  </returns>
+        [HttpGet]
+        public async Task<JsonResult> GetReviews(int direction, int currentReviewId) => Json(await _projectReviewService.GetReviewAsync(1));
 
         /// <summary>
         /// 

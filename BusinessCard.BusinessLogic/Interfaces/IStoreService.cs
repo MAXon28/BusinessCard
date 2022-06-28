@@ -36,5 +36,12 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// </summary>
         /// <returns>  </returns>
         public Task<GeneralInformationDto> GetGeneralInformationAsync();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId">  </param>
+        /// <returns>  </returns>
+        public Task<ProjectDto> GetProjectInformationAsync(int projectId);
     }
 }

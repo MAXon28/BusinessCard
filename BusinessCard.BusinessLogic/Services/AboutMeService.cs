@@ -44,6 +44,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
             aboutMeDictionary.Add("Skills", await GetSkillsAsync());
             aboutMeDictionary.Add("Experience", await GetExperienceAsync());
             aboutMeDictionary.Add("Education", await GetEducationAsync());
+
             return aboutMeDictionary;
         }
 

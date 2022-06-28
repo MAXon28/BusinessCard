@@ -1,4 +1,5 @@
 ﻿using DapperAssistant.Annotations;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessCard.DataAccessLayer.Entities.MAXonStore
@@ -32,7 +33,27 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonStore
         /// <summary>
         /// 
         /// </summary>
-        public int DownloadsCount { get; set; }
+        public int? ClicksCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ProjectUrl { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string VideoUrl { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CodeUrl { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime CreationDate { get; set; }
 
         /// <summary>
         /// 
@@ -49,14 +70,38 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonStore
         /// <summary>
         /// 
         /// </summary>
-        [NotSqlColumn]
+        [SqlForeignKey("ClickTypes")]
+        public int ClickTypeId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [SqlForeignKey("CodeLevels")]
+        public int CodeLevelId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [RelatedSqlEntity]
         public ProjectType ProjectType { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [NotSqlColumn]
+        [RelatedSqlEntity]
         public ProjectCategory ProjectCategory { get; set; }
+#nullable enable
+        /// <summary>
+        /// 
+        /// </summary>
+        [RelatedSqlEntity]
+        public ClickType? ClickType { get; set; }
+#nullable disable
+        /// <summary>
+        /// 
+        /// </summary>
+        [RelatedSqlEntity]
+        public CodeLevel CodeLevel { get; set; }
 
         /// <summary>
         /// 
