@@ -54,11 +54,11 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore.QueryHelper
 		/// Шаблон запроса
 		/// </summary>
 		private readonly string _sqlQueryTemplate = @$"SELECT {SelectionSetTemplate}
-												      FROM Projects project 
+												       FROM Projects project 
 														{FirstJoinTemplate}
 														{SecondJoinTemplate}
-												      {WhereTemplate}
-												      {OrderByTemplate};";
+												       {WhereTemplate}
+												       {OrderByTemplate};";
 
 		/// <summary>
 		/// Словарь строителей фильтров

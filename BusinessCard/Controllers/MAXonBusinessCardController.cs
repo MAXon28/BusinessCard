@@ -156,10 +156,10 @@ namespace BusinessCard.Controllers
             if (!data.TryGetValue("data", out var taskJson))
                 throw new Exception();
 
-            var newTaskDto = JsonSerializer.Deserialize<NewTaskDto>(taskJson);
-            newTaskDto.TechnicalSpecificationFileName = fullTechnicalSpecificationFileName;
+            var newTask = JsonSerializer.Deserialize<NewTask>(taskJson);
+            newTask.TechnicalSpecificationFileName = fullTechnicalSpecificationFileName;
 
-            return Json(await _taskService.AddNewTaskAsync(newTaskDto));
+            return Json(await _taskService.AddNewTaskAsync(newTask));
         }
 
         [HttpGet]

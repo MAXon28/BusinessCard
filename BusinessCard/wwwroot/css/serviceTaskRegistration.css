@@ -613,7 +613,7 @@ input[type="number"]:focus {
     border-radius: 7px;
     color: white;
     background: #e29930;
-    transition: all 0.67s;
+    transition: all 0.28s;
     border: 0;
     font-size: 22px;
     font-family: sans-serif;

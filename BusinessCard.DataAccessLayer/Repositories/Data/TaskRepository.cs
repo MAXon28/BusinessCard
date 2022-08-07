@@ -12,12 +12,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.Data
     /// </summary>
     public class TaskRepository : StandardRepository<TaskCard>, ITaskRepository
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly DbConnectionKeeper _dbConnectionKeeper;
-
-        public TaskRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) => _dbConnectionKeeper = dbConnectionKeeper;
+        public TaskRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 
         public async Task<string> AddTask(TaskCard taskCard, int serviceId)
         {

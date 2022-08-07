@@ -1,19 +1,16 @@
 ﻿namespace BusinessCard.BusinessLogicLayer.DTOs.Store
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class GeneralInformationDto
+    public class ProjectReviewInformation
     {
         /// <summary>
         /// 
         /// </summary>
-        public CountInformationDto ProjectsCount { get; set; }
+        public int ReviewsCount { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public CountInformationDto DownloadsCount { get; set; }
+        public int ReviewsPagesCount { get; set; }
 
         /// <summary>
         /// 
@@ -23,6 +20,11 @@
         /// <summary>
         /// 
         /// </summary>
-        public int PagesCount { get; set; }
+        public RatingStatistic RatingStatistic { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Review Review { get; set; }
     }
 }

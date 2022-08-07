@@ -12,15 +12,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.Content
     /// </summary>
     public class BiographyRepository : StandardRepository<Biography>, IBiographyRepository
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly DbConnectionKeeper _dbConnectionKeeper;
-
-        public BiographyRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper)
-        {
-            _dbConnectionKeeper = dbConnectionKeeper;
-        }
+        public BiographyRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 
         public async Task<IEnumerable<Biography>> GetSortedBiographyByPriorityAsync()
         {

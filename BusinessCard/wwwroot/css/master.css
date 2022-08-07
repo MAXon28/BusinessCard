@@ -69,15 +69,17 @@ header:after {
     position: relative;
     width: 267px;
     padding-top: 267px;
-    border-radius: 100%; /* сделать "резиновый" круг */
-    background: url('/MAXon28 1.jpg') center white;
+    border-radius: 100%;
+    background: url('/MAXon28 1.jpg ') center white;
     background-size: contain;
     background-repeat: no-repeat;
     background-size: 267px;
     font-size: 34px;
-    font-weight: 900;
-    box-shadow: 0 0 67px 1.28px #32384D;
-    color: #E29930;
+    /* font-weight: 900; */
+    box-shadow: 0 0 67px 1.28px #32384d;
+    color: #e29930;
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
 #circle span {
@@ -241,7 +243,7 @@ header:after {
 }
 
 .div-menu nav a {
-    color: #87CEFA;
+    color: #87cefa;
     font-size: 22px;
     font-family: system-ui;
     font-weight: 500;
@@ -303,6 +305,7 @@ footer {
     font-weight: bold;
     text-align: center;
     margin: 19px 0;
+    font-family: sans-serif;
 }
 
 .contactsList {
@@ -335,6 +338,7 @@ footer {
     font-weight: bold;
     text-align: center;
     margin: 19px 0;
+    font-family: sans-serif;
 }
 
 .privacyList {
@@ -358,6 +362,7 @@ footer {
     font-size: 16px;
     text-decoration: none;
     color: #87CEFA;
+    font-family: sans-serif;
 }
 
 .divCompany {
@@ -373,6 +378,7 @@ footer {
     color: #87CEFA;
     text-align: center;
     margin: 0;
+    font-family: sans-serif;
 }
 
 input[type=checkbox] {
@@ -469,7 +475,7 @@ input[type=checkbox] {
         padding: 10px 0;
         background-clip: content-box;
         -webkit-background-clip: content-box;
-        background-color: #87CEEB;
+        background-color: #87cefa;
         pointer-events: none;
         transition: background-color .5s ease-in-out;
         visibility: visible;
@@ -480,7 +486,7 @@ input[type=checkbox] {
 
     button + span:before, button + span:after {
         position: absolute;
-        background: #87CEEB;
+        background: #87cefa;
         content: '';
         width: 28px;
         height: 3px;

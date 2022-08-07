@@ -40,7 +40,7 @@ namespace BusinessCard.Controllers
         /// <param name="filtersDtoIn">  </param>
         /// <returns>  </returns>
         [HttpGet]
-        public async Task<JsonResult> GetAllProjectsData([FromQuery] FiltersDtoIn filtersDtoIn)
+        public async Task<JsonResult> GetAllProjectsData([FromQuery] FiltersIn filtersDtoIn)
         {
             var projectsTask = _storeService.GetProjectsAsync(filtersDtoIn, 1);
             var filtersTask = _storeService.GetFiltersAsync();
@@ -62,7 +62,7 @@ namespace BusinessCard.Controllers
         /// <param name="needUpdatePagesCount">  </param>
         /// <returns>  </returns>
         [HttpGet]
-        public async Task<JsonResult> GetProjects([FromQuery] FiltersDtoIn filtersDtoIn, [FromQuery] int pageNumber, [FromQuery] bool needUpdatePagesCount)
+        public async Task<JsonResult> GetProjects([FromQuery] FiltersIn filtersDtoIn, [FromQuery] int pageNumber, [FromQuery] bool needUpdatePagesCount)
         {
             if (needUpdatePagesCount)
                 return Json(await _storeService.GetProjectsInformationAsync(filtersDtoIn, pageNumber));
@@ -88,11 +88,30 @@ namespace BusinessCard.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="direction">  </param>
-        /// <param name="currentReviewId">  </param>
+        /// <param name="projectId">  </param>
+        /// <param name="pageNumber">  </param>
         /// <returns>  </returns>
         [HttpGet]
-        public async Task<JsonResult> GetReviews(int direction, int currentReviewId) => Json(await _projectReviewService.GetReviewAsync(1));
+        public async Task<JsonResult> GetReviews([FromQuery] int projectId, [FromQuery] int pageNumber) => Json(await _projectReviewService.GetReviewsAsync(projectId, pageNumber));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId">  </param>
+        /// <returns>  </returns>
+        [HttpGet]
+        public async Task<JsonResult> GetReviewsStatistic([FromQuery] int projectId) => Json(await _projectReviewService.GetReviewInformationAsync(projectId, false));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId">  </param>
+        /// <param name="userName">  </param>
+        /// <param name="rating">  </param>
+        /// <param name="reviewText">  </param>
+        /// <returns>  </returns>
+        [HttpPost]
+        public async Task<JsonResult> CreateReview(int projectId, string userName, int rating, string reviewText) => Json(await _projectReviewService.CreateReview(projectId, userName, rating, reviewText));
 
         /// <summary>
         /// 

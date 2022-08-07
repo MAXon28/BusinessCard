@@ -10,12 +10,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
     /// <inheritdoc cref="IProjectCompatibilityRepository"/>
     public class ProjectCompatibilityRepository : StandardRepository<ProjectCompatibility>, IProjectCompatibilityRepository
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly DbConnectionKeeper _dbConnectionKeeper;
-
-        public ProjectCompatibilityRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) => _dbConnectionKeeper = dbConnectionKeeper;
+        public ProjectCompatibilityRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 
         public async Task<IEnumerable<string>> GetCompatibilitiesByProjectIdAsync(int projectId)
         {

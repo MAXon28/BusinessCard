@@ -11,6 +11,6 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// </summary>
         /// <param name="newTaskDto">  </param>
         /// <returns>  </returns>
-        public Task<TaskCreationResult> AddNewTaskAsync(NewTaskDto newTaskDto);
+        public Task<TaskCreationResult> AddNewTaskAsync(NewTask newTaskDto);
     }
 }

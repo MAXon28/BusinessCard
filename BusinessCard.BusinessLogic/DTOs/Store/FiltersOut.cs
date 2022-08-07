@@ -5,21 +5,21 @@ namespace BusinessCard.BusinessLogicLayer.DTOs.Store
     /// <summary>
     /// 
     /// </summary>
-    public class FiltersDtoOut
+    public class FiltersOut
     {
         /// <summary>
         /// 
         /// </summary>
-        public List<FilterDtoOut> ProjectTypes { get; set; }
+        public List<FilterOut> ProjectTypes { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<FilterDtoOut> ProjectCategories { get; set; }
+        public List<FilterOut> ProjectCategories { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<string, List<FilterDtoOut>> ProjectCompatibilities { get; set; }
+        public Dictionary<string, List<FilterOut>> ProjectCompatibilities { get; set; }
     }
 }

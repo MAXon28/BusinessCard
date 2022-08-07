@@ -25,7 +25,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
             _taskRepository = taskRepository;
         }
 
-        public async Task<TaskCreationResult> AddNewTaskAsync(NewTaskDto newTaskDto)
+        public async Task<TaskCreationResult> AddNewTaskAsync(NewTask newTaskDto)
         {
             var newTaskId = Guid.NewGuid();
             var taskCreationDate = DateTime.Now;

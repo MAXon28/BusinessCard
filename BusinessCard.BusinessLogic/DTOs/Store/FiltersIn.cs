@@ -5,7 +5,7 @@ namespace BusinessCard.BusinessLogicLayer.DTOs.Store
     /// <summary>
     /// 
     /// </summary>
-    public class FiltersDtoIn
+    public class FiltersIn
     {
         /// <summary>
         /// 

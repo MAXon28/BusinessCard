@@ -7,7 +7,7 @@ var canThrowOff = false;
 
 $(window).resize(function () {
     var width = $(window).width();
-    if (!isSmall && width <= 960) {
+    if (!isSmall && width <= 943) {
         $('#filters').css({ "display": "none" });
         document.querySelector('.setFiltersBlock').classList.remove("skip");
 
@@ -16,7 +16,8 @@ $(window).resize(function () {
             $('#throwOff').css({ "display": "none" });
         }
 
-        $('#filterButtonsBlock').css({ "display": "flex" });
+        $('#filterButtonsBlock').css({ "display": "none" });
+        $('.skipFiltersButton').css({ "display": "block" });
 
         isSmall = true;
 
@@ -25,7 +26,7 @@ $(window).resize(function () {
         return;
     }
 
-    if (isSmall && width > 960) {
+    if (isSmall && width > 943) {
         $('#filters').css({ "display": "block" });
         $('#thirdSection').css({ "display": "flex" });
         document.querySelector('.setFiltersBlock').classList.add("skip");
@@ -35,6 +36,7 @@ $(window).resize(function () {
         }
 
         $('#filterButtonsBlock').css({ "display": "none" });
+        $('.skipFiltersButton').css({ "display": "none" });
 
         isSmall = false;
 
@@ -95,18 +97,19 @@ window.onpopstate = function(e){
 function init() {
     Timer();
 
-    if ($(window).width() <= 960) {
+    if ($(window).width() <= 943) {
         $('#filters').css({ "display": "none" });
         document.querySelector('.setFiltersBlock').classList.remove("skip");
         if (canThrowOff) {
             $('#throwOffSmallView').css({ "display": "block" });
             $('#throwOff').css({ "display": "none" });
         }
-        $('#filterButtonsBlock').css({ "display": "flex" });
+        $('#filterButtonsBlock').css({ "display": "none" });
+        $('.skipFiltersButton').css({ "display": "block" });
         isSmall = true;
     }
 
-    location.hash = "SortType=1";
+    //location.hash = "SortType=1";
 
     $.ajax({
         async: true,
@@ -285,8 +288,10 @@ function ViewForms() {
 
         var filters = document.getElementById(`filters`);
         filters.classList.remove('skip');
-        if ($(window).width() <= 960) {
+        if ($(window).width() <= 943) {
             $(filters).css({ "display": "none" });
+            $('#filterButtonsBlock').css({ "display": "none" });
+            $('.skipFiltersButton').css({ "display": "block" });
             isSmall = true;
         }
 
@@ -310,50 +315,53 @@ function ViewForms() {
 
 $(document).ready(function () {
     $('#search').keydown(function (e) {
-        if (e.keyCode === 13) {
-            notApplyFilters.ProjectName = $('#search').val();
-
-            if (applyFilters.ProjectName != notApplyFilters.ProjectName) {
-                currentPageId = "page1";
-
-                applyFilters.ProjectName = notApplyFilters.ProjectName;
-
-                UncheckFilter();
-
-                isLoad = false;
-                Timer();
-
-                CheckWidth();
-
-                $('html, body').animate({ scrollTop: $("#thirdSection").offset().top }, 228);
-
-                $("div").remove(".myProjectBlock");
-                $("p").remove(".pageButton");
-
-                var requestParameters = GetRequestParameters(1, true);
-                $.ajax({
-                    async: true,
-                    type: "GET",
-                    url: "/MAXonStore/GetProjects?" + requestParameters,
-                    contentType: 'application/json',
-                    dataTpye: "json",
-                    traditional: true,
-                    success: function (projectsInformation) {
-                        SetProjects(projectsInformation.projects);
-
-                        if (projectsInformation.pagesCountByCurrentFilters > 1)
-                            SetPagesButtons(projectsInformation.pagesCountByCurrentFilters);
-
-                        ViewData();
-                    },
-                    error: function (error) {
-                        alert(error);
-                    }
-                });
-            }
-        }
+        if (e.keyCode === 13)
+            SearchProjects();
     });
 });
+
+function SearchProjects() {
+    notApplyFilters.ProjectName = $('#search').val();
+
+    if (applyFilters.ProjectName != notApplyFilters.ProjectName) {
+        currentPageId = "page1";
+
+        applyFilters.ProjectName = notApplyFilters.ProjectName;
+
+        UncheckFilter();
+
+        isLoad = false;
+        Timer();
+
+        CheckWidth();
+
+        $('html, body').animate({ scrollTop: $("#thirdSection").offset().top }, 228);
+
+        $("div").remove(".myProjectBlock");
+        $("p").remove(".pageButton");
+
+        var requestParameters = GetRequestParameters(1, true);
+        $.ajax({
+            async: true,
+            type: "GET",
+            url: "/MAXonStore/GetProjects?" + requestParameters,
+            contentType: 'application/json',
+            dataTpye: "json",
+            traditional: true,
+            success: function (projectsInformation) {
+                SetProjects(projectsInformation.projects);
+
+                if (projectsInformation.pagesCountByCurrentFilters > 1)
+                    SetPagesButtons(projectsInformation.pagesCountByCurrentFilters);
+
+                ViewData();
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    }
+}
 
 $('.select__item').on('click', function () {
     var sort = $(this).val();
@@ -481,8 +489,10 @@ function CanApply() {
 }
 
 function CheckFilter(element) {
-    if (isSmall)
+    if (isSmall) {
+        $('#filterButtonsBlock').css({ "display": "flex" });
         return;
+    }
 
     var top = $(element).offset().top - $('.filtersBlock').offset().top + 40;
     var apply = document.getElementById(`apply`);
@@ -662,26 +672,26 @@ function SetProjects(projects) {
         var rating = document.createElement("div");
         rating.className = "rating";
 
-        SetFullStar(rating, projects[i].avgRating);
+        SetFullStar(rating, projects[i].reviewInformation.avgRating);
         var counter = 1;
-        while (counter < projects[i].avgRating) {
-            if (projects[i].avgRating - counter >= 1)
-                SetFullStar(rating, projects[i].avgRating);
+        while (counter < projects[i].reviewInformation.avgRating) {
+            if (projects[i].reviewInformation.avgRating - counter >= 1)
+                SetFullStar(rating, projects[i].reviewInformation.avgRating);
             else
-                SetPartStar(rating, parseFloat((projects[i].avgRating - counter).toFixed(1)) * 10, projects[i].avgRating);
+                SetPartStar(rating, parseFloat((projects[i].reviewInformation.avgRating - counter).toFixed(1)) * 10, projects[i].reviewInformation.avgRating);
 
             counter += 1;
         }
 
         while (counter < 5) {
-            SetZeroStar(rating, projects[i].avgRating);
+            SetZeroStar(rating, projects[i].reviewInformation.avgRating);
             counter++;
         }
         reviewsBlock.append(rating);
 
         var reviewsCount = document.createElement("p");
         reviewsCount.className = "reviewsCount";
-        reviewsCount.innerHTML = projects[i].reviewsCount;
+        reviewsCount.innerHTML = projects[i].reviewInformation.reviewsCount;
         reviewsBlock.append(reviewsCount);
 
         rightPartBlock.append(reviewsBlock);
@@ -886,4 +896,11 @@ function hideTooltip() {
 function OpenProject(projectId) {
     var url = "Project?projectId=" + projectId;
     $(location).attr('href', url);
+}
+
+function CloseFilters() {
+    $('#filters').css({ "display": "none" });
+    $('#thirdSection').css({ "display": "flex" });
+    $('html, body').animate({ scrollTop: $("#thirdSection").offset().top }, 228);
+    document.querySelector('.setFiltersBlock').classList.remove("skip");
 }

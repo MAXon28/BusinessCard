@@ -11,16 +11,16 @@ namespace BusinessCard.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        public IEnumerable<ProjectDto> Projects { get; set; }
+        public IEnumerable<ProjectInformation> Projects { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public FiltersDtoOut Filters { get; set; }
+        public FiltersOut Filters { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public GeneralInformationDto GeneralInformation { get; set; }
+        public GeneralInformation GeneralInformation { get; set; }
     }
 }

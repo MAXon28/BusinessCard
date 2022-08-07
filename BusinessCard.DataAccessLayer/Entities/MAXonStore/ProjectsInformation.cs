@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class ProjectInformation
+    public class ProjectsInformation
     {
         /// <summary>
         /// 

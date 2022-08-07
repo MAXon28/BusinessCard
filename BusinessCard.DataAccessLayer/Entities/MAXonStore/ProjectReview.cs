@@ -1,4 +1,6 @@
-﻿using DapperAssistant.Annotations;
+﻿using BusinessCard.DataAccessLayer.Entities.Data;
+using DapperAssistant;
+using DapperAssistant.Annotations;
 using System;
 
 namespace BusinessCard.DataAccessLayer.Entities.MAXonStore
@@ -22,11 +24,6 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonStore
         /// <summary>
         /// 
         /// </summary>
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public int Rating { get; set; }
 
         /// <summary>
@@ -44,5 +41,18 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonStore
         /// </summary>
         [SqlForeignKey("Projects")]
         public int ProjectId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [SqlForeignKey("Users", TypeOfJoin.LEFT)]
+        public int? UserId { get; set; }
+#nullable enable
+        /// <summary>
+        /// 
+        /// </summary>
+        [RelatedSqlEntity]
+        public User? User { get; set; }
+#nullable disable
     }
 }

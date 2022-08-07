@@ -10,7 +10,13 @@ namespace BusinessCard.DataAccessLayer.Interfaces.MAXonStore
     /// </summary>
     public interface IProjectReviewRepository : IRepository<ProjectReview> 
     {
-        public Task<IEnumerable<ProjectReview>> GetReviewsAsync(int projectId, int currentReviewId);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId">  </param>
+        /// <param name="offset">  </param>
+        /// <returns></returns>
+        public Task<IEnumerable<ProjectReview>> GetReviewsAsync(int projectId, int offset);
 
         /// <summary>
         /// Получить статистику отзывов по конкретному проектому

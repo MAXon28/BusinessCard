@@ -14,12 +14,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.Content.Services
     /// </summary>
     public class ServiceRepository : StandardRepository<Service>, IServiceRepository
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly DbConnectionKeeper _dbConnectionKeeper;
-
-        public ServiceRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) => _dbConnectionKeeper = dbConnectionKeeper;
+        public ServiceRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 
         public Task<List<Service>> GetAllServicesWithShortDescriptions()
         {

@@ -1,0 +1,458 @@
+﻿.body-catalog {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: linear-gradient(180deg, #E0FFFF, #edeef0);
+    //background: #edeef0;
+    background-size: cover;
+}
+
+.scene-catalog {
+    min-width: 728px;
+    margin: 40px auto;
+    margin-bottom: 5px;
+    font-size: 0;
+}
+
+.header {
+    font-weight: bold;
+    font-size: 22px;
+    font-family: system-ui;
+    text-align: left;
+    margin: 0;
+    margin-left: 12px;
+    margin-bottom: 8px;
+    padding: 0;
+    background-color: #211F30;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 2px rgb(255 255 255 / 30%);
+    text-transform: uppercase;
+    opacity: 1;
+    transition: 1.28s opacity ease-in-out;
+}
+
+.searchBlock {
+    padding: 0;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px #ccc;
+    width: 428px;
+}
+
+.tb {
+    display: table;
+    width: 100%;
+}
+
+.td {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+input, button {
+    color: #211f30;
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+input[type="text"] {
+    outline: none;
+    padding: 12px 12px;
+    width: 100%;
+    transition: border 328ms;
+    font-family: sans-serif;
+    height: 40px;
+    font-size: 22px;
+    line-height: 1;
+}
+
+input[type="text"]::placeholder {
+    color: #e0e0e0;
+}
+
+#s-cover {
+    width: 1px;
+    padding-left: 35px;
+}
+
+.tb button {
+    position: relative;
+    display: block;
+    width: 55px;
+    height: 67px;
+}
+
+#s-circle {
+    position: relative;
+    top: 0px;
+    left: 0;
+    width: 19px;
+    height: 19px;
+    margin-top: 0;
+    border: 5px solid #e29930;
+    background-color: transparent;
+    border-radius: 50%;
+    transition: 0.5s ease all;
+    cursor: pointer;
+}
+
+.tb button span {
+    position: absolute;
+    top: 61px;
+    left: 50px;
+    display: block;
+    width: 19px;
+    height: 28px;
+    background-color: transparent;
+    border-radius: 10px;
+    transform: rotateZ(52deg);
+    transition: 0.5s ease all;
+}
+
+.tb button span:before, .tb  button span:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 47px;
+    width: 12px;
+    height: 8px;
+    background-color: #e29930;
+    border-radius: 5px;
+    transform: rotateZ(0);
+    transition: 0.5s ease all;
+    cursor: pointer;
+}
+
+.mainBlock {
+    width: 95%;
+    margin: 0 auto;
+    margin-bottom: 55px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.filtersBlock {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 328px;
+}
+
+.servicesBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.serviceBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.28s;
+}
+
+.serviceBlock:hover {
+    background: white;
+    box-shadow: 0 4px 16px #ccc;
+}
+
+.serviceIcon {
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    background: white;
+    margin: 0 12px;
+}
+
+.serviceName {
+    font-size: 19px;
+    font-family: system-ui;
+    font-weight: 500;
+    text-align: left;
+    color: #211F30;
+}
+
+.channelsBlock {
+    display: flex;
+    flex-direction: column;
+    margin-top: 28px;
+}
+
+.channelBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.28s;
+}
+
+.channelBlock:hover {
+    background: white;
+    box-shadow: 0 4px 16px #ccc;
+}
+
+.channelColor {
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    background: lightskyblue;
+    margin: 0 12px;
+}
+
+.channelName {
+    font-family: system-ui;
+    font-weight: 500;
+    text-align: left;
+    color: #211F30;
+}
+
+.channelNameInFilters {
+    font-size: 19px;
+}
+
+.postsBlock {
+    width: calc(100% - 328px);
+}
+
+.sBlock {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 128px;
+}
+
+.postBlock {
+    margin-top: 28px;
+    margin-left: 128px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 16px #ccc;
+    display: flex;
+    flex-direction: column;
+    max-width: 728px;
+    align-self: flex-start;
+}
+
+.firstSection {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin: 0 28px;
+    margin-top: 12px;
+}
+
+.channelNameInPost {
+    font-size: 18px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.viewsCountBlock {
+    display: flex;
+    flex-direction: row;
+    color: #cdcac7;
+    align-items: center;
+    margin-left: 12px;
+}
+
+.statisticIcon {
+    width: 17px;
+    height: 17px;
+    margin: 0 5px 1px 3px;
+}
+
+.viewsValue {
+    font-size: 17px;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.date {
+    font-size: 17px;
+    font-family: sans-serif;
+    margin: 0;
+    margin-left: 15px;
+    color: #cdcac7;
+}
+
+.secondSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 28px;
+    cursor: pointer;
+}
+
+.postDescription {
+    font-size: 20px;
+    line-height: 28px;
+    font-family: sans-serif;
+    text-align: justify;
+    color: #211F30;
+    margin: 22px 0 12px 0;
+}
+
+.postHeaderBlock {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.postHeaderImage {
+    height: 367px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 28px;
+    background-size: cover;
+    background-position: center;
+}
+
+.postHeaderBackColor {
+    width: 100%;
+    height: 367px;
+    background: #211F30;
+    border-radius: 28px;
+}
+
+.backColorWithImage {
+    position: absolute;
+    top: 0;
+    opacity: 0.67;
+}
+
+.postHeaderNameBlock {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0 28px;
+}
+
+.postHeaderName {
+    font-size: 28px;
+    font-family: sans-serif;
+    font-weight: 700;
+    text-align: center;
+}
+
+.postHeaderNameWithImage {
+    color: white;
+}
+
+.postHeaderNameWithoutImage {
+    color: #87cefa;
+}
+
+.thirdSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 22px 28px;
+}
+
+.statisticValue {
+    font-size: 17px;
+    font-family: sans-serif;
+    margin: 0;
+    color: #211F30;
+    transition: all 0.28s;
+}
+
+.noValue {
+    display: none;
+}
+
+.topchikBlock {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    align-items: center;
+    margin-right: 28px;
+    background-color: rgb(33 31 48 / 81%);
+    border-radius: 360px;
+    padding: 7px 12px;
+}
+
+.topchikIcon {
+    width: 27px;
+    height: 27px;
+    margin-right: 5px;
+}
+
+.topchikBlock svg {
+    transition: all 0.28s;
+}
+
+.untopchikUser svg {
+    fill: white;
+}
+
+.untopchikUser p {
+    color: white;
+}
+
+.topchikUser svg {
+    fill: #87cefa;
+}
+
+.noTopchik svg {
+    margin-right: 0;
+}
+
+.topchikUser p {
+    color: #87cefa;
+}
+
+.bookmarksBlock {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    align-items: center;
+    margin-right: 28px;
+}
+
+.bookmarksIcon {
+    width: 27px;
+    height: 27px;
+    margin-right: 5px;
+    transition: all 0.28s;
+}
+
+.notBookmarks {
+    fill: none;
+    stroke: #211F30;
+    stroke-width: 2px;
+}
+
+.needBookmarks {
+    fill: #e29930;
+    stroke: #e29930;
+}
+
+.bookmarksValue {
+    color: #e29930;
+}
+
+.commentsBlock {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    align-items: center;
+}
+
+.commentsIcon {
+    width: 27px;
+    height: 27px;
+    fill: #211F30;
+    margin-right: 5px;
+}

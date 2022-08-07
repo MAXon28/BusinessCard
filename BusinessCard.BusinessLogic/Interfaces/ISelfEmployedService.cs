@@ -28,7 +28,7 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// </summary>
         /// <param name="serviceId">  </param>
         /// <returns>  </returns>
-        public Task<List<ReviewDto>> GetFortyReviews(int serviceId);
+        public Task<List<Review>> GetFortyReviews(int serviceId);
 
         /// <summary>
         /// 

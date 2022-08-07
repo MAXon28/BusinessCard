@@ -717,7 +717,7 @@ ul.ks-cboxtags li input[type="checkbox"] {
     justify-content: center;
 }
 
-@media screen and (max-width: 942px) {
+@media screen and (max-width: 960px) {
     .myProjectsSecondSection {
         flex-direction: column;
         align-items: center;
@@ -733,6 +733,7 @@ ul.ks-cboxtags li input[type="checkbox"] {
     }
 
     .filtersBlock {
+        position: relative;
         margin-top: 0;
     }
 }
@@ -782,4 +783,16 @@ ul.ks-cboxtags li input[type="checkbox"] {
 .finish {
     border: 0;
     border-left: 1px #e0e0e0 solid;
+}
+
+.skipFiltersButton {
+    position: absolute;
+    right: 28px;
+    top: 5px;
+    color: #cdcac7;
+    cursor: pointer;
+    font-size: 40px;
+    font-family: sans-serif;
+    margin: 0;
+    display: none;
 }

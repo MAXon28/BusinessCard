@@ -1,4 +1,5 @@
-﻿using DapperAssistant.Annotations;
+﻿using DapperAssistant;
+using DapperAssistant.Annotations;
 using System;
 using System.Collections.Generic;
 
@@ -70,7 +71,7 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonStore
         /// <summary>
         /// 
         /// </summary>
-        [SqlForeignKey("ClickTypes")]
+        [SqlForeignKey("ClickTypes", TypeOfJoin.LEFT)]
         public int ClickTypeId { get; set; }
 
         /// <summary>

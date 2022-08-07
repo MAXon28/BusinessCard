@@ -3,26 +3,26 @@
     /// <summary>
     /// 
     /// </summary>
-    public class ProjectReviewDto
+    public class GeneralInformation
     {
         /// <summary>
         /// 
         /// </summary>
-        public string UserName { get; set; }
+        public CountInformation ProjectsCount { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int Rating { get; set; }
+        public CountInformation DownloadsCount { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Text { get; set; }
+        public double AvgRating { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Date { get; set; }
+        public int PagesCount { get; set; }
     }
 }

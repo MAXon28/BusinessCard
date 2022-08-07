@@ -15,6 +15,6 @@ namespace BusinessCard.BusinessLogicLayer.DTOs.Store
         /// <summary>
         /// 
         /// </summary>
-        public List<ProjectDto> Projects { get; set; }
+        public List<ProjectInformation> Projects { get; set; }
     }
 }

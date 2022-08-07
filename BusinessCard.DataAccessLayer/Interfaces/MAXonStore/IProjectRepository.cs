@@ -29,6 +29,6 @@ namespace BusinessCard.DataAccessLayer.Interfaces.MAXonStore
         /// 
         /// </summary>
         /// <returns>  </returns>
-        public Task<ProjectInformation> GetProjectInformationAsync();
+        public Task<ProjectsInformation> GetProjectInformationAsync();
     }
 }

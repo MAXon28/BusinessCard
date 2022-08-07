@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class FilterDtoOut
+    public class FilterOut
     {
         /// <summary>
         /// 

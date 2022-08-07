@@ -5,7 +5,7 @@ namespace BusinessCard.BusinessLogicLayer.DTOs
     /// <summary>
     /// 
     /// </summary>
-    public class NewTaskDto
+    public class NewTask
     {
         /// <summary>
         /// 

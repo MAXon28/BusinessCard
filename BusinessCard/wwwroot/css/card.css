@@ -22,7 +22,7 @@
 }
 
 .card.is-flipped {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) scale(1);
 }
 
 .card__face {
@@ -71,7 +71,7 @@
     right: -67px;
     bottom: -67px;
     transform: rotate(-45deg);
-    background: #87CEEB;
+    background: #87cefa;
     font-family: Georgia;
 }
 
@@ -87,15 +87,15 @@
 .container_main_content {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .container_information {
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
-    padding-top: 67px;
-    padding-right: 28px;
-    padding-left: 28px;
+    padding-right: 40px;
+    padding-left: 40px;
+    justify-content: center;
 }
 
 .container_information p {
@@ -105,38 +105,29 @@
 
 .name {
     color: #E29930;
-    font-family: monospace;
+    font-family: sans-serif;
     font-size: 40px;
     font-weight: bold;
     line-height: 40px;
 }
 
 .profession {
-    color: #87CEEB;
-    font-family: system-ui;
-    font-size: 27px;
-    font-weight: normal;
+    color: #87cefa;
+    font-family: sans-serif;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .container_quote {
     display: flex;
     align-items: center;
-    padding-top: 67px;
-    padding-right: 28px;
-    padding-left: 28px;
+    padding-right: 40px;
+    padding-left: 40px;
 }
 
 .container_quote svg {
     font-size: 27px;
     color: #E29930;
-}
-
-.container_quote p {
-    font-size: 27px;
-    color: #E29930;
-    text-align: justify;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-    font-weight: normal;
 }
 
 .container_contacts {
@@ -157,15 +148,16 @@
     font-size: 19px;
     font-weight: normal;
     text-decoration: none;
+    font-family: sans-serif;
 }
 
 .phone {
-    color: #87CEEB;
+    color: #87cefa;
     grid-area: Phone;
 }
 
 .email {
-    color: #87CEEB;
+    color: #87cefa;
     grid-area: Email;
 }
 
@@ -182,8 +174,8 @@
 .frontSeparator {
     width: 93%;
     height: 1px;
-    background: #87CEEB;
-    margin: auto 28px;
+    background: #87cefa;
+    margin: 0 0 28px 0;
 }
 
 .card__face--back {
@@ -197,7 +189,7 @@
 .card__face--back p {
     text-align: justify;
     padding: 0 5%;
-    font-family: system-ui;
+    font-family: sans-serif;
 }
 
 .preloader {
@@ -242,6 +234,6 @@
 
 .fact {
     font-size: 27px;
-    color: #87CEEB;
+    color: #87cefa;
     font-weight: normal;
 }

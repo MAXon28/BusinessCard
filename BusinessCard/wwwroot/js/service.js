@@ -243,35 +243,35 @@ function ViewReviews(id) {
                 firstStar.className = "rating__item";
                 firstStar.innerHTML = '<svg class="rating__star"><use xlink:href="#star"></use></svg>';
 
-                if (reviews[i].starsCount > 0)
+                if (reviews[i].rating > 0)
                     firstStar.style.color = '#FFD700';
 
                 var secondStar = document.createElement("label");
                 secondStar.className = "rating__item";
                 secondStar.innerHTML = '<svg class="rating__star"><use xlink:href="#star"></use></svg>';
 
-                if (reviews[i].starsCount > 1)
+                if (reviews[i].rating > 1)
                     secondStar.style.color = '#FFD700';
 
                 var thirdStar = document.createElement("label");
                 thirdStar.className = "rating__item";
                 thirdStar.innerHTML = '<svg class="rating__star"><use xlink:href="#star"></use></svg>';
 
-                if (reviews[i].starsCount > 2)
+                if (reviews[i].rating > 2)
                     thirdStar.style.color = '#FFD700';
 
                 var fourthStar = document.createElement("label");
                 fourthStar.className = "rating__item";
                 fourthStar.innerHTML = '<svg class="rating__star"><use xlink:href="#star"></use></svg>';
 
-                if (reviews[i].starsCount > 3)
+                if (reviews[i].rating > 3)
                     fourthStar.style.color = '#FFD700';
 
                 var fifthStar = document.createElement("label");
                 fifthStar.className = "rating__item";
                 fifthStar.innerHTML = '<svg class="rating__star"><use xlink:href="#star"></use></svg>';
 
-                if (reviews[i].starsCount > 4)
+                if (reviews[i].rating > 4)
                     fifthStar.style.color = '#FFD700';
 
                 rating.append(firstStar);
@@ -284,7 +284,7 @@ function ViewReviews(id) {
 
                 var name = document.createElement("p");
                 name.className = "name";
-                name.innerHTML = reviews[i].name;
+                name.innerHTML = reviews[i].userName;
                 reviewBlock.append(name);
 
                 var quote = document.createElement("p");

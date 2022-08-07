@@ -15,7 +15,7 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// <param name="filters">  </param>
         /// <param name="projectsPackageNumber">  </param>
         /// <returns>  </returns>
-        public Task<List<ProjectDto>> GetProjectsAsync(FiltersDtoIn filters, int projectsPackageNumber);
+        public Task<List<ProjectInformation>> GetProjectsAsync(FiltersIn filters, int projectsPackageNumber);
 
         /// <summary>
         /// 
@@ -23,25 +23,25 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// <param name="filters">  </param>
         /// <param name="projectsPackageNumber">  </param>
         /// <returns>  </returns>
-        public Task<ProjectsInformationDto> GetProjectsInformationAsync(FiltersDtoIn filters, int projectsPackageNumber);
+        public Task<ProjectsInformationDto> GetProjectsInformationAsync(FiltersIn filters, int projectsPackageNumber);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns>  </returns>
-        public Task<FiltersDtoOut> GetFiltersAsync();
+        public Task<FiltersOut> GetFiltersAsync();
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns>  </returns>
-        public Task<GeneralInformationDto> GetGeneralInformationAsync();
+        public Task<GeneralInformation> GetGeneralInformationAsync();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="projectId">  </param>
         /// <returns>  </returns>
-        public Task<ProjectDto> GetProjectInformationAsync(int projectId);
+        public Task<ProjectInformation> GetProjectInformationAsync(int projectId);
     }
 }

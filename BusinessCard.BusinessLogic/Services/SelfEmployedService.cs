@@ -68,50 +68,50 @@ namespace BusinessCard.BusinessLogicLayer.Services
 
         public async Task<string> GetFullDescriptionAsync(int serviceId) => await _serviceRepository.GetFullDescriptionByServiceId(serviceId);
 
-        public async Task<List<ReviewDto>> GetFortyReviews(int serviceId)
+        public async Task<List<Review>> GetFortyReviews(int serviceId)
         {
-            var reviews = new List<ReviewDto>
+            var reviews = new List<Review>
             {
-                new ReviewDto
+                new Review
                 {
+                    UserName = "Тестер 5",
                     Text = "Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5.",
-                    StarsCount = 5,
-                    Name = "Тестер 5",
+                    Rating = 5,
                     Date = "29 декабря 2021"
                 },
-                new ReviewDto
+                new Review
                 {
+                    UserName = "Тестер 1",
                     Text = "Тест 1. Тест 1. Тест 1.",
-                    StarsCount = 5,
-                    Name = "Тестер 1",
+                    Rating = 5,
                     Date = "Вчера"
                 },
-                new ReviewDto 
+                new Review 
                 {
+                    UserName = "Тестер 2",
                     Text = "Тест 2. Тест 2. Тест 2. Тест 2. Тест 2.",
-                    StarsCount = 4,
-                    Name = "Тестер 2",
+                    Rating = 4,
                     Date = "5 января"
                 },
-                new ReviewDto
+                new Review
                 {
+                    UserName = "Тестер 3",
                     Text = "Тест 3. Тест 3. Тест 3. Тест 3. Тест 3. Тест 3. Тест 3. Тест 3. Тест 3.",
-                    StarsCount = 5,
-                    Name = "Тестер 3",
+                    Rating = 5,
                     Date = "3 января"
                 },
-                new ReviewDto
+                new Review
                 {
+                    UserName = "Тестер 4",
                     Text = "Тест 4. Тест 4. Тест 4. Тест 4. Тест 4. Тест 4. Тест 4. Тест 4. Тест 4. Тест 4. Тест 4. Тест 4.",
-                    StarsCount = 5,
-                    Name = "Тестер 4",
+                    Rating = 5,
                     Date = "2 января"
                 },
-                new ReviewDto
+                new Review
                 {
+                    UserName = "Тестер 5",
                     Text = "Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5. Тест 5.",
-                    StarsCount = 5,
-                    Name = "Тестер 5",
+                    Rating = 5,
                     Date = "29 декабря 2021"
                 }
             };

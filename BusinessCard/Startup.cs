@@ -17,6 +17,7 @@ using BusinessCard.DataAccessLayer.Repositories.Content.Services;
 using BusinessCard.Services;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonStore;
 using BusinessCard.DataAccessLayer.Repositories.MAXonStore;
+using BusinessCard.Middlewares;
 
 namespace BusinessCard
 {
@@ -104,6 +105,8 @@ namespace BusinessCard
             {
                 app.UseHsts();
             }
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

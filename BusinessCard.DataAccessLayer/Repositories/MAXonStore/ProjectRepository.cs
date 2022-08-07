@@ -12,12 +12,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
     /// <inheritdoc cref="IProjectRepository"/>
     public class ProjectRepository : StandardRepository<Project>, IProjectRepository
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly DbConnectionKeeper _dbConnectionKeeper;
-
-        public ProjectRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) => _dbConnectionKeeper = dbConnectionKeeper;
+        public ProjectRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 
         public async Task<IEnumerable<Project>> GetProjectsAsync(ProjectQuerySettings projectQuerySettings)
         {
@@ -51,7 +46,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
         }
 
 
-        public async Task<ProjectInformation> GetProjectInformationAsync()
+        public async Task<ProjectsInformation> GetProjectInformationAsync()
         {
             const string sqlQuery = @"SELECT  COUNT(project.Id) AS ProjectsCount,
 		                                      SUM(project.ClicksCount) AS AllClicksCount,
@@ -62,10 +57,10 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
 
             using var dbConnection = _dbConnectionKeeper.GetDbConnection();
 
-            return (await dbConnection.QueryAsync<int, int, double, ProjectInformation>(sqlQuery,
+            return (await dbConnection.QueryAsync<int, int, double, ProjectsInformation>(sqlQuery,
                 (projectsCount, allDownloadsCount, allProjectsAvgRating) =>
                 {
-                    return new ProjectInformation
+                    return new ProjectsInformation
                     {
                         ProjectsCount = projectsCount,
                         AllDownloadsCount = allDownloadsCount,

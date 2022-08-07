@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class RatingStatisticDto
+    public class RatingStatistic
     {
         /// <summary>
         /// 
