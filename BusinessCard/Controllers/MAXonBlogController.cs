@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace BusinessCard.Controllers
 {
@@ -7,9 +10,11 @@ namespace BusinessCard.Controllers
     /// </summary>
     public class MAXonBlogController : Controller
     {
-        public MAXonBlogController()
-        {
+        private readonly IBlogService _blogService;
 
+        public MAXonBlogController(IBlogService blogService)
+        {
+            _blogService = blogService;
         }
 
         /// <summary>
@@ -20,7 +25,10 @@ namespace BusinessCard.Controllers
         public IActionResult Catalog() => View();
 
         [HttpGet]
-        [Route("{id:maxlength(100)}")]
-        public JsonResult GetProjects([FromQuery] string id) => Json(true); 
+        public async Task<string> GetBlogInformation() => JsonConvert.SerializeObject(new
+        {
+            BlogInformation = await _blogService.GetBlogInformationAsync(null),
+            AuthorizedUser = true
+        });
     }
 }

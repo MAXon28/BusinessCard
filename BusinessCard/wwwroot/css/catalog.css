@@ -171,6 +171,7 @@ input[type="text"]::placeholder {
     border-radius: 3px;
     background: white;
     margin: 0 12px;
+    box-shadow: 0.5px 0.5px 5px 0 #ddd;
 }
 
 .serviceName {
@@ -186,6 +187,11 @@ input[type="text"]::placeholder {
     flex-direction: column;
     margin-top: 28px;
 }
+
+.channels {
+    display: flex;
+    flex-direction: column;
+} 
 
 .channelBlock {
     display: flex;
@@ -207,6 +213,7 @@ input[type="text"]::placeholder {
     border-radius: 3px;
     background: lightskyblue;
     margin: 0 12px;
+    box-shadow: 0.5px 0.5px 5px 0 #ddd;
 }
 
 .channelName {
@@ -218,6 +225,14 @@ input[type="text"]::placeholder {
 
 .channelNameInFilters {
     font-size: 19px;
+}
+
+.viewAll {
+    font-size: 19px;
+    font-family: sans-serif;
+    color: #211f30;
+    margin-left: 12px;
+    cursor: pointer;
 }
 
 .postsBlock {
@@ -239,7 +254,7 @@ input[type="text"]::placeholder {
     box-shadow: 0 4px 16px #ccc;
     display: flex;
     flex-direction: column;
-    max-width: 728px;
+    max-width: 867px;
     align-self: flex-start;
 }
 
@@ -306,6 +321,7 @@ input[type="text"]::placeholder {
     width: 100%;
     position: relative;
     display: flex;
+    justify-content: center;
 }
 
 .postHeaderImage {
@@ -455,4 +471,384 @@ input[type="text"]::placeholder {
     height: 27px;
     fill: #211F30;
     margin-right: 5px;
+}
+
+.informationBlock {
+    display: flex;
+    flex-direction: column;
+    max-width: 867px;
+    margin-top: 28px;
+    margin-left: 128px;
+    border-radius: 12px;
+    background-image: linear-gradient(#ffef7e, white 67%);
+    box-shadow: 0 4px 16px #ccc;
+}
+
+.channelNameInHeader {
+    font-size: 40px;
+    text-align: center;
+    margin-top: 128px;
+    margin-bottom: 28px;
+}
+
+.subscriptionsVariantBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 12px 0 28px 0;
+}
+
+.subscriptionButton {
+    font-size: 19px;
+    font-family: sans-serif;
+    background: #e0e0e040;
+    cursor: pointer;
+    padding: 0 5px;
+    border-radius: 5px;
+    width: 255px;
+    height: 40px;
+}
+
+.subscribeButton::before {
+    content: "✔ Вы подписаны";
+}
+
+.subscribeButton:hover::before {
+    content: "✖ Отписаться";
+}
+
+.notSubscribeOnChannelButton::before {
+    content: "Подписаться на канал";
+}
+
+.notSubscribeOnMailingButton::before {
+    content: "Подписаться на рассылку";
+}
+
+.subscriptionChannel {
+    color: #cdcac7;
+}
+
+.subscriptionMailing {
+    color: #cdcac7;
+}
+
+.separator {
+    width: 100%;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.menuBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.menuValue {
+    font-size: 22px;
+    font-family: sans-serif;
+    color: #211F30;
+    margin: 28px 0 0 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid transparent;
+    cursor:  pointer;
+}
+
+.menuValue:hover {
+    border-bottom: 1px solid #211f30;
+}
+
+.active {
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 1px solid #211f30;
+}
+
+.aboutChannelBlock {
+    display: flex;
+    background: white;
+    max-width: 867px;
+    margin-top: 28px;
+    margin-left: 128px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px #ccc;
+}
+
+.aboutChannel {
+    margin: 40px 28px;
+    font-size: 20px;
+    line-height: 28px;
+    font-family: sans-serif;
+    text-align: justify;
+    color: #211F30;
+}
+
+.subscriptionsBlock {
+    display: flex;
+    max-width: 867px;
+    margin-top: 28px;
+    margin-left: 128px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.channelSubscriptionBlock {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px #ccc;
+    align-items: center;
+    padding: 7px 22px;
+    margin: 28px 0;
+    cursor: pointer;
+}
+
+.removeSubscription {
+    font-size: 19px;
+    font-family: sans-serif;
+    margin: 0 0 0 28px;
+    color: #cecbc8;
+    cursor: pointer;
+}
+
+.fullWindow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(4 11 32 / 55%);
+    z-index: 1050;
+    backdrop-filter: blur(5px);
+    margin: 0 auto;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+}
+
+.center {
+    max-width: 428px;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px #211f30;
+    position: relative;
+    background: #fff;
+    margin: 0 auto;
+}
+
+.requirement {
+    font-size: 28px;
+    font-family: sans-serif;
+    text-align: left;
+    font-weight: bold;
+}
+
+.requirementDescription {
+    font-size: 22px;
+    font-family: sans-serif;
+    text-align: left;
+}
+
+.skipButton {
+    position: absolute;
+    margin: 0;
+    top: 12px;
+    right: 28px;
+    font-size: 40px;
+    font-family: sans-serif;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+@media (max-width: 1280px) {
+    .sBlock {
+        margin-left: 28px;
+    }
+
+    .informationBlock {
+        max-width: 728px;
+        margin-left: 28px;
+    }
+
+    .aboutChannelBlock {
+        max-width: 728px;
+        margin-left: 28px;
+    }
+
+    .subscriptionsBlock {
+        max-width: 728px;
+        margin-left: 28px;
+    }
+
+    .postBlock {
+        max-width: 728px;
+        margin-left: 28px;
+    }
+}
+
+.filtersMenu {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 28;
+}
+
+.filtersMenu + .filtersMenuSpan {
+    position: relative;
+    top: 7px;
+    width: 28px;
+    height: 3px;
+    padding: 10px 0;
+    background-clip: content-box;
+    -webkit-background-clip: content-box;
+    background-color: #211f30;
+    pointer-events: none;
+    transition: background-color .5s ease-in-out;
+    visibility: visible;
+    cursor: pointer;
+    z-index: 12;
+    margin: 0 5px 0 12px;
+}
+
+.filtersMenu + .filtersMenuSpan:before, .filtersMenu + .filtersMenuSpan:after {
+    background: #211f30;
+    content: '';
+    width: 28px;
+    height: 3px;
+    transition: transform .7s ease-in-out;
+    z-index: 12;
+    pointer-events: none;
+    cursor: pointer;
+}
+
+.filtersMenu + .filtersMenuSpan:before {
+    top: 2px;
+}
+
+.filtersMenu + .filtersMenuSpan:after {
+    bottom: 2px;
+}
+
+.filtersMenu:focus + .filtersMenuSpan {
+    background-color: transparent;
+    pointer-events: auto;
+}
+
+.filtersMenu:focus + .filtersMenuSpan:before {
+    transform: rotate(44deg) translate(5px, 6px);
+    cursor: pointer;
+}
+
+.filtersMenu:focus + .filtersMenuSpan:after {
+    transform: rotate(-44deg) translate(5px, -6px);
+    cursor: pointer;
+}
+
+.menuFullWindow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(4 11 32 / 55%);
+    z-index: 1050;
+    backdrop-filter: blur(5px);
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+}
+
+.filtersBlockFullWindow {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 328px;
+    background: white;
+    border-radius: 0 28px 28px 0;
+    margin-top: 205px;
+    padding: 28px 12px;
+}
+
+.headerFullWindow {
+    font-weight: bold;
+    font-size: 22px;
+    font-family: system-ui;
+    text-align: left;
+    margin: 0;
+    margin-left: 12px;
+    margin-bottom: 8px;
+    padding: 0;
+    color: #211F30;
+    text-transform: uppercase;
+}
+
+.serviceBlockFullWindow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.channelBlockFullWindow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    .channels {
+        max-height: 294px;
+        overflow: hidden;
+    }
+
+    .channels:hover {
+        overflow: auto;
+    }
+
+    .channels:hover::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .channels:hover::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    .channels:hover::-webkit-scrollbar-thumb {
+        background-color: #e0e0e0;
+        border-radius: 5px;
+    }
+
+    .postsBlock {
+        width: 100%;
+    }
+
+    .informationBlock {
+        margin: 0 auto;
+        margin-top: 28px;
+    }
+
+    .aboutChannelBlock {
+        margin: 0 auto;
+        margin-top: 28px;
+    }
+
+    .subscriptionsBlock {
+        margin: 0 auto;
+        margin-top: 28px;
+        justify-content: space-evenly;
+    }
+
+    .channelSubscriptionBlock {
+        margin: 28px 5px;
+    }
+
+    .postBlock {
+        margin: 0 auto;
+        margin-top: 28px;
+    }
 }

@@ -18,6 +18,8 @@ using BusinessCard.Services;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonStore;
 using BusinessCard.DataAccessLayer.Repositories.MAXonStore;
 using BusinessCard.Middlewares;
+using BusinessCard.DataAccessLayer.Repositories.MAXonBlog;
+using BusinessCard.DataAccessLayer.Interfaces.MAXonBlog;
 
 namespace BusinessCard
 {
@@ -64,6 +66,8 @@ namespace BusinessCard
             services.AddScoped<IProjectImageRepository, ProjectImageRepository>();
             services.AddScoped<IProjectReviewRepository, ProjectReviewRepository>();
             services.AddScoped<IProjectTechnicalRequirementValueRepository, ProjectTechnicalRequirementValueRepository>();
+            services.AddScoped<IChannelRepository, ChannelRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
 
             services.AddScoped<IBusinessCardService, BusinessCardService>();
             services.AddScoped<IAboutMeService, AboutMeService>();
@@ -73,6 +77,9 @@ namespace BusinessCard
             services.AddScoped<IRuleService, RuleService>();
             services.AddScoped<IStoreService, StoreService>();
             services.AddScoped<IProjectReviewService, ProjectReviewService>();
+            services.AddScoped<IBlogService, BlogService>();
+            services.AddScoped<IChannelService, ChannelService>();
+            services.AddScoped<IPostService, PostService>();
 
             services.AddScoped<FileSaver>();
 

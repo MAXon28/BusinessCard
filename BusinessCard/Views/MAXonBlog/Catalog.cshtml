@@ -11,6 +11,37 @@
     <link rel="stylesheet" href="~/css/font-awesome.min.css" runat="server" />
     <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
 </head>
+<div class="menuFullWindow" style="display: none;">
+    <div class="filtersBlockFullWindow">
+        <div class="servicesBlock">
+            <p class="headerFullWindow">Сервисы</p>
+            <div class="serviceBlockFullWindow" onclick="OpenSubscriptions()">
+                <svg viewBox="0 0 24 24" class="serviceIcon">
+                    <path fill="#211F30" d="M19,7H16V6A4,4,0,0,0,8,6V7H5A1,1,0,0,0,4,8V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V8A1,1,0,0,0,19,7ZM10,6a2,2,0,0,1,4,0V7H10Zm8,13a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V9H8v1a1,1,0,0,0,2,0V9h4v1a1,1,0,0,0,2,0V9h2Z"/>
+                </svg>
+                <p class="serviceName">Подписки</p>
+            </div>
+            <div class="serviceBlockFullWindow" onclick="OpenMailings()">
+                <svg viewBox="0 0 24 24" class="serviceIcon">
+                    <path fill="#211F30" d="M19,4H5A3,3,0,0,0,2,7V17a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V7A3,3,0,0,0,19,4ZM5,6H19a1,1,0,0,1,1,1l-8,4.88L4,7A1,1,0,0,1,5,6ZM20,17a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V9.28l7.48,4.57a1,1,0,0,0,1,0L20,9.28Z"/>
+                </svg>
+                <p class="serviceName">Рассылки</p>
+            </div>
+            <div class="serviceBlockFullWindow" onclick="OpenBookmarks()">
+                <svg viewBox="0 0 24 24" class="serviceIcon" style="fill: none; stroke: #211F30; stroke-width: 2px;">
+                    <path d="M18,22a.99971.99971,0,0,1-.5-.13379L12,18.69434,6.5,21.86621A1.00042,1.00042,0,0,1,5,21V5A3.00328,3.00328,0,0,1,8,2h8a3.00328,3.00328,0,0,1,3,3V21a1.00072,1.00072,0,0,1-1,1Z"/>
+                </svg>
+                <p class="serviceName">Закладки</p>
+            </div>
+        </div>
+        <div class="channelsBlock">
+            <p class="headerFullWindow">Каналы</p>
+            <div id="channelsFullWindow" class="channels"></div>
+            <p class="viewAll">Смотреть все →</p>
+        </div>
+        <p class="skipButton" onclick="CloseMenu()">×</p>
+    </div>   
+</div>
 <body class="body-catalog">
     <div class="scene-catalog">
         <div class="mainBlock">
@@ -23,13 +54,13 @@
                         </svg>
                         <p class="serviceName">Подписки</p>
                     </div>
-                    <div class="serviceBlock">
+                    <div class="serviceBlock" onclick="OpenMailings()">
                         <svg viewBox="0 0 24 24" class="serviceIcon">
                             <path fill="#211F30" d="M19,4H5A3,3,0,0,0,2,7V17a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V7A3,3,0,0,0,19,4ZM5,6H19a1,1,0,0,1,1,1l-8,4.88L4,7A1,1,0,0,1,5,6ZM20,17a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V9.28l7.48,4.57a1,1,0,0,0,1,0L20,9.28Z"/>
                         </svg>
                         <p class="serviceName">Рассылки</p>
                     </div>
-                    <div class="serviceBlock">
+                    <div class="serviceBlock" onclick="OpenBookmarks()">
                         <svg viewBox="0 0 24 24" class="serviceIcon" style="fill: none; stroke: #211F30; stroke-width: 2px;">
                             <path d="M18,22a.99971.99971,0,0,1-.5-.13379L12,18.69434,6.5,21.86621A1.00042,1.00042,0,0,1,5,21V5A3.00328,3.00328,0,0,1,8,2h8a3.00328,3.00328,0,0,1,3,3V21a1.00072,1.00072,0,0,1-1,1Z"/>
                         </svg>
@@ -38,26 +69,14 @@
                 </div>
                 <div class="channelsBlock">
                     <p class="header">Каналы</p>
-                    <div class="channelBlock">
-                        <div class="channelColor"></div>
-                        <p class="channelName channelNameInFilters">Разработка</p>
-                    </div>
-                    <div class="channelBlock">
-                        <div class="channelColor"></div>
-                        <p class="channelName channelNameInFilters">В мире программирования</p>
-                    </div>
-                    <div class="channelBlock">
-                        <div class="channelColor"></div>
-                        <p class="channelName channelNameInFilters">Hand made по-айтишному</p>
-                    </div>
-                    <div class="channelBlock">
-                        <div class="channelColor"></div>
-                        <p class="channelName channelNameInFilters">MAXon.Life</p>
-                    </div>
+                    <div id="channelsNotFullWindow" class="channels"></div>
+                    <p class="viewAll">Смотреть все →</p>
                 </div>
             </div>
             <div class="postsBlock">
                 <div class="sBlock">
+                    <button class="filtersMenu" style="display: none;" onclick="OpenMenu()"></button>
+                    <span class="filtersMenuSpan" style="display: none;"></span>
                     <div class="searchBlock skip">
                         <div class="tb">
                             <div class="td"><input id="search" type="text" placeholder="Поиск" autocomplete="off" required></div>
@@ -68,6 +87,46 @@
                             </button>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="informationBlock">
+                    <p class="channelName channelNameInHeader">Разработка</p>
+                    <div class="subscriptionsVariantBlock">
+                        <button class="subscriptionButton subscriptionChannel notSubscribeOnChannelButton" onclick="SubscribeOnChannel()"></button>
+                        <button class="subscriptionButton subscriptionMailing notSubscribeOnMailingButton" onclick="SubscribeOnMailing()"></button>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="menuBlock">
+                        <p class="menuValue active">Блог</p>
+                        <p class="menuValue">О канале</p>
+                    </div>
+                </div>
+                <div class="aboutChannelBlock">
+                    <p class="aboutChannel">
+                        В данном канале подробно разбираю различные темы разработки. Делюсь своими наблюдениями, подробно рассказываю о своих проектах и интересных моментах, на которые стоит обратить внимание.
+                        Если ты разработчик или хочешь им стать, тебе определённо стоит присмотреться к этому каналу. Сложно, непонятно, но интересно!
+                    </p>
+                </div>
+                <div class="subscriptionsBlock">
+                    <div class="channelSubscriptionBlock">
+                        <div class="channelColor" style="background: #ffef7e;"></div>
+                        <p class="channelName channelNameInFilters">Разработка</p>
+                        <p class="removeSubscription">✖</p>
+                    </div>
+                    <div class="channelSubscriptionBlock">
+                        <div class="channelColor" style="background: #ffef7e;"></div>
+                        <p class="channelName channelNameInFilters">Разработка</p>
+                        <p class="removeSubscription">✖</p>
+                    </div>
+                    <div class="channelSubscriptionBlock">
+                        <div class="channelColor" style="background: #ffef7e;"></div>
+                        <p class="channelName channelNameInFilters">Разработка</p>
+                        <p class="removeSubscription">✖</p>
+                    </div>
+                    <div class="channelSubscriptionBlock">
+                        <div class="channelColor" style="background: #ffef7e;"></div>
+                        <p class="channelName channelNameInFilters">Разработка</p>
+                        <p class="removeSubscription">✖</p>
                     </div>
                 </div>
                 <div class="postBlock">
