@@ -400,6 +400,8 @@ $('.select__item').on('click', function () {
                 SetProjects(projects);
 
                 ViewData();
+
+                currentPageId = "page1";
             },
             error: function (error) {
                 alert(error);
@@ -759,7 +761,10 @@ function SetPagesButtons(pagesCount) {
     thirdSection.append(pagesButtonsBlock);
 }
 
-function OpenNewPage (pageButton) {
+function OpenNewPage(pageButton) {
+    if (pageButton.id == currentPageId)
+        return;
+
     var currentPageButton = document.getElementById(currentPageId);
     currentPageButton.classList.remove("active");
     pageButton.classList.add("active");

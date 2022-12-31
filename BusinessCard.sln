@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessCard.DataAccessLaye
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperAssistant", "..\DapperAssistant\DapperAssistant.csproj", "{4DA0012B-1D2D-4642-B8C7-FEF27E53FF8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessCard.Test", "BusinessCard.Test\BusinessCard.Test.csproj", "{DCC2F0C4-5224-41D8-B4E3-DBD2E6F48DBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessCard.Test", "BusinessCard.Test\BusinessCard.Test.csproj", "{DCC2F0C4-5224-41D8-B4E3-DBD2E6F48DBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessCard.Crypto", "BusinessCard.Crypto\BusinessCard.Crypto.csproj", "{1C8E6195-88CA-415A-9666-57B2E7C6C012}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DCC2F0C4-5224-41D8-B4E3-DBD2E6F48DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCC2F0C4-5224-41D8-B4E3-DBD2E6F48DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCC2F0C4-5224-41D8-B4E3-DBD2E6F48DBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C8E6195-88CA-415A-9666-57B2E7C6C012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C8E6195-88CA-415A-9666-57B2E7C6C012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C8E6195-88CA-415A-9666-57B2E7C6C012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C8E6195-88CA-415A-9666-57B2E7C6C012}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

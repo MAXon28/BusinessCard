@@ -20,6 +20,11 @@ using BusinessCard.DataAccessLayer.Repositories.MAXonStore;
 using BusinessCard.Middlewares;
 using BusinessCard.DataAccessLayer.Repositories.MAXonBlog;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonBlog;
+using BusinessCard.BusinessLogicLayer.Utils.QueryHelper;
+using BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore;
+using BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog;
+using BusinessCard.BusinessLogicLayer.Interfaces.Utils;
+using BusinessCard.BusinessLogicLayer.Utils;
 
 namespace BusinessCard
 {
@@ -68,6 +73,16 @@ namespace BusinessCard
             services.AddScoped<IProjectTechnicalRequirementValueRepository, ProjectTechnicalRequirementValueRepository>();
             services.AddScoped<IChannelRepository, ChannelRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IUserStatisticRepository, UserStatisticRepository>();
+            services.AddScoped<ITopchikRepository, TopchikRepository>();
+            services.AddScoped<IBookmarkRepository, BookmarkRepository>();
+            services.AddScoped<IChannelSubscriptionRepository, ChannelSubscriptionRepository>();
+            services.AddScoped<IMailingSubscriptionRepository, MailingSubscriptionRepository>();
+            services.AddScoped<IPostFieldRepository, PostFieldRepository>();
+            services.AddScoped<IPostElementRepository, PostElementRepository>();
+            services.AddScoped<ICommentBranchRepository, CommentBranchRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IBusinessCardService, BusinessCardService>();
             services.AddScoped<IAboutMeService, AboutMeService>();
@@ -80,8 +95,17 @@ namespace BusinessCard
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<IChannelService, ChannelService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IPersonalInformationService, PersonalInformationService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<FileSaver>();
+
+            services.AddScoped<ISelectionQueryBuilderFactory, SelectionQueryBuilderFactory>();
+            services.AddScoped<IValidator, Validator>();
+
+            services.AddScoped<ProjectsSelectionQueryBuilder>();
+            services.AddScoped<PostsSelectionQueryBuilder>();
 
             services.AddMvc();
 

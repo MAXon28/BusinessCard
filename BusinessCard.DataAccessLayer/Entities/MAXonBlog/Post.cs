@@ -27,7 +27,7 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonBlog
         /// <summary>
         /// 
         /// </summary>
-        public DateTime Date { get; set; }
+        public DateTime PublicationDate { get; set; }
 
         /// <summary>
         /// 
@@ -35,10 +35,15 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonBlog
         public string HeaderImageUrl { get; set; }
 
         /// <summary>
+        /// Уникальный текстовый ключ поста
+        /// </summary>
+        public string PostKey { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         [SqlForeignKey("Channels")]
-        public string ChannelId { get; set; }
+        public int ChannelId { get; set; }
 
         /// <summary>
         /// 
@@ -63,5 +68,11 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonBlog
         /// </summary>
         [NotSqlColumn]
         public int ViewsCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [NotSqlColumn]
+        public int CommentsCount { get; set; }
     }
 }

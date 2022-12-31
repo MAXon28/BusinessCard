@@ -1,6 +1,5 @@
 ﻿using BusinessCard.DataAccessLayer.Entities.MAXonStore;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonStore;
-using BusinessCard.DataAccessLayer.Repositories.MAXonStore.QueryHelper;
 using Dapper;
 using DapperAssistant;
 using System.Collections.Generic;
@@ -14,13 +13,11 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
     {
         public ProjectRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 
-        public async Task<IEnumerable<Project>> GetProjectsAsync(ProjectQuerySettings projectQuerySettings)
+        public async Task<IEnumerable<Project>> GetProjectsAsync(string sqlQuery, DynamicParameters parameters)
         {
-            var projectQueryData = new ProjectsSelectionQueryBuilder().GetProjectQueryData(projectQuerySettings, TypeOfSelect.Projects);
-
             using var dbConnection = _dbConnectionKeeper.GetDbConnection();
             var projects = await dbConnection.QueryAsync<Project, ProjectType, ProjectCategory, int, double, string, Project>(
-                    projectQueryData.SqlQuery,
+                    sqlQuery,
                     (project, projectType, projectCategory, reviewsCount, rating, compatibilities) =>
                     {
                         project.ProjectType = projectType;
@@ -30,19 +27,17 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
                         project.Compatibilities = compatibilities.Split(',').ToList();
                         return project;
                     },
-                    projectQueryData.Parameters,
+                    parameters,
                     splitOn: "Id,Id,Id,CountReviews,AvgRating,ProjectCompatibilities");
 
             return projects;
         }
 
-        public async Task<int> GetProjectsCountAsync(ProjectQuerySettings projectQuerySettings)
+        public async Task<int> GetProjectsCountAsync(string sqlQuery, DynamicParameters parameters)
         {
-            var projectQueryData = new ProjectsSelectionQueryBuilder().GetProjectQueryData(projectQuerySettings, TypeOfSelect.Count);
-
             using var dbConnection = _dbConnectionKeeper.GetDbConnection();
 
-            return await dbConnection.QuerySingleAsync<int>(projectQueryData.SqlQuery, projectQueryData.Parameters);
+            return await dbConnection.QuerySingleAsync<int>(sqlQuery, parameters);
         }
 
 

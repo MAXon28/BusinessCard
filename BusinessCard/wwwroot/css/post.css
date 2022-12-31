@@ -1,0 +1,544 @@
+﻿.body-catalog {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /*background: snow;*/
+    background: linear-gradient(180deg, #E0FFFF, #edeef0);
+    //background: #edeef0;
+    background-size: cover;
+}
+
+.scene-catalog {
+    min-width: 728px;
+    margin: 40px auto;
+    margin-bottom: 5px;
+    font-size: 0;
+}
+
+.mainBlock {
+    width: 100%;
+}
+
+.postBlock {
+    width: 75%;
+    margin: 28px auto;
+    background: white;
+    box-shadow: 0 4px 16px #ccc;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
+
+.firstSection {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin: 0 28px;
+    margin-top: 12px;
+}
+
+.channelName {
+    font-family: system-ui;
+    font-weight: 500;
+    text-align: left;
+    color: #211F30;
+    font-size: 18px;
+    margin: 0;
+}
+
+.viewsCountBlock {
+    display: flex;
+    flex-direction: row;
+    color: #cdcac7;
+    align-items: center;
+    margin-left: 12px;
+}
+
+.statisticIcon {
+    width: 17px;
+    height: 17px;
+    margin: 0 5px 1px 3px;
+}
+
+.viewsValue {
+    font-size: 17px;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.date {
+    font-size: 17px;
+    font-family: sans-serif;
+    margin: 0;
+    margin-left: 15px;
+    color: #cdcac7;
+}
+
+.secondSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 auto;
+    margin-top: 28px;
+}
+
+.postHeader {
+    font-size: 27px;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: left;
+    margin: 0 28px;
+    color: #211f30;
+}
+
+.thirdSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 28px;
+    margin-top: 28px;
+}
+
+.statisticValue {
+    font-size: 17px;
+    font-family: sans-serif;
+    margin: 0;
+    color: #211F30;
+    transition: all 0.28s;
+}
+
+.noValue {
+    display: none;
+}
+
+.bookmarksBlock {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    align-items: center;
+    margin-right: 28px;
+}
+
+.bookmarksIcon {
+    width: 27px;
+    height: 27px;
+    margin-right: 5px;
+    transition: all 0.28s;
+}
+
+.notBookmarks {
+    fill: none;
+    stroke: #211F30;
+    stroke-width: 2px;
+}
+
+.needBookmarks {
+    fill: #e29930;
+    stroke: #e29930;
+}
+
+.bookmarksValue {
+    color: #e29930;
+}
+
+.commentsCountBlock {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    align-items: center;
+}
+
+.commentsIcon {
+    width: 27px;
+    height: 27px;
+    fill: #211F30;
+    margin-right: 5px;
+}
+
+.fourthSection {
+    display: flex;
+    flex-direction: column;
+    margin: 0 28px;
+    margin-top: 28px;
+    align-items: flex-start;
+}
+
+.text {
+    font-size: 20px;
+    font-family: sans-serif;
+    text-align: justify;
+    line-height: 1.55;
+    word-break: break-word;
+    margin: 0;
+    margin-top: 12px;
+}
+
+.codeBlock {
+    margin-top: 12px;
+    background: #f0f0f0;
+    padding: 28px 0;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    box-shadow: 0.5px 0.5px 5px 0 #ddd;
+}
+
+.headerBlock {
+    display: flex;
+    flex-direction: row;
+    margin: 0 28px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.codeDescription {
+    font-size: 20px;
+    font-family: sans-serif;
+    text-align: justify;
+    word-break: break-word;
+    margin: 0;
+}
+
+.clipboardBlock {
+    display: block;
+    align-self: end;
+    cursor: pointer;
+}
+
+.clipboard {
+    width: 40px;
+    height: 40px;
+    opacity: .28;
+    transition: all 0.28s;
+}
+
+.clipboard:hover {
+    opacity: 1;
+}
+
+.separatorInCode {
+    margin: 12px 0;
+    background: lightskyblue;
+    height: 1px;
+}
+
+.codeBlock code {
+    align-self: stretch;
+    font-size: 15px;
+    font-family: monospace;
+    text-align: left;
+    white-space: pre-wrap;
+    line-height: 24px;
+    margin: 0 17px;
+    max-height: 828px;
+    overflow-x: auto;
+}
+
+.codeBlock code::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: transparent;
+}
+
+.codeBlock code::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.codeBlock code::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+}
+
+.codeBlock code::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+.imageBlock {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 auto;
+    margin-top: 12px;
+}
+
+.imageBlock img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.imageBlock p {
+    font-size: 22px;
+    font-style: italic;
+    font-family: sans-serif;
+    text-align: center;
+    color: #cdcac7;
+    margin-top: 12px;
+}
+
+.separator {
+    background: linear-gradient(180deg, #E0FFFF, #edeef0);
+    height: 3px;
+    margin-top: 28px;
+}
+
+.fifthSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 28px;
+}
+
+.topchikBlock {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    align-items: center;
+    margin-right: 28px;
+    background-color: rgb(33 31 48 / 81%);
+    border-radius: 360px;
+    padding: 7px 12px;
+}
+
+.topchikIcon {
+    width: 27px;
+    height: 27px;
+    margin-right: 5px;
+}
+
+.topchikBlock svg {
+    transition: all 0.28s;
+}
+
+.untopchikUser svg {
+    fill: white;
+}
+
+.untopchikUser p {
+    color: white;
+}
+
+.topchikUser svg {
+    fill: #87cefa;
+}
+
+.noTopchik svg {
+    margin-right: 0;
+}
+
+.topchikUser p {
+    color: #87cefa;
+}
+
+.commentsBlock {
+    width: 75%;
+    margin: 28px auto;
+    background: white;
+    box-shadow: 0 4px 16px #ccc;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
+
+.commentsHeader {
+    font-size: 22px;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: left;
+    margin: 0 28px;
+    margin-top: 28px;
+    color: #211f30;
+}
+
+.commentsWrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 28px 28px 28px;
+}
+
+.commentsBranch {
+    display: flex;
+    flex-direction: column;
+}
+
+.commentBlock {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+    align-items: flex-start;
+    transition: all 1.01s;
+}
+
+.dataBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.commentator {
+    font-family: sans-serif;
+    font-weight: 700;
+    text-align: left;
+    color: #211F30;
+    font-size: 17px;
+    margin: 5px 0;
+}
+
+.time {
+    font-family: sans-serif;
+    text-align: left;
+    font-size: 15px;
+    color: #cdcac7;
+    margin: 5px 0;
+    margin-left: 12px;
+}
+
+.comment {
+    font-size: 17px;
+    font-family: sans-serif;
+    text-align: justify;
+    margin: 5px 0;
+    line-height: 1.55;
+}
+
+.answer {
+    font-size: 17px;
+    font-weight: lighter;
+    font-family: sans-serif;
+    text-align: justify;
+    color: #ccc;
+    opacity: .67;
+    cursor: pointer;
+    margin: 5px 0;
+    transition: 0.28s all;
+}
+
+.answer:hover {
+    opacity: 1;
+}
+
+.answerBlock {
+    display: flex;
+    flex-direction: row;
+    margin: 28px 28px 0 28px;
+    align-items: center;
+}
+
+.answerCreator {
+    width: 95%;
+    padding: 12px;
+    outline: none;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 17px;
+    font-family: sans-serif;
+    color: #000;
+    white-space: break-spaces;
+    white-space: pre-wrap;
+}
+
+[contenteditable]:empty:before {
+    content: attr(data-placeholder);
+    font-size: 17px;
+    color: #e0e0e0;
+    font-family: sans-serif;
+    display: inline-block;
+}
+
+.sendBlock {
+    cursor: pointer;
+    margin-left: 12px;
+}
+
+.sender {
+    width: 27px;
+    height: 27px;
+    opacity: .67;
+}
+
+.nextCommentsButton {
+    font-size: 17px;
+    font-family: system-ui;
+    color: #87cefa;
+    font-weight: 500;
+    margin: 0;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.answer-to-answer {
+    align-self: center;
+    width: 22px;
+    height: 22px;
+    margin: 1px 0;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.deleteCommentButton {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 27px;
+    font-family: revert;
+    margin: 0;
+    margin-left: 40px;
+    opacity: .67;
+    transition: 0.28s all;
+}
+
+.deleteCommentButton:hover {
+    opacity: 1;
+}
+
+.fullWindow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(4 11 32 / 55%);
+    z-index: 1050;
+    backdrop-filter: blur(5px);
+    margin: 0 auto;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+}
+
+.center {
+    max-width: 428px;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px #211f30;
+    position: relative;
+    background: #fff;
+    margin: 0 auto;
+}
+
+.requirement {
+    font-size: 28px;
+    font-family: sans-serif;
+    text-align: left;
+    font-weight: bold;
+}
+
+.requirementDescription {
+    font-size: 22px;
+    font-family: sans-serif;
+    text-align: left;
+}
+
+.skipButton {
+    position: absolute;
+    margin: 0;
+    top: 12px;
+    right: 28px;
+    font-size: 40px;
+    font-family: sans-serif;
+    color: #e0e0e0;
+    cursor: pointer;
+}

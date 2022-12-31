@@ -16,16 +16,38 @@ namespace BusinessCard.DataAccessLayer.Entities.Data
         /// <summary>
         /// 
         /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public string Surname { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string MiddleName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Password { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [SqlForeignKey("Roles")]
+        public int RoleId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [RelatedSqlEntity]
+        public Role Role { get; set; }
     }
 }

@@ -13,6 +13,14 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// </summary>
         /// <param name="userId">  </param>
         /// <returns>  </returns>
-        public Task<BlogIngormation> GetBlogInformationAsync(int? userId);
+        public Task<BlogInformation> GetBlogInformationAsync(int? userId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId">  </param>
+        /// <param name="channelId">  </param>
+        /// <returns>  </returns>
+        public Task<ChannelInformation> GetChannelInformationAsync(int? userId, int channelId);
     }
 }

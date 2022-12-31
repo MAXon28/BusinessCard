@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Публикация";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/post.css" runat="server" />
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" runat="server" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" runat="server" />
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+</head>
+<body class="body-catalog">
+    <div class="scene-catalog">
+        <div class="mainBlock">
+            <div id="postDataSpinner" class="reverse-spinner" style="display: none;">
+                <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+            </div>
+            <div style="display: none" class="postBlock">
+                <div class="firstSection">
+                    <p class="channelName"></p>
+                    <p class="date"></p>
+                    <div class="viewsCountBlock">
+                        <svg viewBox="0 0 24 24" class="statisticIcon">
+                            <use xlink:href="#views"></use>
+                        </svg>
+                        <p class="viewsValue"></p>
+                    </div>
+                </div>
+                <div class="secondSection">
+                    <p class="postHeader"></p>
+                </div>
+                <div class="thirdSection"></div>
+                <div class="fourthSection"></div>
+                <div class="separator"></div>
+                <div class="fifthSection"></div>
+            </div>
+            <div style="display: none" class="commentsBlock">
+                <p class="commentsHeader">Комментарии (28)</p>
+                <div class="separator"></div>
+                <div id="answerBlock" class="answerBlock">
+                    <div id="userAnswer" class="answerCreator" contenteditable="true" data-placeholder="Написать комментарий..."></div>
+                    <div class="sendBlock" onclick="SetNewCommentInNewBranch()">
+                        <svg viewBox="0 0 24 24" class="sender">
+                            <use xlink:href="#send"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div id="commentsDataSpinner" class="reverse-spinner" style="display: none;">
+                    <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+                </div>
+                <div style="display: none" class="commentsWrapper"></div>
+            </div>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none">
+        <g id="views">
+            <path fill="#cdcac7" d="M21.92,11.6C19.9,6.91,16.1,4,12,4S4.1,6.91,2.08,11.6a1,1,0,0,0,0,.8C4.1,17.09,7.9,20,12,20s7.9-2.91,9.92-7.6A1,1,0,0,0,21.92,11.6ZM12,18c-3.17,0-6.17-2.29-7.9-6C5.83,8.29,8.83,6,12,6s6.17,2.29,7.9,6C18.17,15.71,15.17,18,12,18ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,14Z" />
+        </g>
+    </svg>
+    <svg viewBox="0 0 64 64" style="display: none">
+        <g id="topchik">
+            <path d="m32 2l-16 16h10v15h12v-15h10z" />
+            <path d="m32 62c-3.3 0-6-2.8-6-6.3v-9.3c0-3.5 2.7-6.3 6-6.3s6 2.8 6 6.3v9.3c0 3.5-2.7 6.3-6 6.3m0-18.6c-1.7 0-3 1.3-3 3v9.3c0 1.6 1.3 3 3 3s3-1.3 3-3v-9.3c0-1.7-1.3-3-3-3" />
+            <path d="m22 40h-12v3h4.5v19h3v-19h4.5z" />
+            <path d="m48 40h-6v22h3v-9.3h3c3.3 0 6-2.8 6-6.3 0-3.6-2.7-6.4-6-6.4m0 9.3h-3v-5.9h3c1.7 0 3 1.3 3 3s-1.3 2.9-3 2.9" />
+        </g>
+    </svg>
+    <svg viewBox="0 0 24 24" style="display: none">
+        <g id="bookmarks">
+            <path d="M18,22a.99971.99971,0,0,1-.5-.13379L12,18.69434,6.5,21.86621A1.00042,1.00042,0,0,1,5,21V5A3.00328,3.00328,0,0,1,8,2h8a3.00328,3.00328,0,0,1,3,3V21a1.00072,1.00072,0,0,1-1,1Z" />
+        </g>
+    </svg>
+    <svg viewBox="0 0 24 24" style="display: none">
+        <g id="comments">
+            <path d="M12,2A10,10,0,0,0,2,12a9.89,9.89,0,0,0,2.26,6.33l-2,2a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,22h9A10,10,0,0,0,12,2Zm0,18H5.41l.93-.93a1,1,0,0,0,0-1.41A8,8,0,1,1,12,20Z" />
+        </g>
+    </svg>
+    <svg viewBox="0 0 24 24" style="display: none">
+        <g id="send">
+            <g fill="#e0e0e0">
+                <path d="M3.78963301,2.77233335 L24.8609339,12.8499121 C25.4837277,13.1477699 25.7471402,13.8941055 25.4492823,14.5168992 C25.326107,14.7744476 25.1184823,14.9820723 24.8609339,15.1052476 L3.78963301,25.1828263 C3.16683929,25.4806842 2.42050372,25.2172716 2.12264586,24.5944779 C1.99321184,24.3238431 1.96542524,24.015685 2.04435886,23.7262618 L4.15190935,15.9983421 C4.204709,15.8047375 4.36814355,15.6614577 4.56699265,15.634447 L14.7775879,14.2474874 C14.8655834,14.2349166 14.938494,14.177091 14.9721837,14.0981464 L14.9897199,14.0353553 C15.0064567,13.9181981 14.9390703,13.8084248 14.8334007,13.7671556 L14.7775879,13.7525126 L4.57894108,12.3655968 C4.38011873,12.3385589 4.21671819,12.1952832 4.16392965,12.0016992 L2.04435886,4.22889788 C1.8627142,3.56286745 2.25538645,2.87569101 2.92141688,2.69404635 C3.21084015,2.61511273 3.51899823,2.64289932 3.78963301,2.77233335 Z"></path>
+            </g>
+        </g>
+    </svg>
+    <svg viewBox="0 0 24 24" style="display: none">
+        <g id="clipboard" fill="#211F30">
+            <polygon points="291,0 51,0 51,332 121,332 121,80 291,80  " />
+            <polygon points="306,125 306,195 376,195  " />
+            <polygon points="276,225 276,110 151,110 151,442 391,442 391,225  " />
+        </g>
+    </svg>
+    <svg viewBox="0 0 24 24" style="display: none">
+        <g id="answerToAnswer" fill="none">
+            <g transform="translate(12.000000, 12.000000) rotate(-180.000000) translate(-12.000000, -12.000000) translate(5.000000, 8.500000)" stroke="#e29930" stroke-width="1.5">
+                <polyline id="Stroke-1" points="14 0 7 7 0 0"></polyline>
+            </g>
+        </g>
+    </svg>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/post.js"></script>
+</body>
+</html>

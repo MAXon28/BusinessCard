@@ -65,7 +65,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
                 TerriblyCount = statistic.ContainsKey(0) ? (int)(Math.Round(statistic[1] / (double)reviewInformation.ReviewsCount, 2) * 100) : 0
             };
             if (reviewInformation.ReviewsCount > 0 && needLoadReview)
-                reviewInformation.Review = GetReviewAsync(projectId).Result;
+                reviewInformation.Review = await GetReviewAsync(projectId);
 
             return reviewInformation;
         }

@@ -3,26 +3,8 @@
 namespace BusinessCard.DataAccessLayer.Entities.MAXonBlog
 {
     /// <summary>
-    /// 
+    /// Подписка на рассылку
     /// </summary>
     [SqlTable("MailingSubscriptions")]
-    public class MailingSubscription
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [SqlForeignKey("Users")]
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [SqlForeignKey("Channels")]
-        public int ChannelId { get; set; }
-    }
+    public class MailingSubscription : Subscription { }
 }

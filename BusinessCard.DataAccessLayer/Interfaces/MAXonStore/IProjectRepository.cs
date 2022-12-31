@@ -1,5 +1,5 @@
 ﻿using BusinessCard.DataAccessLayer.Entities.MAXonStore;
-using BusinessCard.DataAccessLayer.Repositories.MAXonStore.QueryHelper;
+using Dapper;
 using DapperAssistant;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,16 +14,18 @@ namespace BusinessCard.DataAccessLayer.Interfaces.MAXonStore
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectQuerySettings">  </param>
+        /// <param name="sqlQuery">  </param>
+        /// <param name="parameters">  </param>
         /// <returns>  </returns>
-        public Task<IEnumerable<Project>> GetProjectsAsync(ProjectQuerySettings projectQuerySettings);
+        public Task<IEnumerable<Project>> GetProjectsAsync(string sqlQuery, DynamicParameters parameters);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectQuerySettings">  </param>
+        /// <param name="sqlQuery">  </param>
+        /// <param name="parameters">  </param>
         /// <returns>  </returns>
-        public Task<int> GetProjectsCountAsync(ProjectQuerySettings projectQuerySettings);
+        public Task<int> GetProjectsCountAsync(string sqlQuery, DynamicParameters parameters);
 
         /// <summary>
         /// 

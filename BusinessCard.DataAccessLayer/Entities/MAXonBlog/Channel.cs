@@ -1,4 +1,5 @@
 ﻿using DapperAssistant.Annotations;
+using System.Collections.Generic;
 
 namespace BusinessCard.DataAccessLayer.Entities.MAXonBlog
 {
@@ -27,5 +28,11 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonBlog
         /// 
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [NotSqlColumn]
+        public List<Post> Posts { get; set; }
     }
 }

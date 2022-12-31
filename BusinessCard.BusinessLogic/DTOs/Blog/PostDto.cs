@@ -13,6 +13,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name { get; set; }
 
         /// <summary>
@@ -33,6 +38,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public int ChannelId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string ChannelName { get; set; }
 
         /// <summary>
@@ -49,5 +59,10 @@
         /// 
         /// </summary>
         public int ViewsCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int CommentsCount { get; set; }
     }
 }

@@ -55,7 +55,7 @@ function init() {
     $.ajax({
         async: true,
         type: "GET",
-        url: "/MAXonBusinessCard/GetServiceRates",
+        url: "/MAXonWork/GetServiceRates",
         data: { serviceId },
         success: function (serviceInformation) {
             needTechnoSpec = serviceInformation.needTechnicalSpecification;
@@ -377,7 +377,7 @@ function CreateServiceTask() {
     Timer();
     $.ajax({
         type: "POST",
-        url: "/MAXonBusinessCard/AddTask",
+        url: "/MAXonWork/AddTask",
         data: data,
         contentType: false,
         processData: false,

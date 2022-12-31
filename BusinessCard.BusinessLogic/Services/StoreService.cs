@@ -1,9 +1,10 @@
 ﻿using BusinessCard.BusinessLogicLayer.DTOs.Store;
 using BusinessCard.BusinessLogicLayer.Interfaces;
 using BusinessCard.BusinessLogicLayer.Utils;
+using BusinessCard.BusinessLogicLayer.Utils.QueryHelper;
+using BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore;
 using BusinessCard.DataAccessLayer.Entities.MAXonStore;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonStore;
-using BusinessCard.DataAccessLayer.Repositories.MAXonStore.QueryHelper;
 using DapperAssistant;
 using System;
 using System.Collections.Generic;
@@ -46,14 +47,19 @@ namespace BusinessCard.BusinessLogicLayer.Services
         private readonly IProjectImageRepository _projectImageRepository;
 
         /// <summary>
+        /// Репозиторий технических требований к проектам
+        /// </summary>
+        private readonly IProjectTechnicalRequirementValueRepository _projectTechnicalRequirementValueRepository;
+
+        /// <summary>
         /// Сервис отзывов по проектам
         /// </summary>
         private readonly IProjectReviewService _projectReviewService;
 
         /// <summary>
-        /// Репозиторий технических требований к проектам
+        /// 
         /// </summary>
-        private readonly IProjectTechnicalRequirementValueRepository _projectTechnicalRequirementValueRepository;
+        private readonly SelectionQueryBuilder _selectionQueryBuilder;
 
         /// <summary>
         /// Утилита для пагинации по проектам
@@ -67,7 +73,8 @@ namespace BusinessCard.BusinessLogicLayer.Services
             IProjectCompatibilityRepository projectCompatibilityRepository,
             IProjectImageRepository projectImageRepository,
             IProjectReviewService projectReviewService,
-            IProjectTechnicalRequirementValueRepository projectTechnicalRequirementValueRepository)
+            IProjectTechnicalRequirementValueRepository projectTechnicalRequirementValueRepository,
+            ISelectionQueryBuilderFactory selectionQueryBuilderFactory)
         {
             _projectRepository = projectRepository;
             _projectTypeRepository = projectTypeRepository;
@@ -76,24 +83,26 @@ namespace BusinessCard.BusinessLogicLayer.Services
             _projectImageRepository = projectImageRepository;
             _projectReviewService = projectReviewService;
             _projectTechnicalRequirementValueRepository = projectTechnicalRequirementValueRepository;
+            _selectionQueryBuilder = selectionQueryBuilderFactory.GetQueryBuilder(QueryBuilderTypes.Projects);
         }
 
         public async Task<List<ProjectInformation>> GetProjectsAsync(FiltersIn filters, int projectsPackageNumber)
         {
-            var projectQuerySettings = GetProjectQuerySettings(filters, projectsPackageNumber);
-
-            var projects = await _projectRepository.GetProjectsAsync(projectQuerySettings);
-
+            var projectRequestSettings = GetProjectRequestSettings(filters, projectsPackageNumber);
+            var queryData = _selectionQueryBuilder.GetQueryData(projectRequestSettings);
+            var projects = await _projectRepository.GetProjectsAsync(queryData.SqlQuery, queryData.Parameters);
             return GetProjectsDto(projects);
         }
 
         public async Task<ProjectsInformationDto> GetProjectsInformationAsync(FiltersIn filters, int projectsPackageNumber)
         {
-            var projectQuerySettings = GetProjectQuerySettings(filters, projectsPackageNumber);
+            var projectRequestSettings = GetProjectRequestSettings(filters, projectsPackageNumber);
 
-            var projects = await _projectRepository.GetProjectsAsync(projectQuerySettings);
-
-            var projectsCountByCurrentFilter = await _projectRepository.GetProjectsCountAsync(projectQuerySettings);
+            var queryDataForProjects = _selectionQueryBuilder.GetQueryData(projectRequestSettings);
+            var projects = await _projectRepository.GetProjectsAsync(queryDataForProjects.SqlQuery, queryDataForProjects.Parameters);
+            _selectionQueryBuilder.TypeOfSelect = SelectTypes.Count;
+            var queryDataForCount = _selectionQueryBuilder.GetQueryData(projectRequestSettings);
+            var projectsCountByCurrentFilter = await _projectRepository.GetProjectsCountAsync(queryDataForCount.SqlQuery, queryDataForCount.Parameters);
 
             return new ProjectsInformationDto
             {
@@ -108,7 +117,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <param name="filters"> Фильтры запроса </param>
         /// <param name="projectsPackageNumber"> Номер пакета проектов (в каждом пакете по 5 проектов) </param>
         /// <returns> Настройки запроса по проектам </returns>
-        private ProjectQuerySettings GetProjectQuerySettings(FiltersIn filters, int projectsPackageNumber)
+        private ProjectRequestSettings GetProjectRequestSettings(FiltersIn filters, int projectsPackageNumber)
         {
             var projectName = string.IsNullOrEmpty(filters.ProjectName) ? null : filters.ProjectName;
             var sortType = filters.SortType;
@@ -116,7 +125,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
             var projectCategoryFilters = filters.ProjectCategories is null || filters.ProjectCategories.Count == 0 ? null : filters.ProjectCategories;
             var projectCompatibilityFilters = filters.ProjectCompatibilities is null || filters.ProjectCompatibilities.Count == 0 ? null : filters.ProjectCompatibilities;
             var offset = _paginationUtil.GetOffset(projectsPackageNumber);
-            return new ProjectQuerySettings(projectName, projectTypeFilters, projectCategoryFilters, projectCompatibilityFilters, sortType, offset);
+            return new ProjectRequestSettings(projectName, projectTypeFilters, projectCategoryFilters, projectCompatibilityFilters, sortType, offset);
         }
 
         /// <summary>
@@ -221,7 +230,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
             };
         }
 
-        public async Task<DTOs.Store.ProjectInformation> GetProjectInformationAsync(int projectId)
+        public async Task<ProjectInformation> GetProjectInformationAsync(int projectId)
         {
             var projectTask = GetProjectAsync(projectId);
             var projectImagesTask = GetProjectImagesAsync(projectId);
@@ -229,7 +238,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
             var technicalRequirementsTask = GetTechnicalRequirementsAsync(projectId);
             var compatibilitiesTask = GetCompatibilitiesAsync(projectId);
 
-            var projectInformation = new DTOs.Store.ProjectInformation();
+            var projectInformation = new ProjectInformation();
             SetProjectData(projectInformation, await projectTask);
             SetProjectImages(projectInformation, await projectImagesTask);
             SetProjectStatistic(projectInformation, await reviewInformationTask);

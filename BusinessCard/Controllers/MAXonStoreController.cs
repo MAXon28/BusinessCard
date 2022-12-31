@@ -75,6 +75,7 @@ namespace BusinessCard.Controllers
         /// </summary>
         /// <param name="projectId">  </param>
         /// <returns></returns>
+        [HttpGet]
         public IActionResult Project(int projectId) => View();
 
         /// <summary>
