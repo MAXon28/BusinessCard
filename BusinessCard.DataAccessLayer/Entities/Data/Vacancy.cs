@@ -1,11 +1,12 @@
 ﻿using DapperAssistant.Annotations;
+using System;
 
 namespace BusinessCard.DataAccessLayer.Entities.Data
 {
     /// <summary>
     /// 
     /// </summary>
-    [SqlTable("JobOpenings")]
+    [SqlTable("Vacancies")]
     public class Vacancy
     {
         /// <summary>
@@ -31,17 +32,17 @@ namespace BusinessCard.DataAccessLayer.Entities.Data
         /// <summary>
         /// 
         /// </summary>
-        public string Schedule { get; set; }
+        public string WorkFormat { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Contacts { get; set; }
+        public string Contact { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Address { get; set; }
+        public DateTime CreationDate { get; set; }
 
         /// <summary>
         /// 
@@ -62,5 +63,10 @@ namespace BusinessCard.DataAccessLayer.Entities.Data
         /// 
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool ViewedByMAXon28Team { get; set; }
     }
 }

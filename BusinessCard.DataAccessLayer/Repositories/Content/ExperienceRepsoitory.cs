@@ -7,7 +7,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.Content
     /// <summary>
     /// 
     /// </summary>
-    public class ExperienceRepsoitory : StandardRepository<Experience>, IExperienceRepository
+    internal class ExperienceRepsoitory : StandardRepository<Experience>, IExperienceRepository
     {
         public ExperienceRepsoitory (DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
     }

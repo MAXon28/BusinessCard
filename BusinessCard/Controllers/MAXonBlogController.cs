@@ -1,9 +1,11 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Blog;
-using BusinessCard.BusinessLogicLayer.Interfaces;
-using BusinessCard.DataAccessLayer.Entities.MAXonBlog;
+﻿using BusinessCard.Entities.DTO.Blog;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
+using BusinessCard.BusinessLogicLayer.Interfaces;
+using BusinessCard.Entities;
 
 namespace BusinessCard.Controllers
 {
@@ -58,12 +60,15 @@ namespace BusinessCard.Controllers
         /// </summary>
         /// <returns>  </returns>
         [HttpGet]
-        public async Task<string> GetBlogInformation() 
-            => JsonConvert.SerializeObject(new
+        public async Task<string> GetBlogInformation()
+        {
+            var isAuthorized = User.Identity.IsAuthenticated;
+            return JsonConvert.SerializeObject(new
             {
-                BlogInformation = await _blogService.GetBlogInformationAsync(1),
-                AuthorizedUser = true
+                BlogInformation = await _blogService.GetBlogInformationAsync(isAuthorized ? Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value) : -1),
+                AuthorizedUser = isAuthorized
             });
+        }
 
         /// <summary>
         /// 
@@ -85,7 +90,11 @@ namespace BusinessCard.Controllers
         public async Task<string> GetChannelInformation([FromQuery] int channelId) 
             => JsonConvert.SerializeObject(new
             {
-                ChannelInformation = await _blogService.GetChannelInformationAsync(1, channelId)
+                ChannelInformation = await _blogService.GetChannelInformationAsync(
+                    User.Identity.IsAuthenticated
+                        ? Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value) 
+                        : -1, 
+                    channelId)
             });
 
         /// <summary>
@@ -93,10 +102,11 @@ namespace BusinessCard.Controllers
         /// </summary>
         /// <returns>  </returns>
         [HttpGet]
+        [Authorize]
         public async Task<string> GetSubscriptionOnChannels() 
             => JsonConvert.SerializeObject(new
             {
-                Subscriptions = await _personalInformationService.GetSubscriptionOnChannelsAsync(1)
+                Subscriptions = await _personalInformationService.GetSubscriptionOnChannelsAsync(Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value))
             });
 
         /// <summary>
@@ -104,10 +114,11 @@ namespace BusinessCard.Controllers
         /// </summary>
         /// <returns>  </returns>
         [HttpGet]
+        [Authorize]
         public async Task<string> GetSubscriptionOnMailings()
             => JsonConvert.SerializeObject(new
             {
-                Subscriptions = await _personalInformationService.GetSubscriptionOnMailingsAsync(1)
+                Subscriptions = await _personalInformationService.GetSubscriptionOnMailingsAsync(Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value))
             });
 
         /// <summary>
@@ -118,7 +129,11 @@ namespace BusinessCard.Controllers
         public async Task<string> GetPosts([FromQuery] PostFilters filters)
             => JsonConvert.SerializeObject(new
             {
-                PostsInformation = await _postService.GetPostsAsync(1, filters)
+                PostsInformation = await _postService.GetPostsAsync(
+                    User.Identity.IsAuthenticated
+                        ? Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value)
+                        : -1, 
+                    filters)
             });
 
         /// <summary>
@@ -128,8 +143,9 @@ namespace BusinessCard.Controllers
         /// <param name="isTopchik">  </param>
         /// <returns>  </returns>
         [HttpPost]
+        [Authorize]
         public async Task<bool> SendTopchik(int postId, bool isTopchik)
-            => await _personalInformationService.AddOrDeleteTopchikAsync(1, postId, isTopchik);
+            => await _personalInformationService.AddOrDeleteTopchikAsync(Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value), postId, isTopchik);
 
         /// <summary>
         /// 
@@ -138,8 +154,9 @@ namespace BusinessCard.Controllers
         /// <param name="inBookmark">  </param>
         /// <returns>  </returns>
         [HttpPost]
+        [Authorize]
         public async Task<bool> SendPostInBookmark(int postId, bool inBookmark)
-            => await _personalInformationService.AddOrDeletePostInBookmarkAsync(1, postId, inBookmark);
+            => await _personalInformationService.AddOrDeletePostInBookmarkAsync(Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value), postId, inBookmark);
 
         /// <summary>
         /// 
@@ -149,8 +166,9 @@ namespace BusinessCard.Controllers
         /// <param name="subscribeType">  </param>
         /// <returns>  </returns>
         [HttpPost]
+        [Authorize]
         public async Task<bool> Subscribe(int channelId, bool isSubscribe, string subscribeType)
-            => await _personalInformationService.SubscribeAsync(1, channelId, isSubscribe, subscribeType);
+            => await _personalInformationService.SubscribeAsync(Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value), channelId, isSubscribe, subscribeType);
 
         /// <summary>
         /// 
@@ -170,12 +188,19 @@ namespace BusinessCard.Controllers
         /// <returns>  </returns>
         [HttpGet]
         public async Task<string> GetPostInformation([FromQuery] string postKey)
-            => JsonConvert.SerializeObject(new
+        {
+            var isAuthenticated = User.Identity.IsAuthenticated;
+            return JsonConvert.SerializeObject(new
             {
-                PostInformation = await _postService.GetPostInformationAsync(1, postKey),
-                AuthorizedUser = true,
-                UserName = "Максим"
+                PostInformation = await _postService.GetPostInformationAsync(
+                    isAuthenticated
+                        ? Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value)
+                        : -1,
+                    postKey),
+                AuthorizedUser = isAuthenticated,
+                UserName = isAuthenticated ? User.FindFirst(CookieConstants.UserName).Value : string.Empty
             });
+        }
 
         /// <summary>
         /// 
@@ -187,7 +212,12 @@ namespace BusinessCard.Controllers
         public async Task<string> GetFirstCommentsInformation([FromQuery] int postId, [FromQuery] int commentsCount)
             => JsonConvert.SerializeObject(new
             {
-                CommentsInformation = await _commentService.GetFirstCommentsInformationAsync(postId, commentsCount, 1)
+                CommentsInformation = await _commentService.GetFirstCommentsInformationAsync(
+                    postId, 
+                    commentsCount, 
+                    User.Identity.IsAuthenticated
+                        ? (int?)Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value)
+                        : null)
             });
 
         /// <summary>
@@ -200,7 +230,13 @@ namespace BusinessCard.Controllers
         public async Task<string> GetCommentsInformation([FromQuery] int postId, [FromQuery] int lastBranchId, [FromQuery] bool allNextComments = false)
             => JsonConvert.SerializeObject(new
             {
-                CommentsInformation = await _commentService.GetCommentsInformationAsync(postId, lastBranchId, allNextComments, 1)
+                CommentsInformation = await _commentService.GetCommentsInformationAsync(
+                    postId, 
+                    lastBranchId, 
+                    allNextComments,
+                    User.Identity.IsAuthenticated
+                        ? (int?)Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value)
+                        : null)
             });
 
         /// <summary>
@@ -214,7 +250,13 @@ namespace BusinessCard.Controllers
         public async Task<string> GetCommentsByBranch([FromQuery] int postId, [FromQuery] int branchId, [FromQuery] int lastCommentId)
             => JsonConvert.SerializeObject(new
             {
-                Comments = await _commentService.GetCommentsByBranchAsync(postId, branchId, lastCommentId, 1)
+                Comments = await _commentService.GetCommentsByBranchAsync(
+                    postId, 
+                    branchId,
+                    lastCommentId,
+                    User.Identity.IsAuthenticated
+                        ? (int?)Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value)
+                        : null)
             });
 
         /// <summary>
@@ -223,9 +265,10 @@ namespace BusinessCard.Controllers
         /// <param name="comment">  </param>
         /// <returns>  </returns>
         [HttpPost]
+        [Authorize]
         public async Task<string> CreateComment([FromBody] CommentIn comment)
         {
-            comment.UserId = 1;
+            comment.UserId = Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value);
             var result = await _commentService.CreateCommentAsync(comment);
             return JsonConvert.SerializeObject(new
             {
@@ -234,8 +277,27 @@ namespace BusinessCard.Controllers
             });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commentId">  </param>
+        /// <returns>  </returns>
         [HttpPost]
+        [Authorize]
         public async Task<bool> DeleteComment(int commentId)
-            => await _commentService.DeleteCommentAsync(commentId, 1);
+            => await _commentService.DeleteCommentAsync(commentId, Convert.ToInt32(User.FindFirst(CookieConstants.UserId).Value));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId">  </param>
+        /// <returns>  </returns>
+        [HttpGet]
+        [Authorize]
+        public async Task<string> GetUserStatistic(int userId)
+            => JsonConvert.SerializeObject(new
+            {
+                BlogStatistic = await _personalInformationService.GetUserBlogStatisticAsync(userId)
+            });
     }
 }

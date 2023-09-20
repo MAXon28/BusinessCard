@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace BusinessCard.Services
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class FileSaver
+    /// <inheritdoc cref="IFileSaver"/>
+    public class FileSaver : IFileSaver
     {
         /// <summary>
         /// 
@@ -18,24 +16,19 @@ namespace BusinessCard.Services
 
         public FileSaver(IWebHostEnvironment appEnvironment) => _appEnvironment = appEnvironment;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="file">  </param>
-        /// <param name="fileDirectory">  </param>
-        /// <returns>  </returns>
-        public async Task<string> SaveFileAsync(IFormFile file, string fileDirectory)
+        /// <inheritdoc/>
+        public async Task<string> SaveFileAsync(IFormFile file, string fileDirectory, bool needAdditionalNamePart = false)
         {
-            var fullFileName = string.Empty;
+            if (file is null)
+                throw new Exception("Нет данных по файлу");
 
-            if (!(file is null))
-            {
-                fullFileName = Path.Combine(_appEnvironment.WebRootPath, fileDirectory, Guid.NewGuid().ToString("N") + file.FileName);
-                using var fileStream = new FileStream(fullFileName, FileMode.Create);
-                await file.CopyToAsync(fileStream);
-            }
-
-            return fullFileName;
+            var fileName = !needAdditionalNamePart
+                ? file.FileName
+                : Guid.NewGuid().ToString("N") + file.FileName;
+            var fullFileName = Path.Combine(_appEnvironment.WebRootPath, fileDirectory, fileName);
+            using var fileStream = new FileStream(fullFileName, FileMode.Create);
+            await file.CopyToAsync(fileStream);
+            return fullFileName.Replace(_appEnvironment.WebRootPath, string.Empty);
         }
     }
 }

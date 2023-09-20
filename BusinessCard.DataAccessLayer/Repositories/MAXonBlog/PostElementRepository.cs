@@ -1,5 +1,4 @@
-﻿using BusinessCard.DataAccessLayer.Entities.MAXonBlog;
-using BusinessCard.DataAccessLayer.Entities.MAXonBlog.PostDetails;
+﻿using BusinessCard.DataAccessLayer.Entities.MAXonBlog.PostDetails;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonBlog;
 using Dapper;
 using DapperAssistant;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
 {
-    public class PostElementRepository : StandardRepository<PostElement>, IPostElementRepository
+    internal class PostElementRepository : StandardRepository<PostElement>, IPostElementRepository
     {
         public PostElementRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 

@@ -17,13 +17,14 @@ flipButtonFront.addEventListener('click', function () {
         divBack.classList.remove('loaded');
 
         $.ajax({
+            async: true,
             type: "GET",
             url: "/MAXonBusinessCard/GetMainFacts",
             success: function (mainFacts) {
                 for (i = 0; i < mainFacts.length; i++) {
                     var p = document.createElement("p");
                     p.className = "fact";
-                    p.innerHTML = "- " + mainFacts[i];
+                    p.innerHTML = "- " + mainFacts[i].text;
                     backDiv.append(p);
                 }
 

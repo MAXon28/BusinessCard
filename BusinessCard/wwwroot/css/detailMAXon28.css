@@ -1,0 +1,111 @@
+﻿.container {
+    padding: 28px 0;
+}
+
+.adminButtons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    margin: 12px;
+    padding-bottom: 28px;
+    align-items: center;
+}
+
+.adminButton {
+    font-size: 17px;
+    font-family: sans-serif;
+    padding: 7px 12px;
+    background: #211F30;
+    border-radius: 12px;
+    margin: 12px;
+    box-shadow: 0 3px 12px #211f30;
+    cursor: pointer;
+    text-align: center;
+    background: #211F30;
+}
+
+.biography { color: #E29930; }
+
+.aboutMe { color: #87CEFA; }
+
+.data { color: #FFF; }
+
+.center {
+    max-width: 928px;
+    padding: 32px;
+    border-radius: 9px;
+    box-shadow: 0 4px 16px #211f30;
+    position: relative;
+    background: #fff;
+    margin: 0 auto;
+}
+
+.inputData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 300;
+    position: relative;
+    transition: all .5s ease;
+}
+
+.editor {
+    height: 171px;
+    min-height: 171px;
+    padding: 12px;
+    outline: none;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 19px;
+    font-family: sans-serif;
+    color: #211f30;
+    overflow-x: hidden;
+    align-self: stretch;
+}
+
+    .editor::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .editor::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    .editor::-webkit-scrollbar-thumb {
+        background-color: #e0e0e0;
+        border-radius: 5px;
+    }
+
+[contenteditable]:empty:before {
+    content: attr(data-placeholder);
+    font-size: 22px;
+    color: #e0e0e0;
+    font-family: sans-serif;
+    display: inline-block;
+}
+
+.calculatedValueVariantsBlock {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.valueVariants {
+    outline: none;
+    background: #211f30;
+    border-radius: 5px;
+    color: #87CEFA;
+    font-size: 20px;
+    padding: 7px;
+    border: 0;
+}
+
+.processInSelector {
+    color: white;
+}

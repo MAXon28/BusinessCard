@@ -1,7 +1,7 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Blog;
-using BusinessCard.BusinessLogicLayer.Interfaces;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces;
 using BusinessCard.DataAccessLayer.Entities.MAXonBlog;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonBlog;
+using BusinessCard.Entities.DTO.Blog;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
     /// <summary>
     /// 
     /// </summary>
-    public class ChannelService : IChannelService
+    internal class ChannelService : IChannelService
     {
         /// <summary>
         /// 
@@ -58,7 +58,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <param name="channel">  </param>
         /// <returns>  </returns>
         private ChannelDto GetChannelInDto(Channel channel)
-            => new ChannelDto
+            => new()
             {
                 Id = channel.Id,
                 Name = channel.Name,

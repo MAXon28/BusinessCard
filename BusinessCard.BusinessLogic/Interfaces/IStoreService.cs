@@ -1,4 +1,4 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Store;
+﻿using BusinessCard.Entities.DTO.Store;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -1,0 +1,225 @@
+﻿.body-profile {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: linear-gradient(180deg, #E0FFFF, #edeef0);
+    background-size: cover;
+    font-family: sans-serif;
+}
+
+.scene-profile {
+    min-width: 728px;
+    margin: 40px auto;
+    margin-bottom: 5px;
+    font-size: 0;
+}
+
+.wrapperBlock {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 81px;
+    margin-bottom: 71px;
+    width: 90%;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.userCard {
+    display: flex;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px #ccc;
+    flex-direction: row;
+    align-items: center;
+    background: white;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 1s, box-shadow 0.3s ease-out;
+}
+
+.userCard:hover {
+    box-shadow: 0 24px 36px #ccc;
+}
+
+.skillPercentOfKnowledgeBlock {
+    background-color: #211F30;
+    width: 81px;
+    height: 81px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+}
+
+.skillPercentOfKnowledge {
+    color: #87cefa;
+    font-size: 26px;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 0;
+}
+
+.informationBlock {
+    display: flex;
+    flex-direction: column;
+    width: 237px;
+    justify-content: center;
+    margin-right: 12px;
+    margin-left: 28px;
+    align-items: flex-start;
+}
+
+.mainText {
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: left;
+    color: #211F30;
+    font-size: 22px;
+    margin: 12px 0;
+    margin-top: 28px;
+}
+
+.detailText {
+    font-size: 18px;
+    text-align: center;
+    color: #ccc;
+    margin: 0;
+    margin-bottom: 28px;
+}
+
+.detailText span {
+    color: #000;
+}
+
+.logout {
+    color: #e29930;
+    font-size: 18px;
+    font-family: system-ui;
+    align-self: end;
+    margin-bottom: 28px;
+    margin-right: 12px;
+    text-decoration: none;
+}
+
+.logout span {
+    border-bottom: 1px dashed #e29930;
+    padding-bottom: 1px;
+}
+
+.cardsBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 51px;
+    align-items: center;
+}
+
+.workCard {
+    position: relative;
+    display: flex;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px #ccc;
+    flex-direction: column;
+    align-items: flex-start;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 1s, box-shadow 0.3s ease-out;
+}
+
+.workCard:hover {
+    box-shadow: 0 24px 36px #ccc;
+}
+
+.workCard p {
+    margin-right: 12px;
+    margin-left: 12px;
+}
+
+.applicationCard {
+    position: relative;
+    display: flex;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px #ccc;
+    flex-direction: column;
+    align-items: flex-start;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    text-decoration: none;
+    max-width: 371px;
+    opacity: 0;
+    transition: opacity 1s, box-shadow 0.3s ease-out;
+}
+
+.applicationCard:hover {
+    box-shadow: 0 24px 36px #ccc;
+}
+
+.applicationCard p {
+    margin-right: 12px;
+    margin-left: 12px;
+}
+
+.skillPercentOfKnowledgeBlock {
+    background-color: #211F30;
+    width: 81px;
+    height: 81px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+}
+
+.skillPercentOfKnowledge {
+    color: #87cefa;
+    font-size: 26px;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 0;
+}
+
+.indicator {
+    position: absolute;
+    top: 5%;
+    right: 0%;
+    left: 81%;
+    bottom: 0;
+    background-color: #ffffff;
+    border-radius: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 41px;
+    height: 41px;
+    box-shadow: 0.7px 0.7px 7px 0 #ddd;
+}
+
+.count {
+    font-family: sans-serif;
+    color: #e29930;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 841px) {
+    .wrapperBlock {
+        width: 95%;
+    }
+
+    .workCard {
+        margin-right: 14px;
+    }
+
+    .applicationCard {
+        margin-left: 14px;
+    }
+}

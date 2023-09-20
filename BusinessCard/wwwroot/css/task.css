@@ -1,0 +1,653 @@
+﻿.body-task {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: linear-gradient(180deg, #E0FFFF, #edeef0);
+    background-size: cover;
+}
+
+.scene-task {
+    min-width: 728px;
+    margin: 40px auto;
+    margin-bottom: 28px;
+    font-size: 0;
+}
+
+.mainBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.taskInformation {
+    display: flex;
+    width: 807px;
+    flex-direction: column;
+    margin: 0 12px;
+}
+
+.taskRecords {
+    display: flex;
+    flex-direction: column;
+    margin: 0 12px;
+}
+
+.taskRecordsBlock {
+    display: flex;
+    width: 528px;
+    flex-direction: column;
+    background: #ffffff;
+    padding: 12px;
+    box-shadow: 0 4px 16px #ccc;
+    border-radius: 12px;
+    align-items: center;
+}
+
+.taskReceipt {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ccc;
+    font-family: sans-serif;
+    margin: 12px 0;
+    align-self: flex-start;
+}
+
+.taskName {
+    font-size: 26px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #211F30;
+    margin: 12px 0;
+    text-align: center;
+}
+
+.taskInfoBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    box-shadow: 0 4px 16px #ccc;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.personalInfoBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    box-shadow: 0 4px 16px #ccc;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 41px;
+}
+
+.blockHeader {
+    font-size: 19px;
+    font-family: sans-serif;
+    color: #e29930;
+    text-align: left;
+    margin: 7px 0;
+}
+
+.separator {
+    width: 100%;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.dataBlock {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 12px 0;
+}
+
+.taskElement {
+    font-size: 19px;
+    color: #ccc;
+    font-family: sans-serif;
+    margin: 5px 0;
+}
+
+.taskData {
+    font-size: 20px;
+    color: #211f30;
+    font-family: sans-serif;
+    margin: 0;
+    text-align: center;
+}
+
+.personalDataBlock {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.taskDataBlock {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.taskFileBlock a {
+    background: #87cefa;
+    text-decoration: none;
+    padding: 7px 12px;
+    border-radius: 3px;
+    opacity: 1;
+    transition: 0.4s opacity;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: sans-serif;
+    color: white;
+}
+
+.taskFileBlock a:hover {
+    opacity: 0.8;
+}
+
+.taskTechnicalSpecification {
+    font-size: 19px;
+    color: #ffffff;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.taskFile {
+    font-size: 19px;
+    color: #ffffff;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.taskStatus {
+    font-size: 20px;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.processStatus {
+    color: #211F30;
+}
+
+.doneStatus {
+    color: #3cd93a;
+}
+
+.rejectedStatus {
+    color: #eb3c3c;
+}
+
+.fixedPrice {
+    font-size: 26px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #87cefa;
+    text-align: center;
+}
+
+.recordsBlock {
+    display: block;
+    width: 100%;
+    max-height: 701px;
+    overflow: auto;
+    margin-top: 12px;
+    padding: 7px;
+}
+
+.recordsBlock::-webkit-scrollbar {
+    width: 5px;
+}
+
+.recordsBlock::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.recordsBlock::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+}
+
+.recordBlock {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 22px;
+}
+
+.record {
+    border-radius: 12px 12px 12px 3px;
+    width: 60%;
+    background: #211f30;
+}
+
+.recordText {
+    border-radius: 12px 12px 12px 3px;
+    font-size: 17px;
+    font-family: sans-serif;
+    font-style: italic;
+    margin: 17px 12px;
+}
+
+.recordDetail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.rightDetail {
+    align-self: flex-end;
+}
+
+.recordAuthor {
+    font-size: 15px;
+    color: #000;
+    font-family: sans-serif;
+    margin: 0;
+    margin-right: 12px;
+}
+
+.recordCreationDate {
+    font-size: 15px;
+    color: #b7b7b7;
+    font-family: system-ui;
+    margin: 0;
+}
+
+.admin {
+    color: #87cefa;
+}
+
+.user {
+    color: #e29930;
+}
+
+.right {
+    position: relative;
+    left: 40%;
+    border-radius: 12px 12px 3px 12px;
+}
+
+.technicalSpecificationText {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 22px;
+    font-family: sans-serif;
+    color: #000;
+    padding: 12px;
+    box-shadow: 0.5px 0.5px 5px 0 #ddd;
+    border-radius: 5px;
+}
+
+.technicalSpecificationText ul li {
+    list-style-type: "– ";
+}
+
+@media only screen and (max-width: 1071px) {
+    .mainBlock {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .taskRecordsBlock {
+        width: 783px;
+        margin-top: 41px;
+    }
+}
+
+@media only screen and (max-width: 831px) {
+    .taskInformation {
+        width: 640px;
+    }
+
+    .taskRecordsBlock {
+        width: 616px;
+        align-self: center;
+    }
+}
+
+.userBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 12px;
+}
+
+.addTaskReview {
+    font-size: 17px;
+    font-family: sans-serif;
+    padding: 7px 12px;
+    background: #211F30;
+    border-radius: 12px;
+    margin: 12px 7px;
+    box-shadow: 0 3px 12px #211f30;
+    cursor: pointer;
+    text-align: center;
+    color: #e29930;
+}
+
+.fullWindow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(4 11 32 / 55%);
+    z-index: 1050;
+    backdrop-filter: blur(5px);
+    margin: 0 auto;
+    padding: 28px;
+}
+
+.skipButton {
+    position: relative;
+    margin: 0;
+    margin-right: 40px;
+    font-size: 40px;
+    font-family: sans-serif;
+    color: white;
+    cursor: pointer;
+    text-align: right;
+}
+
+#reviewCreation {
+    min-width: 728px;
+}
+
+.center {
+    max-width: 928px;
+    padding: 32px;
+    border-radius: 9px;
+    box-shadow: 0 4px 16px #211f30;
+    position: relative;
+    background: #fff;
+    margin: 0 auto;
+}
+
+.rating__star {
+    display: block;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.inputBox {
+    position: relative;
+    margin: 28px auto;
+    width: 100%;
+}
+
+.input {
+    border: 1px solid #e0e0e0;
+    outline: none;
+    padding: 19px 12px;
+    border-radius: 5px;
+    font-size: 22px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border 328ms;
+    font-family: sans-serif;
+    color: #211f30;
+}
+
+.placeholder {
+    color: #e0e0e0;
+    font-family: sans-serif;
+    left: 12px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 500ms, color 500ms;
+    top: 17px;
+    background: white;
+    font-size: 22px;
+    padding: 3px;
+}
+
+.input:focus ~ .placeholder, .input:valid ~ .placeholder {
+    transform: translateX(-1px) translateY(-28px);
+    font-size: 16px;
+    color: #87CEFA;
+}
+
+.input:focus {
+    border: 1px solid #E29930;
+}
+
+.errorMessage {
+    display: none;
+    color: red;
+    font-size: 19px;
+    text-align: center;
+    font-family: system-ui;
+}
+
+.screen-reader {
+    width: var(--screenReaderWidth, 1px) !important;
+    height: var(--screenReaderHeight, 1px) !important;
+    padding: var(--screenReaderPadding, 0) !important;
+    border: var(--screenReaderBorder, none) !important;
+    position: var(--screenReaderPosition, absolute) !important;
+    clip: var(--screenReaderClip, rect(1px, 1px, 1px, 1px)) !important;
+    overflow: var(--screenReaderOverflow, hidden) !important;
+}
+
+.newRating {
+    width: min-content;
+    --uiRatingColor: var(--ratingColor, lightgray);
+    --uiRatingColorActive: var(--ratingColorActive, #ffd700);
+    display: var(--ratingDisplay, flex);
+    font-size: var(--ratingSize, 27px);
+    color: var(--uiRatingColor);
+}
+
+.newItem {
+    position: relative;
+    cursor: pointer;
+}
+
+    .newItem:nth-of-type(1) {
+        padding: 0px 5px 0px 0px;
+    }
+
+    .newItem:nth-of-type(-n+2),
+    .newItem:nth-of-type(-n+3),
+    .newItem:nth-of-type(-n+4),
+    .newItem:nth-of-type(-n+5) {
+        padding: 0px 5px;
+    }
+
+.newRating:hover,
+.rating__control:nth-of-type(1):checked ~ .newItem:nth-of-type(1),
+.rating__control:nth-of-type(2):checked ~ .newItem:nth-of-type(-n+2),
+.rating__control:nth-of-type(3):checked ~ .newItem:nth-of-type(-n+3),
+.rating__control:nth-of-type(4):checked ~ .newItem:nth-of-type(-n+4),
+.rating__control:nth-of-type(5):checked ~ .newItem:nth-of-type(-n+5) {
+    color: var(--uiRatingColorActive);
+}
+
+.newItem:hover ~ .newItem {
+    color: var(--uiRatingColor);
+}
+
+.editor {
+    margin: 22px auto;
+    height: 328px;
+    min-height: 328px;
+    padding: 12px;
+    outline: none;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 22px;
+    font-family: sans-serif;
+    color: #211f30;
+    overflow-x: hidden;
+}
+
+    .editor::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .editor::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    .editor::-webkit-scrollbar-thumb {
+        background-color: #e0e0e0;
+        border-radius: 5px;
+    }
+
+[contenteditable]:empty:before {
+    content: attr(data-placeholder);
+    font-size: 22px;
+    color: #e0e0e0;
+    font-family: sans-serif;
+    display: inline-block;
+}
+
+.textRule {
+    color: #211f30;
+    font-size: 19px;
+    margin: 0;
+    font-family: sans-serif;
+    margin: 28px auto;
+}
+
+@media (max-width: 794px) {
+    #reviewCreation {
+        padding: 28px 0;
+    }
+}
+
+.formButton {
+    display: flex;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-size: 17px;
+    color: #fff;
+    background-color: #87CEFA;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .formButton:hover {
+        opacity: 0.67;
+    }
+
+    .formButton p {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+.preloaderReview {
+    width: max-content;
+    margin: 0 auto;
+}
+
+.preloader__imageReview {
+    width: 55px;
+    height: 55px;
+    text-align: center;
+    animation: preloader-rotate 1s infinite linear;
+    color: #E29930;
+}
+
+@keyframes preloader-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.thanksForReview {
+    opacity: 0;
+    transition: 1.28s;
+    font-size: 35px;
+    font-family: sans-serif;
+    color: #211f30;
+    text-align: center;
+    margin: 12px auto;
+}
+
+.thanksForReviewView {
+    opacity: 1;
+}
+
+.fullWindowReview {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(4 11 32 / 55%);
+    z-index: 1050;
+    backdrop-filter: blur(5px);
+    margin: 0 auto;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+}
+
+.centerReview {
+    max-width: 428px;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px #211f30;
+    position: relative;
+    background: #fff;
+    margin: 0 auto;
+}
+
+.requirementReview {
+    font-size: 28px;
+    font-family: sans-serif;
+    text-align: left;
+    font-weight: bold;
+}
+
+.skipButtonReview {
+    position: absolute;
+    margin: 0;
+    top: 12px;
+    right: 28px;
+    font-size: 40px;
+    font-family: sans-serif;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+.errorMessage {
+    display: none;
+    color: red;
+    font-size: 17px;
+    text-align: center;
+    font-family: system-ui;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.successMessage {
+    display: none;
+    color: green;
+    font-size: 17px;
+    text-align: center;
+    font-family: system-ui;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}

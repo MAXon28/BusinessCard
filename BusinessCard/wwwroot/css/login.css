@@ -56,7 +56,7 @@
 }
 
 .frame-long {
-    height: 781px;
+    height: 851px;
 }
 
 .frame-short {
@@ -135,9 +135,21 @@ input[type="number"]:focus {
 .errorMessage {
     display: none;
     color: red;
-    font-size: 19px;
+    font-size: 17px;
     text-align: center;
     font-family: system-ui;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.successMessage {
+    display: none;
+    color: green;
+    font-size: 17px;
+    text-align: center;
+    font-family: system-ui;
+    margin-top: 8px;
+    margin-bottom: 0px;
 }
 
 li {
@@ -211,7 +223,7 @@ li {
     height: 701px;
     font-size: 16px;
     font-weight: 300;
-    padding-left: 22px;
+    padding-left: 37px;
     padding-right: 37px;
     padding-top: 7px;
     position: relative;
@@ -315,7 +327,7 @@ a.btn-signup:hover, a.btn-signin:hover {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    margin-top: -981px;
+    margin-top: -831px;
     border-top: solid 1px rgba(255,255,255,.3);
     transition: all 0.5s ease;
 }

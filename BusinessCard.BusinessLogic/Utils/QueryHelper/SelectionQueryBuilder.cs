@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces.Utils.QueryHelper;
+using Dapper;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,7 +8,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper
     /// <summary>
     /// 
     /// </summary>
-    public abstract class SelectionQueryBuilder
+    internal abstract class SelectionQueryBuilder : ISelectionQueryBuilder
     {
         /// <summary>
         /// 
@@ -18,6 +19,11 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper
         /// 
         /// </summary>
         protected const string TableElementNameTemplate = "*table_element_name*";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected const string TopTemplate = "*top*";
 
         /// <summary>
 		/// Шаблон выборки данных
@@ -62,7 +68,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper
         /// <summary>
         /// Шаблон запроса
         /// </summary>
-        protected readonly string _sqlQueryTemplate = @$"SELECT {SelectionSetTemplate}
+        protected readonly string _sqlQueryTemplate = @$"SELECT {TopTemplate} {SelectionSetTemplate}
 												         FROM {TableNameTemplate} {TableElementNameTemplate} 
 														    {FirstJoinTemplate}
 														    {SecondJoinTemplate}
@@ -72,7 +78,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper
         /// <summary>
         /// Параметры запроса
         /// </summary>
-        protected readonly DynamicParameters _parameters = new DynamicParameters();
+        protected readonly DynamicParameters _parameters = new();
 
         /// <summary>
         /// Запрос
@@ -84,19 +90,18 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper
         /// </summary>
         protected Dictionary<string, IFilterBuilder> _filterBuildersDictionary;
 
-        public SelectionQueryBuilder() => TypeOfSelect = SelectTypes.Data;
-
-        /// <summary>
-        /// Тип выборки
-        /// </summary>
-        public SelectTypes TypeOfSelect { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="requestSettings">  </param>
-        /// <returns>  </returns>
-        public abstract QueryData GetQueryData(IRequestSettings requestSettings);
+        protected int _dataCountInPackage;
+
+        protected SelectionQueryBuilder() => TypeOfSelect = SelectTypes.Data;
+
+        /// <inheritdoc/>
+        public SelectTypes TypeOfSelect { get; set; }
+
+        /// <inheritdoc/>
+        public abstract QueryData GetQueryData(RequestSettings requestSettings);
 
         /// <summary>
         /// 
@@ -112,13 +117,12 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper
         /// <summary>
         /// Установить выборку
         /// </summary>
-        /// <param name="offset"> Сдвиг на конкретное число (для пагинации) </param>
-        protected void SetSelect(int offset)
+        protected void SetSelect()
         {
             switch (TypeOfSelect)
             {
                 case SelectTypes.Data:
-                    SetDataSelect(offset);
+                    SetDataSelect();
                     break;
                 case SelectTypes.Count:
                     SetCountSelect();
@@ -129,8 +133,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper
         /// <summary>
         /// Установить выборку данных
         /// </summary>
-        /// <param name="offset"> Сдвиг на конкретное число (для пагинации) </param>
-        protected abstract void SetDataSelect(int offset);
+        protected abstract void SetDataSelect();
 
         /// <summary>
         /// Устноавить выборку количества данных
@@ -140,12 +143,28 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper
         /// <summary>
         /// Установить соединение
         /// </summary>
-        protected abstract void SetJoin();
+        protected virtual void SetJoin()
+        {
+            _sqlQuery.Replace(FirstJoinTemplate, string.Empty);
+            _sqlQuery.Replace(SecondJoinTemplate, string.Empty);
+        }
 
         /// <summary>
         /// Установить фильтрацию
         /// </summary>
         protected abstract void SetWhere();
+
+        /// <summary>
+        /// Установить ограничение на количество
+        /// </summary>
+        /// <param name="offset"> Сдвиг на конкретное число (для пагинации) </param>
+        protected virtual void SetTop(int offset = -1)
+            => _sqlQuery.Replace(TopTemplate, TypeOfSelect == SelectTypes.Data && offset == -1 ? $"TOP ({_dataCountInPackage})" : string.Empty);
+
+        /// <summary>
+        /// Установить сортировку
+        /// </summary>
+        protected abstract void SetOrderBy();
 
         /// <summary>
         /// Установить фильтр

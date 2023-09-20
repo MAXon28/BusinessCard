@@ -1,0 +1,129 @@
+﻿.body-vacancy {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: linear-gradient(180deg, #E0FFFF, #edeef0);
+    background-size: cover;
+    font-family: sans-serif;
+}
+
+.scene-vacancy {
+    min-width: 728px;
+    margin: 40px auto;
+    margin-bottom: 5px;
+    font-size: 0;
+}
+
+.mainBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.vacancyBlock {
+    width: 701px;
+    margin: 40px auto 71px auto;
+}
+
+.vacancyCard {
+    width: 100%;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 0 4px 16px #ccc;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainPart {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.infoBlock {
+    display: flex;
+    flex-direction: column;
+    margin: 22px 0;
+}
+
+.name {
+    font-size: 27px;
+    font-family: sans-serif;
+    color: #211f30;
+    margin: 0 28px;
+}
+
+.date {
+    font-size: 17px;
+    font-family: sans-serif;
+    color: #ccc;
+    margin-right: 28px;
+}
+
+.separator {
+    width: 100%;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.dataBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.partBlock {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+}
+
+.data {
+    font-size: 22px;
+    font-family: sans-serif;
+    word-break: break-all;
+    text-align: left;
+    margin-right: 12px;
+    margin-left: 12px;
+}
+
+.text {
+    color: #211f30;
+    text-align: center;
+}
+
+.salary {
+    font-size: 22px;
+    color: #87CEFA;
+    margin: 0 28px;
+    margin-top: 7px;
+}
+
+.descriptionBlock {
+    width: 100%;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 0 4px 16px #ccc;
+    display: flex;
+    flex-direction: column;
+    margin-top: 71px;
+}
+
+.description {
+    font-size: 22px;
+    font-family: sans-serif;
+    color: #000;
+    padding: 22px 28px;
+}
+
+.description ul {
+    margin: 7px 0px;
+}
+
+.description ul li {
+    list-style-type: "– ";
+}

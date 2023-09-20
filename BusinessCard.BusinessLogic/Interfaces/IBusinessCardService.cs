@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BusinessCard.Entities.DTO.AboutMe;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BusinessCard.BusinessLogicLayer.Interfaces
@@ -12,6 +13,13 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// Получить список фактов
         /// </summary>
         /// <returns> Список фактов </returns>
-        public Task<List<string>> GetFactsAsync();
+        public Task<IReadOnlyCollection<Fact>> GetFactsAsync();
+
+        /// <summary>
+        /// Обновить факт
+        /// </summary>
+        /// <param name="fact"> Факт </param>
+        /// <returns> Успешно прошло обновление или нет </returns>
+        public Task<bool> UpdateFactAsync(Fact fact);
     }
 }

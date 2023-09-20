@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Создание вакансии";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/vacancyCreator.css" runat="server" />
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-jobPlacement">
+    <div class="scene-jobPlacement">
+        <div id="form" class="center">
+            <h1 class="form_title">Анкета вакансии</h1>
+            <div class="information">
+                i
+            </div>
+            <div class="popup-text">
+                Информация о создании вакансии. Все данные используются исключительно в интересах владельца сайта и не передаются третьим лицам.
+            </div>
+            <form class="form">
+                <div class="mainDataBlock"> 
+                    <div class="partBlock" style="margin-right: 7px;">
+                        <div class="inputbox">
+                            <input id="name" class="input" type="text" required="required" autocomplete="off" maxlength="71">
+                            <span class="placeholder">Вакансия</span>
+                            <p id="nameError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                        </div>
+                        <div class="inputbox">
+                            <input id="company" class="input" type="text" required="required" autocomplete="off" maxlength="71">
+                            <span class="placeholder">Компания</span>
+                            <p id="companyError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                        </div>
+                        <div class="inputbox">
+                            <input id="position" class="input" type="text" required="required" autocomplete="off" maxlength="71">
+                            <span class="placeholder">Должность</span>
+                            <p id="positionError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                        </div>
+                    </div>
+                    <div class="partBlock" style="margin-left: 7px;">
+                        <div class="inputbox">
+                            <input id="workFormat" class="input" type="text" required="required" autocomplete="off" maxlength="51">
+                            <span class="placeholder">Формат работы</span>
+                            <p id="workFormatError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                        </div>
+                        <div class="inputbox">
+                            <input id="contacts" class="input" type="text" required="required" autocomplete="off" maxlength="128">
+                            <span class="placeholder">Контакты</span>
+                            <p id="contactsError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="salaryHeader">Предлагаемая зарплата</p>
+                <div class="salary">
+                    <input id="salaryFrom" class="inputSalary inputFrom" type="number" placeholder="от" style="border-radius: 5px 0 0 5px; border-right: 0.5px;">
+                    <input id="salaryTo" class="inputSalary inputTo" type="number" placeholder="до" style="border-right: 0.5px;">
+                    <select id="currency" class="toolbar-font">
+                        <option value="₽" selected>₽</option>
+                        <option value="€">€</option>
+                        <option value="$">$</option>
+                    </select>
+                </div>
+                <p class="descriptionHeader">Описание</p>
+                <div class="description">
+                    <div class="toolbar">
+                        <a href="#" class="toolbar-b" title="Жирный"><i class="fa fas fa-bold fa-lg"></i></a>
+                        <a href="#" class="toolbar-i" title="Курсив"><i class="fa fas fa-italic fa-lg"></i></a>
+                        <a href="#" class="toolbar-ul" title="Маркированный список"><i class="fa fas fa-list-ul fa-lg"></i></a>
+                        <br>
+                        <a href="#" class="toolbar-left" title="по левому краю"><i class="fa fas fa-align-left fa-lg"></i></a>
+                        <a href="#" class="toolbar-center" title="по центру"><i class="fa fas fa-align-center fa-lg"></i></a>
+                        <a href="#" class="toolbar-right" title="по правому краю"><i class="fa fas fa-align-right fa-lg"></i></a>
+                        <a href="#" class="toolbar-justify" title="по ширине"><i class="fa fas fa-align-justify fa-lg"></i></a>
+                        <br>
+                    </div>
+                    <div id="description" class="editor" contenteditable="true">
+                        <div>
+                            <div style="text-align: justify;"><b>Обязанности:</b></div>
+                            <ul>
+                                <li style="text-align: justify;">...</li>
+                                <li style="text-align: justify;">...</li>
+                                <li style="text-align: justify;">...</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div style="text-align: justify;"><b>Требования:</b></div>
+                            <ul>
+                                <li style="text-align: justify;">...</li>
+                                <li style="text-align: justify;">...</li>
+                                <li style="text-align: justify;">...</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div style="text-align: justify;"><b>Условия:</b></div>
+                            <ul>
+                                <li style="text-align: justify;">...</li>
+                                <li style="text-align: justify;">...</li>
+                                <li style="text-align: justify;">...</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button class="form_button" onclick="CreateVacancy()">Отправить</button>
+            </form>
+        </div>
+        <div class="reverse-spinner skip">
+            <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+        </div>
+        <div class="success skip">
+            <p>Вакансия создана!</p>
+            <p>Скоро я дам ответ. Большое спасибо за предложение и интерес ко мне!</p>
+        </div>
+        <div class="error skip">
+            <p>Вакансия не создана - произошла ошибка. Приношу свои извинения.</p>
+            <p>Попробуйте ещё раз!</p>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script> 
+    <script src="~/js/vacancyCreator.js"></script>
+</body>
+</html>

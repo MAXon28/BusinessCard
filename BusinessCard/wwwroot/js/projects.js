@@ -4,6 +4,7 @@ var isLoadVisible = false;
 var currentPageId = "page1";
 var isSmall = false;
 var canThrowOff = false;
+var lastProjectIdInPage = [];
 
 $(window).resize(function () {
     var width = $(window).width();
@@ -114,7 +115,7 @@ function init() {
     $.ajax({
         async: true,
         type: "GET",
-        url: "/MAXonStore/GetAllProjectsData?SortType=1",
+        url: "/MAXonStore/GetAllProjectsData?LastProjectId=-1&SortType=1",
         contentType: 'application/json',
         dataTpye: "json",
         success: function (projectsData) {
@@ -326,6 +327,9 @@ function SearchProjects() {
     if (applyFilters.ProjectName != notApplyFilters.ProjectName) {
         currentPageId = "page1";
 
+  
+        lastProjectIdInPage = [];
+
         applyFilters.ProjectName = notApplyFilters.ProjectName;
 
         UncheckFilter();
@@ -377,6 +381,8 @@ $('.select__item').on('click', function () {
             var pageButton = document.getElementById(`page1`);
             pageButton.classList.add("active");
         }
+
+        //lastProjectIdInPage = [];
 
         applyFilters.SortType = sort;
 
@@ -519,6 +525,8 @@ function Apply() {
 
     currentPageId = "page1";
 
+    lastProjectIdInPage = [];
+
     applyFilters = JSON.parse(JSON.stringify(notApplyFilters));
 
     if (applyFilters.ProjectTypes.length != 0 || applyFilters.ProjectCategories.length != 0 || applyFilters.ProjectCompatibilities.length != 0) {
@@ -574,10 +582,16 @@ function GetRequestParameters(pageNumber, needUpdatePagesCount) {
     if (applyFilters.ProjectName != "")
         requestParameters += "ProjectName=" + applyFilters.ProjectName;
 
+    var lastProjectId = -1;
+    if (pageNumber > 1 && applyFilters.SortType == 1)
+        lastProjectId = lastProjectIdInPage[pageNumber - 1];
+
     if (requestParameters == "")
-        requestParameters += "SortType=" + applyFilters.SortType;
+        requestParameters += "LastProjectId=" + lastProjectId;
     else
-        requestParameters += "&SortType=" + applyFilters.SortType;
+        requestParameters += "&LastProjectId=" + lastProjectId;
+
+    requestParameters += "&SortType=" + applyFilters.SortType;
 
     if (applyFilters.ProjectTypes.length > 0) {
         for (var i = 0; i < applyFilters.ProjectTypes.length; i++) {
@@ -616,7 +630,7 @@ function GetRequestParameters(pageNumber, needUpdatePagesCount) {
     return requestParameters;
 }
 
-function SetProjects(projects) {
+function SetProjects(projects, pageNumber = 1) {
     var projectsBlock = document.getElementById(`projects`);
     for (var i = 0; i < projects.length; i++) {
         var myProjectBlock = document.createElement("div");
@@ -703,6 +717,9 @@ function SetProjects(projects) {
         myProjectBlock.append(rightPartWrapper);
 
         projectsBlock.append(myProjectBlock);
+
+        if (i + 1 == projects.length && applyFilters.SortType == 1)
+            lastProjectIdInPage[pageNumber] = projects[i].id;
     }
 }
 
@@ -755,6 +772,9 @@ function SetPagesButtons(pagesCount) {
 
         pagesButtonsBlock.append(pageButton);
 
+        if (pageButton != 1)
+            lastProjectIdInPage[pageNumber] = -1;
+
         pageNumber++;
     }
 
@@ -789,7 +809,7 @@ function OpenNewPage(pageButton) {
         dataTpye: "json",
         traditional: true,
         success: function (projects) {
-            SetProjects(projects);
+            SetProjects(projects, pageNumber);
 
             ViewData();
         },
@@ -812,6 +832,8 @@ function ThrowOff() {
     notApplyFilters.ProjectCompatibilities = [];
 
     UncheckFilter();
+
+    lastProjectIdInPage = [];
 
     isLoad = false;
     Timer();

@@ -18,7 +18,7 @@
                 <div class="leftMenu" tabindex="1">
                     <a style="text-decoration: none;" asp-area="" asp-controller="MAXonBusinessCard" asp-action="AboutMe">ОБО МНЕ</a>
                     <a style="text-decoration: none;" asp-area="" asp-controller="MAXonWork" asp-action="Resume">РАБОТА</a>
-                    <a style="text-decoration: none;" asp-area="" asp-controller="MAXonWork" asp-action="Services">УСЛУГИ</a>
+                    <a style="text-decoration: none;" asp-area="" asp-controller="MAXonService" asp-action="Services">УСЛУГИ</a>
                 </div>
             </nav>
             <a class="a-brand navbar-brand" asp-area="" asp-controller="MAXonBusinessCard" asp-action="Card">
@@ -62,7 +62,21 @@
                 <div class="rightMenu">
                     <a style="text-decoration: none;" asp-area="" asp-controller="MAXonStore" asp-action="Projects">ПРОЕКТЫ</a>
                     <a style="text-decoration: none;" asp-area="" asp-controller="MAXonBlog" asp-action="Posts">БЛОГ</a>
-                    <a class="authorization" style="text-decoration: none;" asp-area="" asp-controller="Account" asp-action="Login">ВОЙТИ</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("MAXon28") || User.IsInRole("Админстратор"))
+                        {
+                            <a class="authorization" style="text-decoration: none;" asp-area="" asp-controller="MAXonTeam" asp-action="Management">УПРАВЛЕНИЕ</a>
+                        }
+                        else
+                        {
+                            <a class="authorization" style="text-decoration: none;" asp-area="" asp-controller="Account" asp-action="Profile">ПРОФИЛЬ</a>
+                        }
+                    }
+                    else
+                    {
+                        <a class="authorization" style="text-decoration: none;" asp-area="" asp-controller="Account" asp-action="Login">ВОЙТИ</a>
+                    }
                 </div>
             </nav>
         </div>
@@ -96,7 +110,7 @@
             </div>
         </div>
         <div class="divCompany">
-            <p>&copy; Безуглый Максим, 2020-2021. Сайт-портфолио.</p>
+            <p>&copy; MAXon28, 2023-2023. Сайт-портфолио.</p>
         </div>
     </footer>
     <script src="~/js/master.js"></script>

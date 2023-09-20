@@ -2,28 +2,22 @@
 using BusinessCard.DataAccessLayer.Interfaces.Content;
 using Dapper;
 using DapperAssistant;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BusinessCard.DataAccessLayer.Repositories.Content
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class BiographyRepository : StandardRepository<Biography>, IBiographyRepository
+    /// <inheritdoc cref="IBiographyRepository"/>
+    internal class BiographyRepository : StandardRepository<Biography>, IBiographyRepository
     {
         public BiographyRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 
-        public async Task<IEnumerable<Biography>> GetSortedBiographyByPriorityAsync()
+        /// <inheritdoc/>
+        public async Task<int> UpdateBiographyAsync(string text)
         {
-            const string sqlQuery = @"SELECT * 
-                                      FROM Biography
-                                      ORDER BY Priority";
-
-
-            using var dbConnection = _dbConnectionKeeper.GetDbConnection();
-
-            return await dbConnection.QueryAsync<Biography>(sqlQuery);
+            const string sqlQuery = @"update Biography
+                                      set Text = @text";
+            using var connection = _dbConnectionKeeper.GetDbConnection();
+            return await connection.ExecuteAsync(sqlQuery, new { text });
         }
     }
 }

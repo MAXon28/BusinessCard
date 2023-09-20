@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Создатель тарифа";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/rateCreator.css" runat="server" />
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-rateCreator">
+    <div class="scene-rateCreator">
+        <div class="reverse-spinner" style="display: none;">
+            <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+        </div>
+        <div class="container" style="display: none;">
+            <div class="center">
+                <p class="header">Создание тарифа</p>
+                <div class="inputsData">
+                    <div class="inputbox">
+                        <input id="nameRate" class="input" required="required" autocomplete="off">
+                        <span class="placeholder">Наименование</span>
+                        <p id="nameRateError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                    </div>
+                    <div id="descriptionRate" class="editor" contenteditable="true" data-placeholder="Описание"></div>
+                    <p id="descriptionRateError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                    <div class="inputbox" style="margin-top: 28px;">
+                        <input id="price" class="input" required="required" autocomplete="off">
+                        <span class="placeholder">Цена</span>
+                        <p id="priceError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                    </div>
+                    <div class="booleansBlock">
+                        <div class="booleanBlock">
+                            <div class="checkboxBlock">
+                                <div class="checkbox">
+                                    <input class="custom-checkbox" type="checkbox" id="concretePrice">
+                                    <label for="concretePrice"></label>
+                                </div>
+                                <p>Точная цена</p>
+                            </div>
+                        </div>
+                        <div class="booleanBlock">
+                            <div class="checkboxBlock">
+                                <div class="checkbox">
+                                    <input class="custom-checkbox" type="checkbox" id="isPublic">
+                                    <label for="isPublic"></label>
+                                </div>
+                                <p>Опубликовано</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="conditionsBlock">
+                        <p class="header" style="font-size: 22px;">Условия</p>
+                    </div>
+                    <button class="btn-saveData" onclick="AddRate()">Сохранить</button>
+                    <p id="successAddRate" class="successMessage" style="margin-top: 7px; margin-bottom: 12px;">Тариф успешно создан!</p>
+                    <p id="errorAddRate" class="errorMessage" style="margin-top: 7px; margin-bottom: 12px;">Не удалось создать тариф!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/rateCreator.js"></script>
+</body>
+</html>

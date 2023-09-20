@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
 {
-    public class CommentBranchRepository : StandardRepository<CommentBranch>, ICommentBranchRepository
+    internal class CommentBranchRepository : StandardRepository<CommentBranch>, ICommentBranchRepository
     {
         public CommentBranchRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 

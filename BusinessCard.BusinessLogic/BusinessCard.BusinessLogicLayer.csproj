@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,8 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BusinessCard.CacheProvider\BusinessCard.CacheProvider.csproj" />
     <ProjectReference Include="..\BusinessCard.Crypto\BusinessCard.Crypto.csproj" />
     <ProjectReference Include="..\BusinessCard.DataAccessLayer\BusinessCard.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\BusinessCard.Entities\BusinessCard.Entities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

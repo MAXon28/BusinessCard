@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Настройки сервиса";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/serviceUpdater.css" runat="server" />
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-serviceUpdater">
+    <div class="scene-serviceUpdater">
+        <div class="reverse-spinner" style="display: none;">
+            <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+        </div>
+        <div class="container" style="display: none;">
+            <div class="center">
+                <p class="header">Создание сервиса</p>
+                <div class="inputsData">
+                    <div class="inputbox">
+                        <input id="nameService" class="input" required="required" autocomplete="off">
+                        <span class="placeholder">Наименование</span>
+                        <p id="nameServiceError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                    </div>
+                    <div class="inputbox">
+                        <input id="shortDescriptFirst" class="input" required="required" autocomplete="off">
+                        <span class="placeholder">Краткое описание №1</span>
+                        <p id="shortDescriptFirstError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                    </div>
+                    <div class="inputbox">
+                        <input id="shortDescriptSecond" class="input" required="required" autocomplete="off">
+                        <span class="placeholder">Краткое описание №2</span>
+                        <p id="shortDescriptSecondError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                    </div>
+                    <div class="inputbox">
+                        <input id="shortDescriptThird" class="input" required="required" autocomplete="off">
+                        <span class="placeholder">Краткое описание №3</span>
+                        <p id="shortDescriptThirdError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                    </div>
+                    <div class="inputbox">
+                        <input id="price" class="input" required="required" autocomplete="off">
+                        <span class="placeholder">Цена</span>
+                        <p id="priceError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                    </div>
+                    <div id="fullDescript" class="editor" contenteditable="true" data-placeholder="Описание"></div>
+                    <p id="fullDescriptError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                    <div class="booleansBlock">
+                        <div class="booleanBlock">
+                            <div class="checkboxBlock">
+                                <div class="checkbox">
+                                    <input class="custom-checkbox" type="checkbox" id="concretePrice" name="color-1">
+                                    <label for="concretePrice"></label>
+                                </div>
+                                <p>Точная цена</p>
+                            </div>
+                        </div>
+                        <div class="booleanBlock">
+                            <div class="checkboxBlock">
+                                <div class="checkbox">
+                                    <input class="custom-checkbox" type="checkbox" id="needTechnicalSpecification" name="color-2">
+                                    <label for="needTechnicalSpecification"></label>
+                                </div>
+                                <p>Можно задавать техническое задание</p>
+                            </div>
+                        </div>
+                        <div class="booleanBlock">
+                            <div class="checkboxBlock">
+                                <div class="checkbox">
+                                    <input class="custom-checkbox" type="checkbox" id="prePrice" name="color-3">
+                                    <label for="prePrice"></label>
+                                </div>
+                                <p>Можно предлагать цену</p>
+                            </div>
+                        </div>
+                        <div class="booleanBlock">
+                            <div class="checkboxBlock">
+                                <div class="checkbox">
+                                    <input class="custom-checkbox" type="checkbox" id="preDeadline" name="color-4">
+                                    <label for="preDeadline"></label>
+                                </div>
+                                <p>Можно задавать дедлайн</p>
+                            </div>
+                        </div>
+                        <div class="booleanBlock">
+                            <div class="checkboxBlock">
+                                <div class="checkbox">
+                                    <input class="custom-checkbox" type="checkbox" id="isPublic" name="color-5">
+                                    <label for="isPublic"></label>
+                                </div>
+                                <p>Опубликовано</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-saveData" onclick="UpdateServiceData()">Сохранить</button>
+                    <p id="successUpdateService" class="successMessage" style="margin-top: 0px; margin-bottom: 12px;">Данные сервиса успешно обновлены!</p>
+                    <p id="errorUpdateService" class="errorMessage" style="margin-top: 0px; margin-bottom: 12px;">Не удалось обновить данные сервиса!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/serviceUpdater.js"></script>
+</body>
+</html>

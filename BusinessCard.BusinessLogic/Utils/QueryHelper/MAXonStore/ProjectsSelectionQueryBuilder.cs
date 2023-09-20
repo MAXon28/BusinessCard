@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces.Utils.QueryHelper;
+using BusinessCard.BusinessLogicLayer.Utils.Enums;
+using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
@@ -7,7 +9,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
     /// <summary>
     /// Строитель запроса выборки проектов
     /// </summary>
-    public class ProjectsSelectionQueryBuilder : SelectionQueryBuilder
+    internal class ProjectsSelectionQueryBuilder : SelectionQueryBuilder
     {
         /// <summary>
         /// Название таблицы
@@ -18,6 +20,11 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
         /// Название переменной соответствующей таблицы
         /// </summary>
         private const string TableElementName = "project";
+
+        /// <summary>
+        /// Сдвиг на конкретное число (для пагинации)
+        /// </summary>
+        private int _offset;
 
         /// <summary>
         /// 
@@ -33,6 +40,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
         {
             _filterBuildersDictionary = new Dictionary<string, IFilterBuilder>
             {
+                [FilterConstants.Id] = new IdFilterBuilder(TableElementName),
                 [FilterConstants.ProjectName] = new ProjectNameFilterBuilder(),
                 [FilterConstants.ProjectType] = new ProjectTypeFilterBuilder(),
                 [FilterConstants.ProjectCategory] = new ProjectCategoryFilterBuilder(),
@@ -41,30 +49,32 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
         }
 
         /// <inheritdoc/>
-        public override QueryData GetQueryData(IRequestSettings requestSettings)
+        public override QueryData GetQueryData(RequestSettings requestSettings)
         {
-            _projectRequestSettings = requestSettings as ProjectRequestSettings;
+            _dataCountInPackage = requestSettings.CountInPackage;
 
-            _needProjectCompatibilityFilter = !(_projectRequestSettings.FilterValuesDictionary[FilterConstants.ProjectCompatibility] is null);
+            _projectRequestSettings = requestSettings as ProjectRequestSettings;
+            _offset = _projectRequestSettings.Offset;
+            _needProjectCompatibilityFilter = _projectRequestSettings.FilterValuesDictionary[FilterConstants.ProjectCompatibility] is not null;
 
             _sqlQuery = new StringBuilder();
             _sqlQuery.Append(_sqlQueryTemplate);
-
             SetTableNamings(TableName, TableElementName);
-            SetSelect(_projectRequestSettings.Offset);
+            SetSelect();
             SetJoin();
             SetWhere();
             if (TypeOfSelect == SelectTypes.Data)
+            {
+                SetTop(_offset);
+                SetOrderBy();
                 SetOrderBy(_projectRequestSettings.TypeOfSort);
+            }
 
-            return new QueryData(_sqlQuery.ToString(), _parameters);
+            return new(_sqlQuery.ToString(), _parameters);
         }
 
-        /// <summary>
-        /// Установить выборку проектов
-        /// </summary>
-        /// <param name="offset"> Сдвиг проектов на конкретное число (для пагинации) </param>
-        protected override void SetDataSelect(int offset)
+        /// <inheritdoc/>
+        protected override void SetDataSelect()
         {
             var projectSelectionSet = $@"DISTINCT   {TableElementName}.Id,
 										            {TableElementName}.Name,
@@ -88,30 +98,15 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
 												            WHERE projectCompatibilities.ProjectId = {TableElementName}.Id
 												            FOR XML PATH('')), 1, 1, '') AS ProjectCompatibilities";
 
-            var orderByTemplate = @$"ORDER BY {OrderByValueTemplate}
-										OFFSET {OffsetParameter} ROWS
-										FETCH NEXT 5 ROWS ONLY";
-
-            var join = $@"INNER JOIN ProjectTypes projectType
-						  ON projectType.Id = {TableElementName}.TypeId
-						  INNER JOIN ProjectCategories projectCategory
-						  ON projectCategory.Id = {TableElementName}.CategoryId";
-
             const string distinct = "DISTINCT";
 
             _sqlQuery.Replace(SelectionSetTemplate, projectSelectionSet);
-            _sqlQuery.Replace(FirstJoinTemplate, join);
-            _sqlQuery.Replace(OrderByTemplate, orderByTemplate);
-
-            _parameters.Add(OffsetParameter, offset, DbType.Int32, ParameterDirection.Input);
 
             if (!_needProjectCompatibilityFilter)
                 _sqlQuery.Replace(distinct, string.Empty);
         }
 
-        /// <summary>
-        /// Установить выборку количества проектов
-        /// </summary>
+        /// <inheritdoc/>
         protected override void SetCountSelect()
         {
             var countSelectionTemplate = $"COUNT({CountTemplate})";
@@ -120,6 +115,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
             const string projectCompatibilitiesCount = "DISTINCT projectCompatibilities.ProjectId";
 
             _sqlQuery.Replace(SelectionSetTemplate, countSelectionTemplate);
+            _sqlQuery.Replace(TopTemplate, string.Empty);
             _sqlQuery.Replace(OrderByTemplate, string.Empty);
             _sqlQuery.Replace(CountTemplate, _needProjectCompatibilityFilter ? projectCompatibilitiesCount : count);
         }
@@ -179,10 +175,11 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
             var projectName = _projectRequestSettings.SearchText;
             var filterValuesDictionary = _projectRequestSettings.FilterValuesDictionary;
 
-            if (string.IsNullOrEmpty(projectName) &&
-                filterValuesDictionary[FilterConstants.ProjectType] is null &&
-                filterValuesDictionary[FilterConstants.ProjectCategory] is null &&
-                filterValuesDictionary[FilterConstants.ProjectCompatibility] is null)
+            if (_offset != -1
+                && string.IsNullOrEmpty(projectName)
+                && filterValuesDictionary[FilterConstants.ProjectType] is null
+                && filterValuesDictionary[FilterConstants.ProjectCategory] is null
+                && filterValuesDictionary[FilterConstants.ProjectCompatibility] is null)
             {
                 _sqlQuery.Replace(WhereTemplate, string.Empty);
                 return;
@@ -190,19 +187,42 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
 
             var whereBuilder = new StringBuilder(where);
 
-            if (!(projectName is null))
-                _filterBuildersDictionary[FilterConstants.ProjectName].SetFilter(whereBuilder, _parameters, projectName);
+            if (_offset == -1)
+                SetFilter(whereBuilder, _filterBuildersDictionary[FilterConstants.Id], _projectRequestSettings.LastElementId);
 
-            if (!(filterValuesDictionary[FilterConstants.ProjectType] is null))
+            if (string.IsNullOrEmpty(projectName) is false)
+                SetFilter(whereBuilder, _filterBuildersDictionary[FilterConstants.ProjectName], projectName);
+
+            if (filterValuesDictionary[FilterConstants.ProjectType] is not null)
                 SetFilter(whereBuilder, _filterBuildersDictionary[FilterConstants.ProjectType], filterValuesDictionary[FilterConstants.ProjectType]);
 
-            if (!(filterValuesDictionary[FilterConstants.ProjectCategory] is null))
+            if (filterValuesDictionary[FilterConstants.ProjectCategory] is not null)
                 SetFilter(whereBuilder, _filterBuildersDictionary[FilterConstants.ProjectCategory], filterValuesDictionary[FilterConstants.ProjectCategory]);
 
-            if (!(filterValuesDictionary[FilterConstants.ProjectCompatibility] is null))
+            if (filterValuesDictionary[FilterConstants.ProjectCompatibility] is not null)
                 SetFilter(whereBuilder, _filterBuildersDictionary[FilterConstants.ProjectCompatibility], filterValuesDictionary[FilterConstants.ProjectCompatibility]);
 
             _sqlQuery.Replace(WhereTemplate, whereBuilder.ToString());
+        }
+
+        /// <inheritdoc/>
+        protected override void SetOrderBy()
+        {
+            var needOffset = _offset != -1;
+            string orderBy;
+            if (needOffset)
+            {
+                orderBy = $@"ORDER BY {OrderByValueTemplate}
+					 OFFSET {OffsetParameter} ROWS
+					 FETCH NEXT {_dataCountInPackage} ROWS ONLY";
+                _parameters.Add(OffsetParameter, _offset, DbType.Int32, ParameterDirection.Input);
+            }
+            else
+            {
+                orderBy = $@"ORDER BY {OrderByValueTemplate}";
+            }
+
+            _sqlQuery.Replace(OrderByTemplate, orderBy);
         }
 
         /// <summary>

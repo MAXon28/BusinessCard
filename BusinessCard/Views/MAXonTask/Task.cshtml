@@ -1,0 +1,177 @@
+﻿@using BusinessCard.Entities
+@{
+    ViewData["Title"] = "Задача";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @if (User.Claims.Count() == 0 || User.IsInRole(Roles.User))
+    {
+        <link rel="stylesheet" href="~/css/task.css" runat="server" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/task.css" runat="server" />
+        <link rel="stylesheet" href="~/css/taskForMAXon28Team.css" runat="server" />
+    }
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-task">
+    <div class="scene-task">
+        <div class="mainBlock">
+            <div class="reverse-spinner" style="display: none;">
+                <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+            </div>
+            <div class="taskInformation" style="display: none;">
+                <div class="taskInfoBlock">
+                    <p class="taskReceipt"></p>
+                    <p class="taskName"></p>
+                    <p class="blockHeader">Детали задачи</p>
+                    <div class="separator"></div>
+                    <div class="taskDataBlock">
+                        <div id="service" class="dataBlock">
+                            <p class="taskElement">Услуга</p>
+                            <p class="taskData"></p>
+                        </div>
+                        <div id="rate" class="dataBlock" style="display: none;">
+                            <p class="taskElement">Тариф</p>
+                            <p class="taskData"></p>
+                        </div>
+                        <div id="technicalSpecificationFile" class="dataBlock taskFileBlock" style="display: none;">
+                            <p class="taskElement">Техническое задание</p>
+                            <a>
+                                <p class="taskTechnicalSpecification">Скачать</p>
+                            </a>
+                        </div>
+                        <div id="doneTaskFile" class="dataBlock taskFileBlock" style="display: none;">
+                            <p class="taskElement">Выполненная задача</p>
+                            @if (User.Claims.Count() == 0 || User.IsInRole(Roles.User))
+                            {
+                                <a onclick="DownloadDoneTaskFile()">
+                                    <p class="taskFile">Скачать</p>
+                                </a>
+                            }
+                            else
+                            {
+                                <a>
+                                    <p class="taskFile">Скачать</p>
+                                </a>
+                            }
+                        </div>
+                        <div id="suggestedPrice" class="dataBlock" style="display: none;">
+                            <p class="taskElement">Предложенная цена</p>
+                            <p class="taskData"></p>
+                        </div>
+                        <div id="deadline" class="dataBlock" style="display: none;">
+                            <p class="taskElement">Срок готовности</p>
+                            <p class="taskData"></p>
+                        </div>
+                        <div id="creationDate" class="dataBlock">
+                            <p class="taskElement">Дата создания</p>
+                            <p class="taskData"></p>
+                        </div>
+                        <div id="updateDate" class="dataBlock" style="display: none;">
+                            <p class="taskElement">Дата обновления</p>
+                            <p class="taskData"></p>
+                        </div>
+                        <div id="status" class="dataBlock">
+                            <p class="taskElement">Статус задачи</p>
+                            <p class="taskStatus"></p>
+                        </div>
+                    </div>
+                    <div id="technicalSpecification" class="dataBlock" style="width: 100%; margin-top: 26px; display: none;">
+                        <p class="taskElement">Техническое задание</p>
+                        <div class="technicalSpecificationText"></div>
+                    </div>
+                    <p class="fixedPrice"></p>
+                </div>
+                @if (User.Claims.Count() != 0 && User.IsInRole(Roles.User) is false)
+                {
+                    <div class="adminBlock">
+                        <div class="adminButton updateStatus" style="display: none;" onclick="UpdateStatus()">
+                            <p>Обновить статус</p>
+                        </div>
+                        <div class="adminButton addPrice" style="display: none;" onclick="AddPrice()">
+                            <p>Установить цену</p>
+                        </div>
+                        <div class="adminButton addDoneTaskFile" style="display: none;" onclick="AddDoneTaskFile()">
+                            <p>Добавить решение</p>
+                        </div>
+                    </div>
+                }
+                <div class="personalInfoBlock">
+                    <p class="blockHeader">Информация о заказчике</p>
+                    <div class="separator"></div>
+                    <div class="personalDataBlock">
+                        <div class="dataBlock">
+                            <p class="taskElement">Заказчик</p>
+                            <p id="name" class="taskData"></p>
+                        </div>
+                        <div class="dataBlock">
+                            <p class="taskElement">Email</p>
+                            <p id="email" class="taskData"></p>
+                        </div>
+                        <div class="dataBlock">
+                            <p class="taskElement">Номер телефона</p>
+                            <p id="phoneNumber" class="taskData"></p>
+                        </div>
+                        <div class="dataBlock">
+                            <p class="taskElement">Способ связи</p>
+                            <p id="connection" class="taskData"></p>
+                        </div>
+                    </div>
+                </div>
+                @if (User.Claims.Count() == 0 || User.IsInRole(Roles.User))
+                {
+                    <div class="userBlock">
+                        <div class="addTaskReview" style="display: none;" onclick="CreateTaskReview()">
+                            <p>Оставить отзыв</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="taskRecords" style="display: none;">
+                <div class="taskRecordsBlock">
+                    <p class="blockHeader">Ход выполнения задачи</p>
+                    <div class="separator"></div>
+                    <div class="recordsBlock"></div>
+                </div>
+                @if (User.Claims.Count() != 0 && User.IsInRole(Roles.User) is false)
+                {
+                    <div class="adminBlock">
+                        <div class="adminButton addTaskCounterRecord" style="display: none;" onclick="CreateTaskCounterRecord()">
+                            <p>Запись счётчика задачи</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script> 
+    @if (User.Claims.Count() == 0 || User.IsInRole(Roles.User))
+    {
+        <svg xmlns="http://www.w3.org/2000/svg" style="width: 0; height: 0;">
+            <defs>
+                <symbol id="star" viewBox="0 0 28 28">
+                    <path d="M26 10.109c0 .281-.203.547-.406.75l-5.672 5.531 1.344 7.812c.016.109.016.203.016.313 0 .406-.187.781-.641.781a1.27 1.27 0 0 1-.625-.187L13 21.422l-7.016 3.687c-.203.109-.406.187-.625.187-.453 0-.656-.375-.656-.781 0-.109.016-.203.031-.313l1.344-7.812L.39 10.859c-.187-.203-.391-.469-.391-.75 0-.469.484-.656.875-.719l7.844-1.141 3.516-7.109c.141-.297.406-.641.766-.641s.625.344.766.641l3.516 7.109 7.844 1.141c.375.063.875.25.875.719z" />
+                </symbol>
+            </defs>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 28 28" style="display: none">
+            <g id="preloaderCreationReview">
+                <path fill="currentColor"
+                  d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+                </path>
+            </g>
+        </svg>
+        <script src="~/js/task.js"></script>
+    }
+    else
+    {
+        <script src="~/js/taskForMAXon28Team.js"></script>
+    }
+</body>
+</html>

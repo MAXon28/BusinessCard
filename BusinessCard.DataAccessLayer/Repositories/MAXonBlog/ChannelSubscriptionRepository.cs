@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
 {
     /// <inheritdoc cref="IChannelSubscriptionRepository"/>
-    public class ChannelSubscriptionRepository : StandardRepository<ChannelSubscription>, IChannelSubscriptionRepository
+    internal class ChannelSubscriptionRepository : StandardRepository<ChannelSubscription>, IChannelSubscriptionRepository
     {
         public ChannelSubscriptionRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 

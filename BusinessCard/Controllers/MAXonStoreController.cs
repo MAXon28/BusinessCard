@@ -1,5 +1,5 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Store;
-using BusinessCard.BusinessLogicLayer.Interfaces;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces;
+using BusinessCard.Entities.DTO.Store;
 using BusinessCard.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
 {
     /// <inheritdoc cref="IProjectCompatibilityRepository"/>
-    public class ProjectCompatibilityRepository : StandardRepository<ProjectCompatibility>, IProjectCompatibilityRepository
+    internal class ProjectCompatibilityRepository : StandardRepository<ProjectCompatibility>, IProjectCompatibilityRepository
     {
         public ProjectCompatibilityRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 

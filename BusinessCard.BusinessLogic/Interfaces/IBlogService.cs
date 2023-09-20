@@ -1,4 +1,4 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Blog;
+﻿using BusinessCard.Entities.DTO.Blog;
 using System.Threading.Tasks;
 
 namespace BusinessCard.BusinessLogicLayer.Interfaces
@@ -13,7 +13,7 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// </summary>
         /// <param name="userId">  </param>
         /// <returns>  </returns>
-        public Task<BlogInformation> GetBlogInformationAsync(int? userId);
+        public Task<BlogInformation> GetBlogInformationAsync(int userId);
 
         /// <summary>
         /// 
@@ -21,6 +21,6 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// <param name="userId">  </param>
         /// <param name="channelId">  </param>
         /// <returns>  </returns>
-        public Task<ChannelInformation> GetChannelInformationAsync(int? userId, int channelId);
+        public Task<ChannelInformation> GetChannelInformationAsync(int userId, int channelId);
     }
 }

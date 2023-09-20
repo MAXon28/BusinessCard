@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces.Utils.QueryHelper;
+using Dapper;
 using System.Data;
 using System.Text;
 

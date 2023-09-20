@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
 {
     /// <inheritdoc cref="IProjectRepository"/>
-    public class ProjectRepository : StandardRepository<Project>, IProjectRepository
+    internal class ProjectRepository : StandardRepository<Project>, IProjectRepository
     {
         public ProjectRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 

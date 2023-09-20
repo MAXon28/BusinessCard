@@ -1,0 +1,295 @@
+﻿.adminBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 12px;
+}
+
+.adminButton {
+    font-size: 17px;
+    font-family: sans-serif;
+    padding: 7px 12px;
+    background: #211F30;
+    border-radius: 12px;
+    margin: 12px;
+    box-shadow: 0 3px 12px #211f30;
+    cursor: pointer;
+    text-align: center;
+}
+
+.updateStatus {
+    color: white;
+}
+
+.addDoneTaskFile {
+    color: #e29930;
+}
+
+.addPrice {
+    color: #87cefa;
+}
+
+.addTaskCounterRecord {
+    color: white;
+}
+
+.fullWindow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(4 11 32 / 55%);
+    z-index: 1050;
+    backdrop-filter: blur(5px);
+    margin: 0 auto;
+    padding: 28px;
+}
+
+.inputsData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 41px 41px 28px 41px;
+    font-size: 16px;
+    font-weight: 300;
+    position: relative;
+    transition: all .5s ease;
+}
+
+.skipButton {
+    position: relative;
+    margin: 0;
+    margin-right: 40px;
+    font-size: 40px;
+    font-family: sans-serif;
+    color: white;
+    cursor: pointer;
+    text-align: right;
+}
+
+.container {
+    width: 90%;
+    padding-top: 28px;
+    padding-bottom: 101px;
+    margin: 0 auto;
+}
+
+    .container form {
+        box-sizing: border-box;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .container div {
+        box-sizing: border-box;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .container input {
+        box-sizing: border-box;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .container a {
+        box-sizing: border-box;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+.frameFullWindow {
+    max-width: 581px;
+    background: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px #ccc;
+    overflow: hidden;
+    transition: all .5s ease;
+    display: flex;
+    margin-top: 127px;
+}
+
+.btn-saveData {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-size: 17px;
+    color: #fff;
+    background-color: #87CEFA;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 0;
+    margin-top: 31px;
+}
+
+a.btn-saveData:hover {
+    cursor: pointer;
+    background-color: #0F4FE6;
+    transition: background-color .5s;
+}
+
+.errorMessage {
+    display: none;
+    color: red;
+    font-size: 17px;
+    text-align: center;
+    font-family: system-ui;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.successMessage {
+    display: none;
+    color: green;
+    font-size: 17px;
+    text-align: center;
+    font-family: system-ui;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.inputbox {
+    position: relative;
+    margin-bottom: 28px;
+    width: 100%;
+}
+
+.input {
+    border: 1px solid #e0e0e0;
+    outline: none;
+    padding: 19px 12px;
+    border-radius: 5px;
+    font-size: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border 328ms;
+}
+
+.placeholder {
+    color: #e0e0e0;
+    font-family: sans-serif;
+    left: 12px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 500ms, color 500ms;
+    top: 17px;
+    background: white;
+    font-size: 20px;
+    padding: 3px;
+}
+
+.input:focus ~ .placeholder, .input:valid ~ .placeholder {
+    transform: translateX(-1px) translateY(-28px);
+    font-size: 16px;
+    color: #87CEFA;
+}
+
+.input:focus {
+    border: 1px solid #E29930;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: none;
+}
+
+.field__wrapper {
+    width: 93%;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.field__file-wrapper {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.field__file-fake {
+    height: 41px;
+    width: calc(100% - 127px);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 15px;
+    border: 1px solid #e29930;
+    border-radius: 5px 0 0 5px;
+    border-right: none;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: #e0e0e0;
+}
+
+.field__file-button {
+    width: 127px;
+    height: 41px;
+    background: #e29930;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    padding: 1px 0;
+    font-family: sans-serif;
+    transition: all 0.67s;
+}
+
+    .field__file-button:hover {
+        opacity: 0.67;
+    }
+
+.statusesBlock {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.toolbar-font {
+    outline: none;
+    background: #211f30;
+    border-radius: 5px;
+    color: #87CEFA;
+    font-size: 20px;
+    padding: 7px;
+    border: 0;
+    margin-right: 5%;
+}
+
+.processInSelector {
+    color: white;
+}

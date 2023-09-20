@@ -17,6 +17,7 @@ var isLoad = false;
 var isLoadVisible = false;
 var isLoadData = false;
 var isLoadDataVisible = false;
+var lastPostIdInPage = [];
 
 function init() {
     var width = $(window).width();
@@ -47,7 +48,10 @@ function init() {
 
             SetChannelsInFilter();
 
-            SetPosts(jsonData.BlogInformation.Posts, jsonData.BlogInformation.PersonalInformation.StatisticsByPost);
+            if (authorizedUser)
+                SetPosts(jsonData.BlogInformation.Posts, jsonData.BlogInformation.PersonalInformation.StatisticsByPost);
+            else
+                SetPosts(jsonData.BlogInformation.Posts, null);
 
             if (jsonData.BlogInformation.PagesCount > 1)
                 SetPagesButtons(jsonData.BlogInformation.PagesCount);
@@ -99,7 +103,7 @@ function SetChannelsInFilter() {
     }
 }
 
-function SetPosts(posts, personalInformation, isPrepend = false, isNone = false) {
+function SetPosts(posts, personalInformation, isPrepend = false, isNone = false, pageNumber = 1) {
     var postBlock = "";
     if (isPrepend)
         postsBlock = document.querySelector('.pagesButtonsBlock');
@@ -197,11 +201,14 @@ function SetPosts(posts, personalInformation, isPrepend = false, isNone = false)
         var topchikBlock = document.createElement("div");
         topchikBlock.id = "topchik" + i;
         topchikBlock.className = "topchikBlock";
-        if (personalInformation[posts[i].Id]['Topchiks'])
+        if (personalInformation != null && personalInformation[posts[i].Id]['Topchiks']) {
             topchikBlock.classList.add("topchikUser");
-        else
+            userTopchiks.push(true);
+        }
+        else {
             topchikBlock.classList.add("untopchikUser");
-        userTopchiks.push(personalInformation[posts[i].Id]['Topchiks']);
+            userTopchiks.push(false);
+        }
         topchikBlock.setAttribute('onclick', 'SendTopchik(' + i + ', ' + posts[i].Id + ')');
         topchikBlock.innerHTML = '<svg viewBox="0 0 64 64" class="topchikIcon"><use xlink:href="#topchik"></use></svg>';
 
@@ -220,7 +227,10 @@ function SetPosts(posts, personalInformation, isPrepend = false, isNone = false)
         var bookmarksBlock = document.createElement("div");
         bookmarksBlock.className = "bookmarksBlock";
         bookmarksBlock.setAttribute('onclick', 'InBookmarks(' + i + ', ' + posts[i].Id + ')');
-        userBookmarks.push(personalInformation[posts[i].Id]['Bookmarks']);
+        if (personalInformation != null)
+            userBookmarks.push(personalInformation[posts[i].Id]['Bookmarks']);
+        else
+            userBookmarks.push(false);
         if (userBookmarks[i])
             bookmarksBlock.innerHTML = '<svg id="bookmarks' + i + '" viewBox="0 0 24 24" class="bookmarksIcon needBookmarks"><use xlink:href="#bookmarks"></use></svg>';
         else
@@ -266,6 +276,9 @@ function SetPosts(posts, personalInformation, isPrepend = false, isNone = false)
             postsBlock.before(postBlock);
         else
             postsBlock.append(postBlock);
+
+        if (i + 1 == posts.length)
+            lastPostIdInPage[pageNumber] = posts[i].Id;
     }
 }
 
@@ -280,6 +293,7 @@ function OpenSubscriptions() {
 
     userTopchiks = [];
     userBookmarks = [];
+    lastPostIdInPage = [];
 
     searchText = "";
     $('#search').val("");
@@ -386,6 +400,7 @@ function OpenMailings() {
 
     userTopchiks = [];
     userBookmarks = [];
+    lastPostIdInPage = [];
 
     searchText = "";
     $('#search').val("");
@@ -492,6 +507,7 @@ function OpenBookmarks() {
 
     userTopchiks = [];
     userBookmarks = [];
+    lastPostIdInPage = [];
 
     searchText = "";
     $('#search').val("");
@@ -565,6 +581,7 @@ function GetAllChannels() {
 
     userTopchiks = [];
     userBookmarks = [];
+    lastPostIdInPage = [];
 
     searchText = "";
     $('#search').val("");
@@ -657,6 +674,7 @@ function OpenChannel(channelId) {
 
     userTopchiks = [];
     userBookmarks = [];
+    lastPostIdInPage = [];
 
     searchText = "";
     $('#search').val("");
@@ -1202,6 +1220,7 @@ function SearchPosts() {
 
     userTopchiks = [];
     userBookmarks = [];
+    lastPostIdInPage = [];
 
     searchText = $('#search').val();
 
@@ -1290,6 +1309,9 @@ function SetPagesButtons(pagesCount, isNone = false) {
 
         pagesButtonsBlock.append(pageButton);
 
+        if (pageNumber != 1)
+            lastPostIdInPage[pageNumber] = -1;
+
         pageNumber++;
     }
 
@@ -1329,7 +1351,7 @@ function OpenNewPage(pageButton) {
         success: function (data) {
             var jsonData = $.parseJSON(data);
 
-            SetPosts(jsonData.PostsInformation.Posts, jsonData.PostsInformation.PersonalInformation.StatisticsByPost, true, true);
+            SetPosts(jsonData.PostsInformation.Posts, jsonData.PostsInformation.PersonalInformation.StatisticsByPost, true, true, pageNumber);
 
             var classesView = [];
             classesView.push(".postBlock");
@@ -1348,10 +1370,16 @@ function GetRequestParameters(pageNumber, searchText, needUpdatePagesCount) {
     if (currentChannelId != null)
         requestParameters += "ChannelId=" + currentChannelId;
 
+    var lastPostId = -1;
+    if (pageNumber > 1)
+        lastPostId = lastPostIdInPage[pageNumber - 1];
+
     if (requestParameters == "")
-        requestParameters += "PostsPackageNumber=" + pageNumber;
+        requestParameters += "LastPostId=" + lastPostId;
     else
-        requestParameters += "&PostsPackageNumber=" + pageNumber;
+        requestParameters += "&LastPostId=" + lastPostId;
+
+    requestParameters += "&PostsPackageNumber=" + pageNumber;
 
     if (searchText.length > 0)
         requestParameters += "&SearchText=" + searchText;

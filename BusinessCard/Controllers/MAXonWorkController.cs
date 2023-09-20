@@ -1,75 +1,64 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs;
-using BusinessCard.BusinessLogicLayer.Interfaces;
-using BusinessCard.BusinessLogicLayer.Services;
-using BusinessCard.Services;
-using Microsoft.AspNetCore.Http;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces;
+using BusinessCard.DataAccessLayer.Entities.Data;
+using BusinessCard.Entities;
+using BusinessCard.Entities.DTO.Work;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Text.Json;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace BusinessCard.Controllers
 {
+    /// <summary>
+    /// Контроллер для работы
+    /// </summary>
     public class MAXonWorkController : Controller
     {
         /// <summary>
-        /// 
+        /// Сервис работы
         /// </summary>
         private readonly IWorkService _workService;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly ISelfEmployedService _selfEmployedService;
+        public MAXonWorkController(IWorkService workService) => _workService = workService;
 
         /// <summary>
-        /// 
+        /// Резюме
         /// </summary>
-        private readonly ITaskService _taskService;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly IRuleService _ruleService;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly FileSaver _fileSaver;
-
-        public MAXonWorkController(IWorkService workService,
-            ISelfEmployedService selfEmployedService,
-            ITaskService taskService,
-            IRuleService ruleService,
-            FileSaver fileSaver)
-        {
-            _workService = workService;
-            _selfEmployedService = selfEmployedService;
-            _taskService = taskService;
-            _ruleService = ruleService;
-            _fileSaver = fileSaver;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>  </returns>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Resume() => View();
 
         /// <summary>
-        /// 
+        /// Получить резюме
         /// </summary>
-        /// <returns>  </returns>
+        /// <returns> Резюме </returns>
         [HttpGet]
         public async Task<JsonResult> GetResume() => Json(await _workService.GetResumeAsync());
+
+        /// <summary>
+        /// Обновить флаг "Ищу работу"
+        /// </summary>
+        /// <param name="value"> Значение флага </param>
+        /// <returns> Удалось ли обновить флаг </returns>
+        [HttpPost]
+        [Authorize(Roles = Roles.MAXon28)]
+        public async Task<bool> UpdateFlagForNeedWork(bool value) => await _workService.UpdateFlagAsync(value);
+
+        /// <summary>
+        /// Обновить резюме
+        /// </summary>
+        /// <param name="resume"> Резюме </param>
+        /// <returns> Уадлось ли обновить резюме </returns>
+        [HttpPost]
+        [Authorize(Roles = Roles.MAXon28)]
+        public async Task<bool> UpdateResume(Resume resume) => await _workService.UpdateResumeAsync(resume);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns>  </returns>
         [HttpGet]
-        public IActionResult JobPlacement() => View();
+        public IActionResult VacancyCreator() => View();
 
         /// <summary>
         /// 
@@ -87,84 +76,56 @@ namespace BusinessCard.Controllers
         /// </summary>
         /// <returns>  </returns>
         [HttpGet]
-        public IActionResult Services() => View();
+        [Authorize(Roles = $"{Roles.MAXon28}, {Roles.Admin}")]
+        public async Task<string> GetVacanciesStatistic()
+            => JsonConvert.SerializeObject(new
+            {
+                VacanciesStatistic = await _workService.GetVacanciesStatisticAsync()
+            });
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns>  </returns>
         [HttpGet]
-        public async Task<JsonResult> GetServices() => Json(await _selfEmployedService.GetAllServicesAsync());
+        [Authorize(Roles = $"{Roles.MAXon28}, {Roles.Admin}")]
+        public IActionResult Vacancies() => View();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id">  </param>
         /// <returns>  </returns>
         [HttpGet]
-        public async Task<JsonResult> GetFullDescription(int id) => Json(await _selfEmployedService.GetFullDescriptionAsync(id));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id">  </param>
-        /// <returns>  </returns>
-        [HttpGet]
-        public async Task<JsonResult> GetReviews(int id)
+        [Authorize(Roles = $"{Roles.MAXon28}, {Roles.Admin}")]
+        public async Task<string> GetVacanciesInfo([FromQuery] VacancyFilters vacancyFilters)
         {
-            return Json(await _selfEmployedService.GetFortyReviews(id));
+            var (shortVacanciesInfo, vacanciesCount, packagesCount) = await _workService.GetShortVacanciesDataAsync(vacancyFilters);
+            return JsonConvert.SerializeObject(new
+            {
+                VacanciesInfo = shortVacanciesInfo,
+                VacanciesCount = vacanciesCount,
+                PackagesCount = packagesCount
+            });
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="serviceId">  </param>
         /// <returns>  </returns>
         [HttpGet]
-        public IActionResult ServiceTaskRegistration(int serviceId)
-        {
-            ViewData["ServiceId"] = serviceId;
-            return View();
-        }
+        [Authorize(Roles = $"{Roles.MAXon28}, {Roles.Admin}")]
+        public IActionResult Vacancy(int id) => View();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="serviceId">  </param>
         /// <returns>  </returns>
         [HttpGet]
-        public async Task<JsonResult> GetServiceRates(int serviceId) => Json(await _selfEmployedService.GetAdvancedService(serviceId));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="newTaskDto">  </param>
-        /// <returns>  </returns>
-        [HttpPost]
-        public async Task<JsonResult> AddTask(IFormCollection data)
-        {
-            const string technicalSpecificationFileDirectory = "TechnicalSpecifications";
-
-            var fullTechnicalSpecificationFileName = data.Files.Count > 0 ? await _fileSaver.SaveFileAsync(data.Files[0], technicalSpecificationFileDirectory) : null;
-
-            if (!data.TryGetValue("data", out var taskJson))
-                throw new Exception();
-
-            var newTask = JsonSerializer.Deserialize<NewTask>(taskJson);
-            newTask.TechnicalSpecificationFileName = fullTechnicalSpecificationFileName;
-
-            return Json(await _taskService.AddNewTaskAsync(newTask));
-        }
-
-        [HttpGet]
-        public IActionResult Task(string id) => View();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="serviceId">  </param>
-        /// <returns>  </returns>
-        [HttpGet]
-        public async Task<IActionResult> ServiceRule(int serviceId) => View();
+        [Authorize(Roles = $"{Roles.MAXon28}, {Roles.Admin}")]
+        public async Task<string> GetVacancy(int id)
+            => JsonConvert.SerializeObject(new
+            {
+                Vacancy = await _workService.GetVacancyAsync(id)
+            });
     }
 }

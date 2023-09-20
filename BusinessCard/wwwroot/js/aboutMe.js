@@ -8,10 +8,10 @@ function init() {
         type: "GET",
         url: "/MAXonBusinessCard/GetAboutMeData",
         success: function (informationAboutMe) {
-            SetBiography(informationAboutMe.Biography);
-            SetSkills(informationAboutMe.Skills);
-            SetExperience(informationAboutMe.Experience);
-            SetEducation(informationAboutMe.Education);
+            SetBiography(informationAboutMe.biography);
+            SetSkills(informationAboutMe.skills);
+            SetExperience(informationAboutMe.experience);
+            SetEducation(informationAboutMe.education);
         },
         error: function (error) {
             alert(error);
@@ -31,11 +31,9 @@ function timer() {
 
 function SetBiography(data) {
     var div = document.getElementById(`textAboutMe`);
-    for (i = 0; i < data.length; i++) {
-        var biography = document.createElement("p");
-        biography.innerHTML = data[i].data;
-        div.append(biography);
-    }
+    var biography = document.createElement("p");
+    biography.innerHTML = data;
+    div.append(biography);
 
     isLoad = true;
 
@@ -96,7 +94,7 @@ function SetExperience(data) {
 
         var period = document.createElement("p");
         period.className = "period";
-        period.innerHTML = data[i].startDate + " - " + data[i].endDate;
+        period.innerHTML = data[i].fromDate + " - " + data[i].toDate;
 
         experienceHeader.append(period);
         experienceDataDiv.append(experienceHeader);
@@ -150,7 +148,7 @@ function SetEducation(data) {
 
         var educationPeriodDiv = document.createElement("div");
         educationPeriodDiv.className = "educationPeriod";
-        educationPeriodDiv.innerHTML = data[i].startDate + " - " + data[i].endDate;
+        educationPeriodDiv.innerHTML = data[i].fromDate + " - " + data[i].toDate;
 
         var educationDescriptionDiv = document.createElement("div");
         educationDescriptionDiv.className = "educationDescription";

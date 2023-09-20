@@ -1,10 +1,13 @@
-﻿using Dapper;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces.Utils.QueryHelper;
+using Dapper;
 using System.Data;
 using System.Text;
 
 namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
 {
-    /// <inheritdoc cref="IFilterBuilder"/>
+    /// <summary>
+    /// Строитель фильтра по названию поста
+    /// </summary>
     internal class PostNameFilterBuilder : IFilterBuilder
     {
         /// <summary>

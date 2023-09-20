@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces.Utils.QueryHelper;
+using BusinessCard.BusinessLogicLayer.Utils.Enums;
+using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
@@ -7,7 +9,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
     /// <summary>
     /// Строитель запроса выборки постов
     /// </summary>
-    public class PostsSelectionQueryBuilder : SelectionQueryBuilder
+    internal class PostsSelectionQueryBuilder : SelectionQueryBuilder
     {
         /// <summary>
         /// Название таблицы
@@ -22,33 +24,54 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
         /// <summary>
         /// 
         /// </summary>
+        private const string JoinTableElementName = "bookmark";
+
+        /// <summary>
+        /// Сдвиг на конкретное число (для пагинации)
+        /// </summary>
+        private int _offset;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private PostRequestSettings _postRequestSettings;
 
         public PostsSelectionQueryBuilder()
         {
             _filterBuildersDictionary = new Dictionary<string, IFilterBuilder>
             {
+                [FilterConstants.Id] = new IdFilterBuilder(TableElementName),
+                [FilterConstants.User] = new UserIdFilterBuilder(JoinTableElementName),
                 [FilterConstants.PostName] = new PostNameFilterBuilder(),
-                [FilterConstants.User] = new UserIdFilterBuilder(),
                 [FilterConstants.Channel] = new ChannelIdFilterBuilder()
             };
         }
 
-        public override QueryData GetQueryData(IRequestSettings requestSettings)
+        /// <inheritdoc/>
+        public override QueryData GetQueryData(RequestSettings requestSettings)
         {
+            _dataCountInPackage = requestSettings.CountInPackage;
+
             _postRequestSettings = requestSettings as PostRequestSettings;
+            _offset = _postRequestSettings.Offset;
+
             _sqlQuery = new StringBuilder();
             _sqlQuery.Append(_sqlQueryTemplate);
             SetTableNamings(TableName, TableElementName);
-            SetSelect(_postRequestSettings.Offset);
+            SetSelect();
             SetJoin();
             SetWhere();
+            if (TypeOfSelect == SelectTypes.Data)
+            {
+                SetTop(_offset);
+                SetOrderBy();
+            }
 
-            return new QueryData(_sqlQuery.ToString(), _parameters);
+            return new(_sqlQuery.ToString(), _parameters);
         }
 
         /// <inheritdoc/>
-        protected override void SetDataSelect(int offset)
+        protected override void SetDataSelect()
         {
             var postsSelectionSet = $@"{TableElementName}.*,
 										channel.Name,
@@ -56,8 +79,8 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
 										FROM Topchiks topchik
 										WHERE topchik.PostId = {TableElementName}.Id) AS TopchiksCount,
 										(SELECT COUNT(*)
-										FROM Bookmarks bookmark
-										WHERE bookmark.PostId = {TableElementName}.Id) AS BookmarksCount,
+										FROM Bookmarks {JoinTableElementName}
+										WHERE {JoinTableElementName}.PostId = {TableElementName}.Id) AS BookmarksCount,
 										(SELECT COUNT(*)
 										FROM PostViews postView
 										WHERE postView.PostId = {TableElementName}.Id) AS ViewsCount,
@@ -67,15 +90,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
                                             ON branch.Id = comment.BranchId 
 										WHERE branch.PostId = {TableElementName}.Id) AS CommentsCount";
 
-            var orderBy = $@"ORDER BY {TableElementName}.Id DESC
-									   OFFSET {OffsetParameter} ROWS
-									   FETCH NEXT 28 ROWS ONLY";
-
-
             _sqlQuery.Replace(SelectionSetTemplate, postsSelectionSet);
-            _sqlQuery.Replace(OrderByTemplate, orderBy);
-
-            _parameters.Add(OffsetParameter, offset, DbType.Int32, ParameterDirection.Input);
         }
 
         /// <inheritdoc/>
@@ -84,6 +99,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
             var postsCountSelectionSet = $@"COUNT ({TableElementName}.Id)";
 
             _sqlQuery.Replace(SelectionSetTemplate, postsCountSelectionSet);
+            _sqlQuery.Replace(TopTemplate, string.Empty);
             _sqlQuery.Replace(OrderByTemplate, string.Empty);
         }
 
@@ -93,8 +109,8 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
             var firstJoin = $@"INNER JOIN Channels channel
 						       ON channel.Id = {TableElementName}.ChannelId";
 
-            var secondJoin = $@"INNER JOIN Bookmarks bookmark
-                                ON bookmark.PostId = {TableElementName}.Id";
+            var secondJoin = $@"INNER JOIN Bookmarks {JoinTableElementName}
+                                ON {JoinTableElementName}.PostId = {TableElementName}.Id";
 
             if (TypeOfSelect == SelectTypes.Data)
                 _sqlQuery.Replace(FirstJoinTemplate, firstJoin);
@@ -112,7 +128,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
         {
             const string where = "WHERE ";
 
-            if (string.IsNullOrEmpty(_postRequestSettings.SearchText) && _postRequestSettings.RequestType == PostRequestTypes.All)
+            if (_offset != -1 && string.IsNullOrEmpty(_postRequestSettings.SearchText) && _postRequestSettings.RequestType == PostRequestTypes.All)
             {
                 _sqlQuery.Replace(WhereTemplate, string.Empty);
                 return;
@@ -120,16 +136,39 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
 
             var whereBuilder = new StringBuilder(where);
 
+            if (_offset == -1)
+                SetFilter(whereBuilder, _filterBuildersDictionary[FilterConstants.Id], _postRequestSettings.LastElementId);
+
             if (_postRequestSettings.RequestType == PostRequestTypes.Bookmark)
                 SetFilter(whereBuilder, _filterBuildersDictionary[FilterConstants.User], _postRequestSettings.UserId);
 
             if (_postRequestSettings.RequestType == PostRequestTypes.Channel)
                 SetFilter(whereBuilder, _filterBuildersDictionary[FilterConstants.Channel], _postRequestSettings.ChannelId);
 
-            if (!string.IsNullOrEmpty(_postRequestSettings.SearchText))
+            if (string.IsNullOrEmpty(_postRequestSettings.SearchText) is false)
                 SetFilter(whereBuilder, _filterBuildersDictionary[FilterConstants.PostName], _postRequestSettings.SearchText);
 
             _sqlQuery.Replace(WhereTemplate, whereBuilder.ToString());
+        }
+
+        /// <inheritdoc/>
+        protected override void SetOrderBy()
+        {
+            var needOffset = _offset != -1;
+            string orderBy;
+            if (needOffset)
+            {
+                orderBy = $@"ORDER BY {TableElementName}.Id DESC
+					 OFFSET {OffsetParameter} ROWS
+					 FETCH NEXT {_dataCountInPackage} ROWS ONLY";
+                _parameters.Add(OffsetParameter, _offset, DbType.Int32, ParameterDirection.Input);
+            }
+            else
+            {
+                orderBy = $@"ORDER BY {TableElementName}.Id DESC";
+            }
+
+            _sqlQuery.Replace(OrderByTemplate, orderBy);
         }
     }
 }

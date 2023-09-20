@@ -1,4 +1,4 @@
-﻿using BusinessCard.DataAccessLayer.Entities.Content.Services;
+﻿using BusinessCard.DataAccessLayer.Entities.MAXonService;
 using DapperAssistant.Annotations;
 
 namespace BusinessCard.DataAccessLayer.Entities.Content

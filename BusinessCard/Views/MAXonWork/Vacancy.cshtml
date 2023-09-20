@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Вакансия";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/vacancy.css" runat="server" />
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-vacancy">
+    <div class="scene-vacancy">
+        <div class="mainBlock">
+            <div class="reverse-spinner" style="display: none;">
+                <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+            </div>
+            <div class="vacancyBlock" style="display: none;">
+                <div class="vacancyCard">
+                    <div class="mainPart">
+                        <div class="infoBlock">
+                            <p id="vacancyName" class="name"></p>
+                            <p id="vacancySalary" class="data salary"></p>
+                        </div>
+                        <p id="vacancyDate" class="date"></p>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="dataBlock">
+                        <div class="partBlock">
+                            <p id="company" class="data text"></p>
+                            <p id="contact" class="data text"></p>
+                        </div>
+                        <div class="partBlock">
+                            <p id="position" class="data text"></p>
+                            <p id="workFormat" class="data text"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="descriptionBlock" style="display: none;">
+                    <p class="name" style="margin: 22px 28px;">Описание</p>
+                    <div class="separator"></div>
+                    <div id="vacancyDescription" class="description"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/vacancy.js"></script>
+</body>
+</html>

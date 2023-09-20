@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces.Utils.QueryHelper;
+using Dapper;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
@@ -56,7 +57,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
             }
             else
             {
-                const string separator = ",";
+                const char separator = ',';
 
                 sqlQuery.Replace(ConditionTypeTemplate, _secondConditionType);
 

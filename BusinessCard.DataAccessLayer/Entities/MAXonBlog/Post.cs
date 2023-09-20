@@ -27,11 +27,6 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonBlog
         /// <summary>
         /// 
         /// </summary>
-        public DateTime PublicationDate { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public string HeaderImageUrl { get; set; }
 
         /// <summary>
@@ -44,6 +39,11 @@ namespace BusinessCard.DataAccessLayer.Entities.MAXonBlog
         /// </summary>
         [SqlForeignKey("Channels")]
         public int ChannelId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime PublicationDate { get; set; }
 
         /// <summary>
         /// 

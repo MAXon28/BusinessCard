@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
 {
     /// <inheritdoc cref="ITopchikRepository"/>
-    public class TopchikRepository : StandardRepository<Topchik>, ITopchikRepository
+    internal class TopchikRepository : StandardRepository<Topchik>, ITopchikRepository
     {
         public TopchikRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 

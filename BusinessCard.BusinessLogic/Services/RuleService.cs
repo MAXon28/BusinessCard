@@ -1,13 +1,13 @@
-﻿using BusinessCard.BusinessLogicLayer.Interfaces;
-using BusinessCard.DataAccessLayer.Interfaces.Content;
+﻿using BusinessCard.DataAccessLayer.Interfaces.Content;
 using System.Threading.Tasks;
+using BusinessCard.BusinessLogicLayer.Interfaces;
 
 namespace BusinessCard.BusinessLogicLayer.Services
 {
     /// <summary>
     /// 
     /// </summary>
-    public class RuleService : IRuleService
+    internal class RuleService : IRuleService
     {
         /// <summary>
         /// 

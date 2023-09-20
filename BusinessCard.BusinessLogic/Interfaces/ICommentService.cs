@@ -1,4 +1,4 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Blog;
+﻿using BusinessCard.Entities.DTO.Blog;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -3,7 +3,7 @@
 namespace BusinessCard.DataAccessLayer.Entities.Data
 {
     /// <summary>
-    /// 
+    /// Роль в системе
     /// </summary>
     [SqlTable("Roles")]
     public class Role
@@ -14,7 +14,7 @@ namespace BusinessCard.DataAccessLayer.Entities.Data
         public int Id { get; set; }
 
         /// <summary>
-        /// 
+        /// Название роли
         /// </summary>
         public string Name { get; set; }
     }

@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Вакансии";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/vacancies.css" runat="server" />
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-vacancies">
+    <div class="scene-vacancies">
+        <p class="header">Вакансии</p>
+        <div class="mainBlock">
+            <div class="filterBlock" style="display: none;">
+                <div class="searchBlock">
+                    <div class="tb">
+                        <div class="td"><input id="search" type="text" placeholder="Поиск вакансий" autocomplete="off" required></div>
+                        <div class="td" id="s-cover">
+                            <button type="submit" onclick="SearchVacancies()">
+                                <div id="s-circle"></div>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reverse-spinner" style="display: none;">
+                <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+            </div>
+            <div class="vacanciesBlock"></div>
+            <button class="viewElse" onclick="ViewElse()" style="display: none;">Показать ещё</button>
+            <div id="elsePreloader" class="preloader" style="display: none; margin-top: 201px;">
+                <svg class="preloader__image" style="color: #87CEFA" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="currentColor"
+                          d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+                    </path>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/vacancies.js"></script>
+</body>
+</html>

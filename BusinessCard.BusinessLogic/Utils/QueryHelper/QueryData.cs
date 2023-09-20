@@ -5,22 +5,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper
     /// <summary>
     /// Данные запроса
     /// </summary>
-    public class QueryData
-    {
-        public QueryData(string sqlQuery, DynamicParameters parameters)
-        {
-            SqlQuery = sqlQuery;
-            Parameters = parameters;
-        }
-
-        /// <summary>
-        /// SQL-запрос
-        /// </summary>
-        public string SqlQuery { get; }
-
-        /// <summary>
-        /// Параметры
-        /// </summary>
-        public DynamicParameters Parameters { get; }
-    }
+    /// <param name="SqlQuery"> SQL-запрос </param>
+    /// <param name="Parameters"> Параметры </param>
+    public record QueryData(string SqlQuery, DynamicParameters Parameters);
 }

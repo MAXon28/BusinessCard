@@ -4,13 +4,12 @@ using BusinessCard.DataAccessLayer.Interfaces.MAXonStore;
 using Dapper;
 using DapperAssistant;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
 {
     /// <inheritdoc cref="IProjectReviewRepository"/>
-    public class ProjectReviewRepository : StandardRepository<ProjectReview>, IProjectReviewRepository
+    internal class ProjectReviewRepository : StandardRepository<ProjectReview>, IProjectReviewRepository
     {
         public ProjectReviewRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 

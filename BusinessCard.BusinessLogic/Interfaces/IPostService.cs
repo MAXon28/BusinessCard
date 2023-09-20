@@ -1,7 +1,6 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Blog;
+﻿using BusinessCard.Entities.DTO.Blog;
 using BusinessCard.DataAccessLayer.Entities.MAXonBlog;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BusinessCard.BusinessLogicLayer.Interfaces
@@ -17,7 +16,7 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// <param name="userId">  </param>
         /// <param name="filters">  </param>
         /// <returns>  </returns>
-        public Task<PostsInformation> GetPostsAsync(int? userId, PostFilters filters);
+        public Task<PostsInformation> GetPostsAsync(int userId, PostFilters filters);
 
         /// <summary>
         /// 
@@ -53,6 +52,6 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// <param name="userId">  </param>
         /// <param name="postKey">  </param>
         /// <returns>  </returns>
-        public Task<PostInformation> GetPostInformationAsync(int? userId, string postKey);
+        public Task<PostInformation> GetPostInformationAsync(int userId, string postKey);
     }
 }

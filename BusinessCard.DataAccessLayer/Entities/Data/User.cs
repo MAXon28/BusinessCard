@@ -36,6 +36,11 @@ namespace BusinessCard.DataAccessLayer.Entities.Data
         /// <summary>
         /// 
         /// </summary>
+        public string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Password { get; set; }
 
         /// <summary>
@@ -49,5 +54,11 @@ namespace BusinessCard.DataAccessLayer.Entities.Data
         /// </summary>
         [RelatedSqlEntity]
         public Role Role { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [NotSqlColumn]
+        public string RoleName { get; set; }
     }
 }

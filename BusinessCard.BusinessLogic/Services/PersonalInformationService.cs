@@ -1,8 +1,9 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Blog;
-using BusinessCard.BusinessLogicLayer.Interfaces;
-using BusinessCard.BusinessLogicLayer.Utils;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces;
+using BusinessCard.BusinessLogicLayer.Utils.Enums;
+using BusinessCard.BusinessLogicLayer.Utils.Extensions;
 using BusinessCard.DataAccessLayer.Entities.MAXonBlog;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonBlog;
+using BusinessCard.Entities.DTO.Blog;
 using DapperAssistant;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace BusinessCard.BusinessLogicLayer.Services
 {
     /// <inheritdoc cref="IPersonalInformationService"/>
-    public class PersonalInformationService : IPersonalInformationService
+    internal class PersonalInformationService : IPersonalInformationService
     {
         /// <summary>
         /// 
@@ -39,8 +40,8 @@ namespace BusinessCard.BusinessLogicLayer.Services
         private readonly IMailingSubscriptionRepository _mailingSubscriptionRepository;
 
         public PersonalInformationService(
-            IUserStatisticRepository userStatisticRepository, 
-            ITopchikRepository topchikRepository, 
+            IUserStatisticRepository userStatisticRepository,
+            ITopchikRepository topchikRepository,
             IBookmarkRepository bookmarkRepository,
             IChannelSubscriptionRepository channelSubscriptionRepository,
             IMailingSubscriptionRepository mailingSubscriptionRepository)
@@ -53,10 +54,10 @@ namespace BusinessCard.BusinessLogicLayer.Services
         }
 
         public async Task<PersonalInformation> GetPersonalInformationAsync(int userId, IEnumerable<int> postsId)
-            => new PersonalInformation { StatisticsByPost = await _userStatisticRepository.GetUserStatisticByPostsAsync(userId, postsId) };
+            => new() { StatisticsByPost = await _userStatisticRepository.GetUserStatisticByPostsAsync(userId, postsId) };
 
         public async Task<PersonalInformation> GetPersonalInformationAsync(int userId, int channelId, IEnumerable<int> postsId)
-            => new PersonalInformation
+            => new()
             {
                 SubscriptionsDictionary = await _userStatisticRepository.GetUserSubscriptionsByPostsAsync(userId, channelId),
                 StatisticsByPost = await _userStatisticRepository.GetUserStatisticByPostsAsync(userId, postsId)
@@ -109,9 +110,9 @@ namespace BusinessCard.BusinessLogicLayer.Services
         }
 
         public async Task<bool> AddOrDeleteTopchikAsync(int userId, int postId, bool isTopchik)
-            => isTopchik ? 
-            await _topchikRepository.AddAsync(GetTopchik(userId, postId)) == 1 : 
-            await _topchikRepository.DeleteTopchikAsync(userId, postId) == 1;
+            => isTopchik
+            ? await _topchikRepository.AddAsync(GetTopchik(userId, postId)) == 1
+            : await _topchikRepository.DeleteTopchikAsync(userId, postId) == 1;
 
         /// <summary>
         /// 
@@ -120,16 +121,16 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <param name="postId">  </param>
         /// <returns>  </returns>
         private Topchik GetTopchik(int userId, int postId)
-            => new Topchik
+            => new()
             {
                 UserId = userId,
                 PostId = postId
             };
 
         public async Task<bool> AddOrDeletePostInBookmarkAsync(int userId, int postId, bool inBookmark)
-            => inBookmark ?
-            await _bookmarkRepository.AddAsync(GetBookmark(userId, postId)) == 1 :
-            await _bookmarkRepository.DeletePostFromBookmarkAsync(userId, postId) == 1;
+            => inBookmark
+            ? await _bookmarkRepository.AddAsync(GetBookmark(userId, postId)) == 1
+            : await _bookmarkRepository.DeletePostFromBookmarkAsync(userId, postId) == 1;
 
         /// <summary>
         /// 
@@ -138,29 +139,25 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <param name="postId">  </param>
         /// <returns>  </returns>
         private Bookmark GetBookmark(int userId, int postId)
-            => new Bookmark
+            => new()
             {
                 UserId = userId,
                 PostId = postId
             };
 
         public async Task<bool> SubscribeAsync(int userId, int channelId, bool isSubscribe, string subscribeTypeStr)
-        {
-            var subscribeType = subscribeTypeStr.ToEnum<SubscribeTypes>();
-
-            return subscribeType switch
+            => subscribeTypeStr.ToEnum<SubscribeTypes>() switch
             {
-                SubscribeTypes.OnChannel => isSubscribe ?
-                                            await _channelSubscriptionRepository.AddAsync(GetSubscription<ChannelSubscription>(userId, channelId)) == 1 :
-                                            await _channelSubscriptionRepository.DeleteChannelFromSubscriptionAsync(userId, channelId) == 1,
+                SubscribeTypes.OnChannel => isSubscribe
+                                            ? await _channelSubscriptionRepository.AddAsync(GetSubscription<ChannelSubscription>(userId, channelId)) == 1
+                                            : await _channelSubscriptionRepository.DeleteChannelFromSubscriptionAsync(userId, channelId) == 1,
 
-                SubscribeTypes.OnMailing => isSubscribe ?
-                                            await _mailingSubscriptionRepository.AddAsync(GetSubscription<MailingSubscription>(userId, channelId)) == 1 :
-                                            await _mailingSubscriptionRepository.DeleteChannelFromSubscriptionAsync(userId, channelId) == 1,
+                SubscribeTypes.OnMailing => isSubscribe
+                                            ? await _mailingSubscriptionRepository.AddAsync(GetSubscription<MailingSubscription>(userId, channelId)) == 1
+                                            : await _mailingSubscriptionRepository.DeleteChannelFromSubscriptionAsync(userId, channelId) == 1,
 
                 _ => throw new Exception()
             };
-        }
 
         /// <summary>
         /// 
@@ -170,10 +167,25 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <typeparam name="T">  </typeparam>
         /// <returns>  </returns>
         private T GetSubscription<T>(int userId, int channelId) where T : Subscription, new()
-            => new T
+            => new()
             {
                 UserId = userId,
                 ChannelId = channelId
             };
+
+        public async Task<UserBlogStatistic> GetUserBlogStatisticAsync(int userId)
+        {
+            const string channelSubscriptionsKey = "ChannelSubscriptionsCount";
+            const string mailingSubscriptionsKey = "MailingSubscriptionsCount";
+            const string bookmarksKey = "BookmarksCount";
+
+            var userStaitistics = await _userStatisticRepository.GetUserStatisticInBlogAsync(userId);
+            return new()
+            {
+                ChannelSubscriptionsCount = userStaitistics[channelSubscriptionsKey],
+                MailingSubscriptionsCount = userStaitistics[mailingSubscriptionsKey],
+                BookmarksCount = userStaitistics[bookmarksKey]
+            };
+        }
     }
 }

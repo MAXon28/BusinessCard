@@ -7,7 +7,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonStore
     /// <summary>
     /// 
     /// </summary>
-    public class ProjectTypeRepository : StandardRepository<ProjectType>, IProjectTypeRepository
+    internal class ProjectTypeRepository : StandardRepository<ProjectType>, IProjectTypeRepository
     {
         public ProjectTypeRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
     }

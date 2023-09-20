@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ServiceConfiguration>
-	<ConcretePriceTemplate>*price* *currency*</ConcretePriceTemplate>
-	<NotConcretePriceTemplate>От *price* *currency*</NotConcretePriceTemplate>
-	<PriceTemplate>*price*</PriceTemplate>
-	<CurrencyTemplate>*currency*</CurrencyTemplate>
-	<Currency>₽</Currency>
-</ServiceConfiguration>

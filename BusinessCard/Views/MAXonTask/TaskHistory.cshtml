@@ -1,0 +1,67 @@
+﻿@using BusinessCard.Entities
+@{
+    ViewData["Title"] = "Мои задачи";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/taskHistory.css" runat="server" />
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-taskHistory">
+    <div class="scene-taskHistory">
+        <p class="header">Задачи</p>
+        <div class="mainBlock">
+            <div class="filterBlock" style="display: none;">
+                <div class="searchBlock">
+                    <div class="tb">
+                        <div class="td"><input id="search" type="text" placeholder="Поиск задач" autocomplete="off" required></div>
+                        <div class="td" id="s-cover">
+                            <button type="submit" onclick="SearchTasks()">
+                                <div id="s-circle"></div>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="statusBlock">
+                    <div class="select">
+                        <input class="select__input" type="hidden" name="">
+                        <div class="select__head">Все</div>
+                        <ul class="select__list" style="display: none; width: 207px;">
+                            <li class="select__item" onclick="SelectStatus('ALL')">Все</li>
+                            <li class="select__item" onclick="SelectStatus('PROCESS')">В процессе</li>
+                            <li class="select__item" onclick="SelectStatus('DONE')">Выполненные</li>
+                            <li class="select__item" onclick="SelectStatus('REJECTED')">Отклонённые</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="reverse-spinner" style="display: none;">
+                <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+            </div>
+            <div class="tasksBlock"></div>
+            <button class="viewElse" onclick="ViewElse()" style="display: none;">Показать ещё</button>
+            <div id="elsePreloader" class="preloader" style="display: none; margin-top: 201px;">
+                <svg class="preloader__image" style="color: #87CEFA" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="currentColor"
+                          d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+                    </path>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    @if (User.Claims.Count() == 0 || User.IsInRole(Roles.User))
+    {
+        <script src="~/js/taskHistory.js"></script>
+    }
+    else
+    {
+        <script src="~/js/taskHistoryForMAXon28Team.js"></script>
+    }
+</body>
+</html>

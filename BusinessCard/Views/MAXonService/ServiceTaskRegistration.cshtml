@@ -1,0 +1,161 @@
+﻿@{
+    ViewData["Title"] = "Оформление заявки";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/serviceTaskRegistration.css" runat="server" />
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-serviceTaskRegistration">
+    <div class="scene scene-serviceTaskRegistration">
+        <div class="reverse-spinner skip">
+            <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+        </div>
+        <div class="technicalSpecificationBlock skip">
+            <p id="technicalSpecification" class="header">Техническое задание</p>
+            <div class="center">
+                <div class="information">
+                    i
+                </div>
+                <div class="popup-text">
+                    Информация о создании вакансии. Все данные используются исключительно в интересах владельца сайта и не передаются третьим лицам.
+                </div>
+                <div class="form">
+                    <div class="field__wrapper">
+                        <input id="file" type="file" name="file" class="field__file" style="display: none" accept=".jpg,.jpeg,.png,.doc,.docx,.txt,.pdf,.zip,.rar,.7z">
+                        <label class="field__file-wrapper" for="file">
+                            <p class="field__file-fake">Прикрепите файл</p>
+                            <p class="field__file-button">Прикрепить файл ТЗ</p>
+                        </label>
+                    </div>
+                    <div class="toolbar">
+                        <a href="#" class="toolbar-b" title="Жирный"><i class="fa fas fa-bold fa-lg"></i></a>
+                        <a href="#" class="toolbar-i" title="Курсив"><i class="fa fas fa-italic fa-lg"></i></a>
+                        <a href="#" class="toolbar-ul" title="Маркированный список"><i class="fa fas fa-list-ul fa-lg"></i></a>
+                        <br>
+                        <a href="#" class="toolbar-left" title="по левому краю"><i class="fa fas fa-align-left fa-lg"></i></a>
+                        <a href="#" class="toolbar-center" title="по центру"><i class="fa fas fa-align-center fa-lg"></i></a>
+                        <a href="#" class="toolbar-right" title="по правому краю"><i class="fa fas fa-align-right fa-lg"></i></a>
+                        <a href="#" class="toolbar-justify" title="по ширине"><i class="fa fas fa-align-justify fa-lg"></i></a>
+                        <br>
+                    </div>
+                    <div id="description" class="editor" contenteditable="true" data-placeholder="Опишите техническое задание"></div>
+                </div>
+            </div>
+        </div>
+        <div id="ratesBlock" class="ratesBlock skip" style="position: relative;">
+            <div class="ratesErrorBlock skip">
+                <div class="ratesError">
+                   Выберите тариф!
+                </div>
+            </div>
+            <p id="rates" class="header">Тарифы</p>
+            <div class="rates"></div> 
+        </div>
+        <div class="taskRegistrationBlock skip">
+            <p id="taskRegistration" class="header">Оформление заявки</p>
+            <div id="form" class="center">
+                <div class="information">
+                    i
+                </div>
+                <div class="popup-text">
+                    Информация о создании вакансии. Все данные используются исключительно в интересах владельца сайта и не передаются третьим лицам.
+                </div>
+                <div class="form">
+                    <div class="singletonRowBlock">
+                        <div class="leftBlock">
+                            <div class="inputbox">
+                                <input id="surname" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Фамилия</span>
+                                <p id="surnameError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                            </div>
+                            <div class="inputbox">
+                                <input id="name" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Имя</span>
+                                <p id="nameError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                            </div>
+                            <div class="inputbox">
+                                <input id="middleName" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Отчество</span>
+                            </div>
+                        </div>
+                        <div class="rightBlock">
+                            <div class="inputbox" id="emailInputbox">
+                                <input id="email" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Email</span>
+                                <p id="emailError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="emailErrorFromServer" class="errorMessage"></p>
+                            </div>
+                            <div class="inputbox" id="phoneNumberInputbox">
+                                <input id="phoneNumber" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Номер телефона</span>
+                                <p id="phoneNumberError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="phoneNumberErrorFromServer" class="errorMessage"></p>
+                            </div>
+                            <div id="deadlineBlock" class="inputbox">
+                                <input id="deadline" class="input" type="date" required="required" autocomplete="off" style="padding: 17px 12px;">
+                                <span class="placeholder">Срок выполнения работы</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="connection">
+                        <p class="connectionHeader">Удобный вид связи:</p>
+                        <select id="connection" class="toolbar-font">
+                            <option value="Сайт" selected>Сайт</option>
+                            <option value="Звонок по телефону">Звонок по телефону</option>
+                            <option value="Telegram">Telegram</option>
+                            <option value="What's App">What's App</option>
+                            <option value="Почта">Почта</option>
+                        </select>
+                    </div>
+                    <div id="salary" class="salary">
+                        <p class="salaryHeader">Предлагаемая цена:</p>
+                        <input id="salaryTo" class="inputSalary inputTo" type="number" placeholder="Цена" style="border-right: 0.5px;">
+                        <select id="currency" class="toolbar-font" style="border-radius: 0 5px 5px 0; padding: 0;">
+                            <option value="₽" selected>₽</option>
+                            <option value="€">€</option>
+                            <option value="$">$</option>
+                        </select>
+                    </div>
+                    <div class="ruleBlock">
+                        <div class="ruleCheckboxBlock">
+                            <div class="checkbox">
+                                <input class="custom-checkbox" type="checkbox" id="serviceRule" name="color-1">
+                                <label for="serviceRule"></label>
+                            </div>
+                            <p>Ознакомлен(-а) с <a id="serviceRuleUrl" asp-area="" asp-controller="BusinessCard" asp-action="ServiceRule" asp-route-serviceId="@ViewData["ServiceId"]" target="_blank">правилами выполнения работ и оплаты услуги</a></p>
+                        </div>
+                        <p id="serviceRuleError" class="errorMessage">Обязательно для ознакомления.</p>
+                    </div>
+                    <div class="ruleBlock">
+                        <div class="ruleCheckboxBlock">
+                            <div class="checkbox">
+                                <input class="custom-checkbox" type="checkbox" id="privacyPolicy" name="color-2">
+                                <label for="privacyPolicy"></label>
+                            </div>
+                            <p>Ознакомлен(-а) с <a asp-area="" asp-controller="BusinessCard" asp-action="ServiceRule" target="_blank">политикой конфиденциальности</a></p>
+                        </div>
+                        <p id="privacyPolicyError" class="errorMessage">Обязательное согласие.</p>
+                    </div>
+                    <div class="formOrderBlock">
+                        <button class="formOrder" onclick="CreateServiceTask()"><p>Подтвердить заявку</p></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="success skip">
+            <p>Заявка отправлена!</p>
+            <p>Номер заявки: <a id="registrationNumber"></a></p>
+        </div>
+        <div class="error skip">
+            <p>Не удалось отправить заявку. Приношу свои извинения.</p>
+            <p>Попробуйте ещё раз!</p>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/serviceTaskRegistration.js"></script>
+</body>
+</html>

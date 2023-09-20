@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
 {
     /// <inheritdoc cref="IMailingSubscriptionRepository"/>
-    public class MailingSubscriptionRepository : StandardRepository<MailingSubscription>, IMailingSubscriptionRepository
+    internal class MailingSubscriptionRepository : StandardRepository<MailingSubscription>, IMailingSubscriptionRepository
     {
         public MailingSubscriptionRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 

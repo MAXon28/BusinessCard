@@ -2,14 +2,13 @@
 using Dapper;
 using DapperAssistant;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
 {
     /// <inheritdoc cref="IUserStatisticRepository"/>
-    public class UserStatisticRepository : IUserStatisticRepository
+    internal class UserStatisticRepository : IUserStatisticRepository
     {
         /// <summary>
         /// 
@@ -89,6 +88,32 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
                     splitOn: "PostId, TypeOfStatistic");
 
             return userStatistic;
+        }
+
+        public async Task<Dictionary<string, int>> GetUserStatisticInBlogAsync(int userId)
+        {
+            const string sqlQuery = @"SELECT COUNT(Id),
+	                                        'ChannelSubscriptionsCount' AS Name
+                                        FROM ChannelSubscriptions
+                                        WHERE UserId = @userId
+                                        UNION
+                                        SELECT COUNT(Id),
+	                                        'MailingSubscriptionsCount' AS Name
+                                        FROM MailingSubscriptions
+                                        WHERE UserId = @userId
+                                        UNION
+                                        SELECT COUNT(Id),
+	                                        'BookmarksCount' AS Name
+                                        FROM Bookmarks
+                                        WHERE UserId = @userId";
+
+            using var dbConnection = _dbConnectionKeeper.GetDbConnection();
+
+            return (await dbConnection.QueryAsync<int, string, KeyValuePair<string, int>>(
+                    sqlQuery,
+                    (count, name) => new KeyValuePair<string, int>(name, count),
+                    new { userId },
+                    splitOn: "Name")).ToDictionary(x => x.Key, x => x.Value);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
     /// <summary>
     /// 
     /// </summary>
-    public class ChannelRepository : StandardRepository<Channel>, IChannelRepository
+    internal class ChannelRepository : StandardRepository<Channel>, IChannelRepository
     {
         public ChannelRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 

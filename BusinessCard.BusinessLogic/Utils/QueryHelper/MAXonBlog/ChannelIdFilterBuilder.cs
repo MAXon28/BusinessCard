@@ -2,10 +2,13 @@
 using System.Data;
 using System;
 using System.Text;
+using BusinessCard.BusinessLogicLayer.Interfaces.Utils.QueryHelper;
 
 namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
 {
-    /// <inheritdoc cref="IFilterBuilder"/>
+    /// <summary>
+    /// Строитель фильтра идентификатора канала
+    /// </summary>
     internal class ChannelIdFilterBuilder : IFilterBuilder
     {
         /// <summary>
@@ -27,7 +30,7 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog
             }
             else
             {
-                throw new Exception("Значение фильтра неопределено.");
+                throw new Exception("Значение фильтра не определено.");
             }
         }
     }

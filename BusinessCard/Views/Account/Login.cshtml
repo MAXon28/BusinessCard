@@ -6,6 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/css/login.css" runat="server" />
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
     <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
     <title>@ViewData["Title"] | MAXon28</title>
 </head>
@@ -13,7 +14,7 @@
     <div class="scene-login">
         <div class="container">
             <div class="frame">
-                <div style="background: #211f30; display: flex;">
+                <div style="background: #211f30; display: flex; z-index: 1;">
                     <svg version="1.1" id="Слой_1" x="0px" y="0px" viewBox="0 0 1080 1080" style="width: 201px; margin: 31px;" xml:space="preserve">
                         <switch>
                             <g i:extraneous="self">
@@ -44,14 +45,15 @@
                             <div class="inputbox">
                                 <input id="email" class="input" type="text" required="required" autocomplete="off">
                                 <span class="placeholder">Email</span>
-                                <p id="emailError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="emailError" class="errorMessage">Введите email.</p>
                             </div>
                             <div class="inputbox">
                                 <input id="password" class="input" type="password" required="required" autocomplete="off">
                                 <span class="placeholder">Пароль</span>
-                                <p id="passwordError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="passwordError" class="errorMessage">Введите пароль.</p>
                             </div>
-                            <button class="btn-signin" onclick="CreateVacancy()">Войти</button>
+                            <button class="btn-signin">Войти</button>
+                            <p id="loginError" class="errorMessage">Неправильный логин или пароль.</p>
                         </form>
 
                         <form class="form-signup" action="" method="post" name="form">
@@ -68,22 +70,29 @@
                             <div class="inputbox">
                                 <input id="middleName" class="input" type="text" required="required" autocomplete="off">
                                 <span class="placeholder">Отчество</span>
-                                <p id="middleNameError" class="errorMessage">Это поле является обязательным для заполнения.</p>
                             </div>
                             <div class="inputbox">
-                                <input id="email" class="input" type="text" required="required" autocomplete="off">
+                                <input id="emailRegistration" class="input" type="text" required="required" autocomplete="off">
                                 <span class="placeholder">Email</span>
-                                <p id="emailError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="emailRegistrationError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="emailRegistrationErrorFromServer" class="errorMessage"></p>
                             </div>
                             <div class="inputbox">
-                                <input id="password" class="input" type="password" required="required" autocomplete="off">
+                                <input id="phoneNumberRegistration" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Номер телефона</span>
+                                <p id="phoneNumberRegistrationError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="phoneNumberRegistrationErrorFromServer" class="errorMessage"></p>
+                            </div>
+                            <div class="inputbox">
+                                <input id="passwordRegistration" class="input" type="password" required="required" autocomplete="off">
                                 <span class="placeholder">Пароль</span>
-                                <p id="passwordError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="passwordRegistrationError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="passwordRegistrationErrorFromServer" class="errorMessage"></p>
                             </div>
                             <div class="inputbox">
                                 <input id="repeatPassword" class="input" type="password" required="required" autocomplete="off">
                                 <span class="placeholder">Пароль ещё раз</span>
-                                <p id="repeatPasswordError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="repeatPasswordError" class="errorMessage">Пароль повторно введён неверно.</p>
                             </div>
                             <div class="ruleBlock">
                                 <div class="ruleCheckboxBlock">
@@ -95,7 +104,16 @@
                                 </div>
                                 <p id="privacyPolicyError" class="errorMessage">Обязательное согласие.</p>
                             </div>
-                            <button class="btn-signup" onclick="CreateVacancy()">Подтвердить</button>
+                            <div id="mainPreloader" class="preloader" style="display: none; margin-top: 201px;">
+                                <svg class="preloader__image" style="color: #87CEFA" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path fill="currentColor"
+                                          d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <button class="btn-signup">Подтвердить</button>
+                            <p id="registrationError" class="errorMessage"></p>
+                            <p id="registrationSuccess" class="successMessage">Регистрация прошла успешно! Перенаправление на главную страницу. Пожалуйста, подождите.</p>
                         </form>
                     </div>
 

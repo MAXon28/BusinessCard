@@ -1,34 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using BusinessCard.BusinessLogicLayer.Utils.Enums;
+using BusinessCard.BusinessLogicLayer.Utils.Extensions;
+using System.Collections.Generic;
 
 namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
 {
     /// <summary>
     /// Настройки запроса проектов
     /// </summary>
-    internal class ProjectRequestSettings : IRequestSettings
+    internal class ProjectRequestSettings : RequestSettings
     {
-        internal ProjectRequestSettings(string searchText, List<int> typesId, List<int> categoriesId, List<int> compatibilitiesId, int typeOfSort, int offset)
+        public ProjectRequestSettings(
+            int lastProjectId,
+            int projectsCountInPackage,
+            string searchText,
+            List<int> typesId,
+            List<int> categoriesId,
+            List<int> compatibilitiesId,
+            int typeOfSort,
+            int offset) : base(lastProjectId, projectsCountInPackage, searchText)
         {
-            SearchText = searchText;
-
             FilterValuesDictionary[FilterConstants.ProjectType] = typesId;
             FilterValuesDictionary[FilterConstants.ProjectCategory] = categoriesId;
             FilterValuesDictionary[FilterConstants.ProjectCompatibility] = compatibilitiesId;
-
-            TypeOfSort = (SortTypes)typeOfSort;
-
+            TypeOfSort = typeOfSort.ToEnum<SortTypes>();
             Offset = offset;
         }
 
         /// <summary>
-        /// Поисковый запрос (название проекта или его часть)
-        /// </summary>
-        internal string SearchText { get; }
-
-        /// <summary>
         /// Словарь значений для фильтрации
         /// </summary>
-        internal Dictionary<string, List<int>> FilterValuesDictionary { get; } = new Dictionary<string, List<int>>
+        public Dictionary<string, List<int>> FilterValuesDictionary { get; } = new Dictionary<string, List<int>>
         {
             [FilterConstants.ProjectType] = new List<int>(),
             [FilterConstants.ProjectCategory] = new List<int>(),
@@ -38,11 +39,11 @@ namespace BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore
         /// <summary>
         /// Тип сортировки
         /// </summary>
-        internal SortTypes TypeOfSort { get; }
+        public SortTypes TypeOfSort { get; }
 
         /// <summary>
         /// Сдвиг проектов на конкретное число (для пагинации)
         /// </summary>
-        internal int Offset { get; }
+        public int Offset { get; }
     }
 }

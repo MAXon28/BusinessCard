@@ -7,7 +7,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.Content
     /// <summary>
     /// 
     /// </summary>
-    public class SkillRepository : StandardRepository<Skill>, ISkillRepository
+    internal class SkillRepository : StandardRepository<Skill>, ISkillRepository
     {
         public SkillRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
     }

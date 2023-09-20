@@ -7,7 +7,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.Content
     /// <summary>
     /// 
     /// </summary>
-    public class RuleRepository : StandardRepository<Rule>, IRuleRepository
+    internal class RuleRepository : StandardRepository<Rule>, IRuleRepository
     {
         public RuleRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
     }

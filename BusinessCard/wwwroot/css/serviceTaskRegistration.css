@@ -134,7 +134,7 @@
 }
 
 .ratesError {
-    background: #ef2d5a;
+    background: #eb3c3c;
     position: sticky;
     width: 167px;
     margin: 28px;
@@ -335,7 +335,8 @@ input[type="number"]:focus {
 }
 
 .rateCard {
-    width: 31%;
+    width: 40%;
+    max-width: 528px;
     display: flex;
     flex-direction: column;
     background: #fdfdfd;

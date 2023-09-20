@@ -1,10 +1,14 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Store;
-using BusinessCard.BusinessLogicLayer.Interfaces;
-using BusinessCard.BusinessLogicLayer.Utils;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces;
+using BusinessCard.BusinessLogicLayer.Interfaces.Utils;
+using BusinessCard.BusinessLogicLayer.Interfaces.Utils.QueryHelper;
+using BusinessCard.BusinessLogicLayer.Utils.Attributes;
+using BusinessCard.BusinessLogicLayer.Utils.Enums;
+using BusinessCard.BusinessLogicLayer.Utils.Extensions;
 using BusinessCard.BusinessLogicLayer.Utils.QueryHelper;
 using BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore;
 using BusinessCard.DataAccessLayer.Entities.MAXonStore;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonStore;
+using BusinessCard.Entities.DTO.Store;
 using DapperAssistant;
 using System;
 using System.Collections.Generic;
@@ -14,7 +18,7 @@ using System.Threading.Tasks;
 namespace BusinessCard.BusinessLogicLayer.Services
 {
     /// <inheritdoc cref="IStoreService"/>
-    public class StoreService : IStoreService
+    internal class StoreService : IStoreService
     {
         /// <summary>
         /// Количество проектов в одном пакете (для пагинации)
@@ -57,24 +61,31 @@ namespace BusinessCard.BusinessLogicLayer.Services
         private readonly IProjectReviewService _projectReviewService;
 
         /// <summary>
-        /// 
+        /// Строитель запросов выборки
         /// </summary>
-        private readonly SelectionQueryBuilder _selectionQueryBuilder;
+        private readonly ISelectionQueryBuilder _selectionQueryBuilder;
 
         /// <summary>
         /// Утилита для пагинации по проектам
         /// </summary>
-        private readonly PaginationtUtil _paginationUtil = new PaginationtUtil(ProjectsCountInPackage);
+        private readonly IPagination _pagination;
+
+        /// <summary>
+        /// Сервис для окончания слова (правильность написания)
+        /// </summary>
+        private readonly IWordEnding _wordEnding;
 
         public StoreService
             (IProjectRepository projectRepository,
-            IProjectTypeRepository projectTypeRepository, 
-            IProjectCategoryRepository projectCategoryRepository, 
+            IProjectTypeRepository projectTypeRepository,
+            IProjectCategoryRepository projectCategoryRepository,
             IProjectCompatibilityRepository projectCompatibilityRepository,
             IProjectImageRepository projectImageRepository,
             IProjectReviewService projectReviewService,
             IProjectTechnicalRequirementValueRepository projectTechnicalRequirementValueRepository,
-            ISelectionQueryBuilderFactory selectionQueryBuilderFactory)
+            ISelectionQueryBuilderFactory selectionQueryBuilderFactory,
+            IPagination pagination,
+            IWordEnding wordEnding)
         {
             _projectRepository = projectRepository;
             _projectTypeRepository = projectTypeRepository;
@@ -84,6 +95,8 @@ namespace BusinessCard.BusinessLogicLayer.Services
             _projectReviewService = projectReviewService;
             _projectTechnicalRequirementValueRepository = projectTechnicalRequirementValueRepository;
             _selectionQueryBuilder = selectionQueryBuilderFactory.GetQueryBuilder(QueryBuilderTypes.Projects);
+            _pagination = pagination;
+            _wordEnding = wordEnding;
         }
 
         public async Task<List<ProjectInformation>> GetProjectsAsync(FiltersIn filters, int projectsPackageNumber)
@@ -104,9 +117,9 @@ namespace BusinessCard.BusinessLogicLayer.Services
             var queryDataForCount = _selectionQueryBuilder.GetQueryData(projectRequestSettings);
             var projectsCountByCurrentFilter = await _projectRepository.GetProjectsCountAsync(queryDataForCount.SqlQuery, queryDataForCount.Parameters);
 
-            return new ProjectsInformationDto
+            return new()
             {
-                PagesCountByCurrentFilters = _paginationUtil.GetPagesCount(projectsCountByCurrentFilter),
+                PagesCountByCurrentFilters = _pagination.GetPagesCount(ProjectsCountInPackage, projectsCountByCurrentFilter),
                 Projects = GetProjectsDto(projects)
             };
         }
@@ -119,13 +132,31 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <returns> Настройки запроса по проектам </returns>
         private ProjectRequestSettings GetProjectRequestSettings(FiltersIn filters, int projectsPackageNumber)
         {
-            var projectName = string.IsNullOrEmpty(filters.ProjectName) ? null : filters.ProjectName;
+            var projectName = string.IsNullOrEmpty(filters.ProjectName) is false
+                ? filters.ProjectName
+                : null;
+
+            var lastProjectId = filters.LastProjectId;
+
             var sortType = filters.SortType;
-            var projectTypeFilters = filters.ProjectTypes is null || filters.ProjectTypes.Count == 0 ? null : filters.ProjectTypes;
-            var projectCategoryFilters = filters.ProjectCategories is null || filters.ProjectCategories.Count == 0 ? null : filters.ProjectCategories;
-            var projectCompatibilityFilters = filters.ProjectCompatibilities is null || filters.ProjectCompatibilities.Count == 0 ? null : filters.ProjectCompatibilities;
-            var offset = _paginationUtil.GetOffset(projectsPackageNumber);
-            return new ProjectRequestSettings(projectName, projectTypeFilters, projectCategoryFilters, projectCompatibilityFilters, sortType, offset);
+
+            var projectTypeFilters = filters.ProjectTypes is not null && filters.ProjectTypes.Count > 0
+                ? filters.ProjectTypes
+                : null;
+
+            var projectCategoryFilters = filters.ProjectCategories is not null && filters.ProjectCategories.Count > 0
+                ? filters.ProjectCategories
+                : null;
+
+            var projectCompatibilityFilters = filters.ProjectCompatibilities is not null && filters.ProjectCompatibilities.Count > 0
+                ? filters.ProjectCompatibilities
+                : null;
+
+            var offset = filters.LastProjectId == -1
+                ? _pagination.GetOffset(ProjectsCountInPackage, projectsPackageNumber)
+                : -1;
+
+            return new(lastProjectId, ProjectsCountInPackage, projectName, projectTypeFilters, projectCategoryFilters, projectCompatibilityFilters, sortType, offset);
         }
 
         /// <summary>
@@ -134,21 +165,23 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <param name="projects"> Список проектов из базы данных </param>
         /// <returns> Список проектов в подготовленном виде для передачи на уровень представления </returns>
         private List<ProjectInformation> GetProjectsDto(IEnumerable<Project> projects)
-            => projects.Select(project =>
-                        new ProjectInformation
+            => projects
+                .Select(project =>
+                    new ProjectInformation
+                    {
+                        Id = project.Id,
+                        Name = project.Name,
+                        Type = project.ProjectType.Name,
+                        Category = project.ProjectCategory.Name,
+                        Compatibilities = GetRequiredCompatibilitiesVariant(project.Compatibilities),
+                        ReviewInformation = new ProjectReviewInformation
                         {
-                            Id = project.Id,
-                            Name = project.Name,
-                            Type = project.ProjectType.Name,
-                            Category = project.ProjectCategory.Name,
-                            Compatibilities = GetRequiredCompatibilitiesVariant(project.Compatibilities),
-                            ReviewInformation = new ProjectReviewInformation
-                            {
-                                ReviewsCount = project.ReviewsCount,
-                                AvgRating = Math.Round(project.Rating, 1)
-                            },
-                            Icon = project.Icon
-                        }).ToList();
+                            ReviewsCount = project.ReviewsCount,
+                            AvgRating = Math.Round(project.Rating, 1)
+                        },
+                        Icon = project.Icon
+                    })
+                .ToList();
 
         /// <summary>
         /// Получить необходимый формат совместимостей проекта
@@ -156,7 +189,9 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <param name="projectCompatibilities"> Совместимости проекта </param>
         /// <returns> Необходимый формат совместимостей проекта </returns>
         private List<string> GetRequiredCompatibilitiesVariant(IEnumerable<string> projectCompatibilities)
-            => projectCompatibilities.Select(projectCompatibility => ProcessValue(projectCompatibility)).ToList();
+            => projectCompatibilities
+                .Select(projectCompatibility => ProcessValue(projectCompatibility))
+                .ToList();
 
         public async Task<FiltersOut> GetFiltersAsync()
         {
@@ -166,21 +201,25 @@ namespace BusinessCard.BusinessLogicLayer.Services
 
             var filters = new FiltersOut
             {
-                ProjectTypes = projectTypes.Select(projectType =>
-                    new FilterOut
-                    {
-                        Id = projectType.Id,
-                        Value = projectType.Name,
-                        ProcessedValue = ProcessValue(projectType.Name)
-                    }).ToList(),
+                ProjectTypes = projectTypes
+                    .Select(projectType =>
+                        new FilterOut
+                        {
+                            Id = projectType.Id,
+                            Value = projectType.Name,
+                            ProcessedValue = ProcessValue(projectType.Name)
+                        })
+                    .ToList(),
 
-                ProjectCategories = projectCategories.Select(projectCategory =>
-                    new FilterOut
-                    {
-                        Id = projectCategory.Id,
-                        Value = projectCategory.Name,
-                        ProcessedValue = ProcessValue(projectCategory.Name)
-                    }).ToList(),
+                ProjectCategories = projectCategories
+                    .Select(projectCategory =>
+                        new FilterOut
+                        {
+                            Id = projectCategory.Id,
+                            Value = projectCategory.Name,
+                            ProcessedValue = ProcessValue(projectCategory.Name)
+                        })
+                    .ToList(),
 
                 ProjectCompatibilities = new Dictionary<string, List<FilterOut>>()
             };
@@ -207,26 +246,35 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// </summary>
         /// <param name="filterValue"> Значение </param>
         /// <returns> Обработанное значение (убраны все пробелы и все символы переведены в нижний регистр) </returns>
-        private string ProcessValue(string filterValue) => filterValue.Replace(" ", string.Empty).ToLower();
+        private static string ProcessValue(string filterValue)
+            => filterValue.Replace(" ", string.Empty).ToLower();
 
         public async Task<GeneralInformation> GetGeneralInformationAsync()
         {
             var projectInformation = await _projectRepository.GetProjectInformationAsync();
 
-            return new GeneralInformation
+            return new()
             {
-                ProjectsCount = new CountInformation
-                                {
-                                    Count = projectInformation.ProjectsCount,
-                                    Text = new ProjectWordEndingService().GetWord(projectInformation.ProjectsCount)
-                                },
-                DownloadsCount = new CountInformation
-                                {
-                                    Count = projectInformation.AllDownloadsCount,
-                                    Text = new DownloadWordEndingService().GetWord(projectInformation.AllDownloadsCount)
-                                },
+                ProjectsCount = GetCountInformation(projectInformation.ProjectsCount, WordsVariants.Project),
+                DownloadsCount = GetCountInformation(projectInformation.AllDownloadsCount, WordsVariants.Download),
                 AvgRating = Math.Round(projectInformation.AllProjectsAvgRating, 1),
-                PagesCount = _paginationUtil.GetPagesCount(projectInformation.ProjectsCount)
+                PagesCount = _pagination.GetPagesCount(ProjectsCountInPackage, projectInformation.ProjectsCount)
+            };
+        }
+
+        /// <summary>
+        /// Получить информацию по количеству данных
+        /// </summary>
+        /// <param name="number"> Количество данных </param>
+        /// <param name="word"> Слово, по которому надо получить нужны вариант его написания в завивимости от количества </param>
+        /// <returns> Информация по количеству данных </returns>
+        private CountInformation GetCountInformation(int number, WordsVariants word)
+        {
+            _wordEnding.Init(word);
+            return new()
+            {
+                Count = number,
+                Text = _wordEnding.GetWord(number)
             };
         }
 
@@ -286,7 +334,8 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// </summary>
         /// <param name="projectId">  </param>
         /// <returns>  </returns>
-        private async Task<IEnumerable<string>> GetCompatibilitiesAsync(int projectId) => await _projectCompatibilityRepository.GetCompatibilitiesByProjectIdAsync(projectId);
+        private async Task<IEnumerable<string>> GetCompatibilitiesAsync(int projectId)
+            => await _projectCompatibilityRepository.GetCompatibilitiesByProjectIdAsync(projectId);
 
         /// <summary>
         /// 
@@ -320,9 +369,9 @@ namespace BusinessCard.BusinessLogicLayer.Services
             projectInformation.Description = project.Description;
             projectInformation.VideoUrl = project.VideoUrl;
             projectInformation.CodeUrl = project.CodeUrl;
-            projectInformation.CreationDate = project.CreationDate.ToString("Y");
+            projectInformation.CreationDate = project.CreationDate.ConvertToReadableFormat();
             projectInformation.Icon = project.Icon;
-            projectInformation.ClickType = project.ClickType is null ? null : GetClickTypeDto(project.ClickType);
+            projectInformation.ClickType = project.ClickType is not null ? GetClickTypeDto(project.ClickType) : null;
             projectInformation.CodeLevel = GetCodeLevelDto(project.CodeLevel);
         }
 
@@ -332,7 +381,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <param name="clickType">  </param>
         /// <returns>  </returns>
         private ClickTypeDto GetClickTypeDto(ClickType clickType)
-            => new ClickTypeDto
+            => new()
             {
                 TypeName = clickType.TypeName,
                 ActionName = clickType.ActionName
@@ -344,7 +393,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <param name="codeLevel">  </param>
         /// <returns>  </returns>
         private CodeLevelDto GetCodeLevelDto(CodeLevel codeLevel)
-            => new CodeLevelDto
+            => new()
             {
                 Percentage = codeLevel.Percentage,
                 Annotation = codeLevel.Annotation
@@ -355,7 +404,8 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// </summary>
         /// <param name="projectInformation">  </param>
         /// <param name="projectImages">  </param>
-        private void SetProjectImages(ProjectInformation projectInformation, IEnumerable<ProjectImage> projectImages) => projectInformation.Images = GetProjectImagesDto(projectImages);
+        private void SetProjectImages(ProjectInformation projectInformation, IEnumerable<ProjectImage> projectImages)
+            => projectInformation.Images = GetProjectImagesDto(projectImages);
 
         /// <summary>
         /// 
@@ -363,18 +413,22 @@ namespace BusinessCard.BusinessLogicLayer.Services
         /// <param name="projectImages">  </param>
         /// <returns>  </returns>
         private List<ProjectImageDto> GetProjectImagesDto(IEnumerable<ProjectImage> projectImages)
-            => projectImages.Select(image => new ProjectImageDto
-            {
-                Path = image.Path,
-                Description = image.Description
-            }).ToList();
+            => projectImages
+                .Select(image =>
+                    new ProjectImageDto
+                    {
+                        Path = image.Path,
+                        Description = image.Description
+                    })
+                .ToList();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="projectInformation">  </param>
         /// <param name="reviewInformation">  </param>
-        private void SetProjectStatistic(ProjectInformation projectInformation, ProjectReviewInformation reviewInformation) => projectInformation.ReviewInformation = reviewInformation;
+        private static void SetProjectStatistic(ProjectInformation projectInformation, ProjectReviewInformation reviewInformation)
+            => projectInformation.ReviewInformation = reviewInformation;
 
         /// <summary>
         /// 

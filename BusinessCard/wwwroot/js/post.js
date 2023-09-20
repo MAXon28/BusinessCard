@@ -720,7 +720,7 @@ function SetNewCommentInNewBranch() {
             var newBranchId = jsonData.BranchId;
             var newCommentId = jsonData.CommentId;
 
-            if ($(".commentsWrapper").find('#nextBranchesButton') != undefined) {
+            if ($.contains(document.querySelector('.commentsBlock'), document.getElementById('nextBranchesButton'))) {
                 SetNextAllCommentsPack(newCommentId);
             }
             else {
@@ -830,9 +830,9 @@ async function SetNewComment(branchId, commentId) {
             var jsonData = $.parseJSON(result);
             var newCommentId = jsonData.CommentId;
 
-            if ($("#branch" + branchId).find('.nextCommentsButton') != undefined) {
+            if ($.contains(document.getElementById('branch' + branchId), document.getElementById('nextCommentsButton' + branchId))) {
                 newCommentsInBranches.set(branchId, newCommentId);
-                $("#branch" + branchId).find('.nextCommentsButton').trigger('click');
+                $("#nextCommentsButton" + branchId).trigger('click');
             }
             else {
                 var commentBlock = document.createElement("div");

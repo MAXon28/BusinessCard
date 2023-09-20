@@ -11,7 +11,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
     /// <summary>
     /// 
     /// </summary>
-    public class PostRepository : StandardRepository<Post>, IPostRepository
+    internal class PostRepository : StandardRepository<Post>, IPostRepository
     {
         public PostRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 
@@ -37,7 +37,6 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
         public async Task<int> GetPostsCountAsync(string sqlQuery, DynamicParameters parameters)
         {
             using var dbConnection = _dbConnectionKeeper.GetDbConnection();
-
             return await dbConnection.QuerySingleAsync<int>(sqlQuery, parameters);
         }
 

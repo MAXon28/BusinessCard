@@ -6,6 +6,7 @@ var needRate = false;
 var prePrice = false;
 var preDeadline = false;
 var selectRateId = null;
+var userId = null;
 
 // Жирный (b)
 $('body').on('click', '.toolbar-b', function () {
@@ -55,24 +56,32 @@ function init() {
     $.ajax({
         async: true,
         type: "GET",
-        url: "/MAXonWork/GetServiceRates",
+        url: "/MAXonService/GetServiceRates",
         data: { serviceId },
-        success: function (serviceInformation) {
-            needTechnoSpec = serviceInformation.needTechnicalSpecification;
-            prePrice = serviceInformation.prePrice;
-            preDeadline = serviceInformation.preDeadline;
+        success: function (data) {
+            var jsonData = $.parseJSON(data);
+            userId = jsonData.UserId;
+            if (userId != null) {
+                document.getElementById(`emailInputbox`).remove();
+                document.getElementById(`phoneNumberInputbox`).remove();
+                document.querySelector('.leftBlock').remove();
+            }
+            var serviceInformation = jsonData.AdvancedService;
+            needTechnoSpec = serviceInformation.NeedTechnicalSpecification;
+            prePrice = serviceInformation.PrePrice;
+            preDeadline = serviceInformation.PreDeadline;
 
             var serviceRuleUrlText = $('#serviceRuleUrl').text();
-            $('#serviceRuleUrl').text(serviceRuleUrlText + ' "' + serviceInformation.serviceName + '"');
+            $('#serviceRuleUrl').text(serviceRuleUrlText + ' "' + serviceInformation.ServiceName + '"');
 
-            if (serviceInformation.rates.length > 0) {
+            if (serviceInformation.Rates.length > 0) {
                 needRate = true;
 
                 var ratesBlock = document.querySelector('.rates');
 
-                for (var i = 0; i < serviceInformation.rates.length; i++) {
+                for (var i = 0; i < serviceInformation.Rates.length; i++) {
                     var rateBlock = document.createElement("div");
-                    rateBlock.id = serviceInformation.rates[i].rateId;
+                    rateBlock.id = serviceInformation.Rates[i].Id;
                     rateBlock.className = "rateCard";
 
                     var name_priceBlock = document.createElement("div");
@@ -80,11 +89,11 @@ function init() {
 
                     var name = document.createElement("p");
                     name.className = "name";
-                    name.innerHTML = serviceInformation.rates[i].rateName;
+                    name.innerHTML = serviceInformation.Rates[i].Name;
 
                     var price = document.createElement("p");
                     price.className = "price";
-                    price.innerHTML = serviceInformation.rates[i].ratePrice;
+                    price.innerHTML = serviceInformation.Rates[i].Price;
 
                     name_priceBlock.append(name);
                     name_priceBlock.append(price);
@@ -94,12 +103,12 @@ function init() {
                     var conditionsBlock = document.createElement("div");
                     conditionsBlock.className = "conditionsBlock";
 
-                    $.each(serviceInformation.rates[i].conditions, function (rateRow, rateValueInformation) {
+                    $.each(serviceInformation.Rates[i].Conditions, function (rateRow, rateValueInformation) {
                         var conditionBlock = document.createElement("div");
                         conditionBlock.className = "conditionBlock";
 
                         var conditionValue = document.createElement("span");
-                        if (rateValueInformation.isAvailable) {
+                        if (rateValueInformation.IsAvailable) {
                             conditionValue.className = "conditionValue plus";
                             conditionValue.innerHTML = "✔";
                         } else {
@@ -109,10 +118,10 @@ function init() {
 
                         var condition = document.createElement("p");
                         condition.className = "condition";
-                        if (rateValueInformation.value == null)
+                        if (rateValueInformation.Value == null)
                             condition.innerHTML = rateRow;
                         else
-                            condition.innerHTML = rateRow + ": <strong>" + rateValueInformation.value + "</strong>";
+                            condition.innerHTML = rateRow + ": <strong>" + rateValueInformation.Value + "</strong>";
 
                         conditionBlock.append(conditionValue);
                         conditionBlock.append(condition);
@@ -132,16 +141,16 @@ function init() {
 
                     var description = document.createElement("p");
                     description.className = "description";
-                    description.innerHTML = serviceInformation.rates[i].description;
+                    description.innerHTML = serviceInformation.Rates[i].Description;
 
                     descriptionBlock.append(description);
 
                     rateBlock.append(descriptionBlock);
 
                     var selectRate = document.createElement("button");
-                    selectRate.id = "selectButton" + serviceInformation.rates[i].rateId;
+                    selectRate.id = "selectButton" + serviceInformation.Rates[i].Id;
                     selectRate.className = "selectRate";
-                    selectRate.setAttribute("onclick", "SelectRate('" + serviceInformation.rates[i].rateId.toString() + "')");
+                    selectRate.setAttribute("onclick", "SelectRate('" + serviceInformation.Rates[i].Id.toString() + "')");
 
                     var primary = document.createElement("span");
                     primary.className = "primary text";
@@ -268,9 +277,10 @@ function CreateServiceTask() {
 
     $("#surnameError").fadeOut();
     $("#nameError").fadeOut();
-    $("#middleNameError").fadeOut();
     $("#phoneNumberError").fadeOut();
+    $("#phoneNumberErrorFromServer").fadeOut();
     $("#emailError").fadeOut();
+    $("#emailErrorFromServer").fadeOut();
     $("#serviceRuleError").fadeOut();
     $("#privacyPolicyError").fadeOut();
 
@@ -282,36 +292,30 @@ function CreateServiceTask() {
     }
 
     var surname = $('#surname').val();
-    if (surname == null || surname == "" || !surname.trim()) {
+    if (userId == null && (surname == null || surname == "" || !surname.trim())) {
         $('#surnameError').show('slow');
         $('#surname').focus();
         return;
     }
 
     var name = $('#name').val();
-    if (name == null || name == "" || !name.trim()) {
+    if (userId == null && (name == null || name == "" || !name.trim())) {
         $('#nameError').show('slow');
         $('#name').focus();
         return;
     }
 
-
     var middleName = $('#middleName').val();
-    if (middleName == null || middleName == "" || !middleName.trim()) {
-        $('#middleNameError').show('slow');
-        $('#middleName').focus();
-        return;
-    }
 
     var phoneNumber = $('#phoneNumber').val();
-    if (phoneNumber == null || phoneNumber == "" || !phoneNumber.trim()) {
+    if (userId == null && (phoneNumber == null || phoneNumber == "" || !phoneNumber.trim())) {
         $('#phoneNumberError').show('slow');
         $('#phoneNumber').focus();
         return;
     }
 
     var email = $('#email').val();
-    if (email == null || email == "" || !email.trim()) {
+    if (userId == null && (email == null || email == "" || !email.trim())) {
         $('#emailError').show('slow');
         $('#email').focus();
         return;
@@ -355,7 +359,8 @@ function CreateServiceTask() {
         SuggestedPrice: suggestedPrice,
         TechnicalSpecification: technicalSpecification,
         RateId: selectRateId,
-        ServiceId: parseInt($(location).attr('href').split("=")[1])
+        ServiceId: parseInt($(location).attr('href').split("=")[1]),
+        UserId: parseInt(userId)
     }
 
     let data = new FormData();
@@ -377,20 +382,22 @@ function CreateServiceTask() {
     Timer();
     $.ajax({
         type: "POST",
-        url: "/MAXonWork/AddTask",
+        url: "/MAXonTask/AddTask",
         data: data,
         contentType: false,
         processData: false,
-        success: function (result) {
+        success: function (data) {
             isLoad = true;
 
             var preloader = document.querySelector('.reverse-spinner');
             preloader.classList.add('skip');
 
-            if (result != null) {
+            var jsonData = $.parseJSON(data);
+
+            if (jsonData.Receipt != null) {
                 var registrationNumber = document.getElementById(`registrationNumber`);
-                registrationNumber.innerHTML = result.taskNumber;
-                registrationNumber.href = 'Task/' + result.taskAddress;
+                registrationNumber.innerHTML = jsonData.Receipt;
+                registrationNumber.href = 'Task/' + jsonData.Url;
 
                 var success = document.querySelector('.success');
                 success.classList.remove('skip');
@@ -410,9 +417,24 @@ function CreateServiceTask() {
                 }, 28);
             }
         },
-        error: function () {
+        error: function (error) {
             isLoad = true;
- 
+
+            switch (error.responseJSON.TypeOfError) {
+                case 'PHONE':
+                    $('#phoneNumberErrorFromServer').text(error.responseJSON.ErrorMessage);
+                    $('#phoneNumberErrorFromServer').show('slow');
+                    $('#phoneNumber').focus();
+                    break;
+                case 'EMAIL':
+                    $('#emailErrorFromServer').text(error.responseJSON.ErrorMessage);
+                    $('#emailErrorFromServer').show('slow');
+                    $('#emailError').focus();
+                    break;
+                default:
+                    $('#updatePasswordError').text(error.responseJSON.ErrorMessage);
+                    $('#updatePasswordError').show('slow');
+            }
             var preloader = document.querySelector('.reverse-spinner');
             preloader.classList.add('skip');
  

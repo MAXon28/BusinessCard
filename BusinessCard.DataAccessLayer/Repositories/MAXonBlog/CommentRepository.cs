@@ -1,15 +1,13 @@
 ﻿using BusinessCard.DataAccessLayer.Entities.MAXonBlog;
-using BusinessCard.DataAccessLayer.Entities.MAXonBlog.PostDetails;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonBlog;
 using Dapper;
 using DapperAssistant;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
 
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
 {
-    public class CommentRepository : StandardRepository<Comment>, ICommentRepository
+    internal class CommentRepository : StandardRepository<Comment>, ICommentRepository
     {
         public CommentRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 
@@ -68,7 +66,8 @@ namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
 											AND comment.BranchId > @branchId 
 											AND comment.BranchId IN (SELECT TOP 8 commentBranch2.Id
 														 FROM CommentBranches commentBranch2
-														 WHERE commentBranch2.Id > @branchId)
+														 WHERE commentBranch2.Id > @branchId
+																AND commentBranch2.PostId = @postId)
 											AND comment.Id IN (SELECT TOP 7 comment3.Id
 														 FROM Comments comment3
 														 WHERE comment3.BranchId = commentBranch.Id)";

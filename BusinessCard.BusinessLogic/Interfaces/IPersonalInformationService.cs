@@ -1,4 +1,4 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Blog;
+﻿using BusinessCard.Entities.DTO.Blog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -66,5 +66,12 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// <param name="subscribeTypeStr">  </param>
         /// <returns>  </returns>
         public Task<bool> SubscribeAsync(int userId, int channelId, bool isSubscribe, string subscribeTypeStr);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId">  </param>
+        /// <returns>  </returns>
+        public Task<UserBlogStatistic> GetUserBlogStatisticAsync(int userId);
     }
 }

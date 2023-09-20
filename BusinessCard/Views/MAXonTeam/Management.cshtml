@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Управление";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/adminProfile.css" runat="server" />
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-profile">
+    <div class="scene-profile">
+        <div class="reverse-spinner" style="display: none;">
+            <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+        </div>
+        <div class="wrapperBlock">
+            <div class="userCard" style="display: none;" onclick="GoToDetail()">
+                <div class="skillPercentOfKnowledgeBlock">
+                    <p class="skillPercentOfKnowledge"></p>
+                </div>
+                <div class="informationBlock">
+                    <p id="userName" class="mainText"></p>
+                    <p id="userRole" class="detailText"></p>
+                </div>
+                <a class="logout" asp-area="" asp-controller="Account" asp-action="Logout"><span>Выйти</span></a>
+            </div>
+            <div class="cardsBlock">
+                <a class="workCard" asp-area="" asp-controller="MAXonWork" asp-action="Vacancies" style="display: none;">
+                    <div id="workIndicator" class="indicator" style="display: none">
+                        <div id="newVacanciesCount" class="count"></div>
+                    </div>
+                    <p class="mainText">MAXon.Работа</p>
+                    <div id="preloaderVacancies" class="preloader" style="display: none; width: 31px; height: 31px; margin: 28px auto;">
+                        <svg class="preloader__image" style="width: 31px; height: 31px;" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path fill="currentColor"
+                                  d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+                            </path>
+                        </svg>
+                    </div>
+                    <p id="vacanciesCount" style="display: none" class="detailText"></p>
+                </a>
+                <a class="applicationCard" asp-area="" asp-controller="MAXonTask" asp-action="TaskHistory" style="display: none;">
+                    <div id="applicationIndicator" class="indicator" style="display: none">
+                        <div id="newTasksCount" class="count"></div>
+                    </div>
+                    <p class="mainText">MAXon.Услуги</p>
+                    <div id="preloaderTasks" class="preloader" style="display: none; width: 31px; height: 31px; margin: 28px auto;">
+                        <svg class="preloader__image" style="width: 31px; height: 31px;" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path fill="currentColor"
+                                  d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+                            </path>
+                        </svg>
+                    </div>
+                    <p id="processTasksCount" style="display: none" class="detailText"></p>
+                    <p id="doneTasksCount" style="display: none" class="detailText"></p>
+                    <p id="rejectedTasksCount" style="display: none" class="detailText"></p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/adminProfile.js"></script>
+</body>
+</html>

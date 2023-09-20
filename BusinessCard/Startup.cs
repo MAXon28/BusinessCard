@@ -1,30 +1,17 @@
-using System;
-using BusinessCard.BusinessLogicLayer.Interfaces;
-using BusinessCard.BusinessLogicLayer.Services;
+using BusinessCard.BusinessLogicLayer;
+using BusinessCard.CacheProvider;
+using BusinessCard.DataAccessLayer;
+using BusinessCard.Middlewares;
+using BusinessCard.Services;
 using DapperAssistant;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BusinessCard.DataAccessLayer.Interfaces.Content;
-using BusinessCard.DataAccessLayer.Repositories.Content;
-using BusinessCard.DataAccessLayer.Repositories.Data;
-using BusinessCard.DataAccessLayer.Interfaces.Data;
-using BusinessCard.DataAccessLayer.Interfaces.Content.Services;
-using BusinessCard.DataAccessLayer.Repositories.Content.Services;
-using BusinessCard.Services;
-using BusinessCard.DataAccessLayer.Interfaces.MAXonStore;
-using BusinessCard.DataAccessLayer.Repositories.MAXonStore;
-using BusinessCard.Middlewares;
-using BusinessCard.DataAccessLayer.Repositories.MAXonBlog;
-using BusinessCard.DataAccessLayer.Interfaces.MAXonBlog;
-using BusinessCard.BusinessLogicLayer.Utils.QueryHelper;
-using BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonStore;
-using BusinessCard.BusinessLogicLayer.Utils.QueryHelper.MAXonBlog;
-using BusinessCard.BusinessLogicLayer.Interfaces.Utils;
-using BusinessCard.BusinessLogicLayer.Utils;
+using System;
 
 namespace BusinessCard
 {
@@ -39,73 +26,24 @@ namespace BusinessCard
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.Cookie.Name = "MAXon28";
+                options.Cookie.HttpOnly = true;
+            });
+
+            services.AddScoped<IFileSaver, FileSaver>();
+
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddScoped(dbConnectionKeeper => new DbConnectionKeeper(connection));
+            services.AddScoped(_ => new DbConnectionKeeper(connection));
 
-            //services.AddScoped(typeof(IRepository<>), typeof(StandardRepository<>));
-
-            services.AddScoped<IFactOnBusinessCardRepository, FactOnBusinessCardRepository>();
-            services.AddScoped<IBiographyRepository, BiographyRepository>();
-            services.AddScoped<ISkillRepository, SkillRepository>();
-            services.AddScoped<IExperienceRepository, ExperienceRepsoitory>();
-            services.AddScoped<IEducationRepository, EducationRepository>();
-            services.AddScoped<IWorkRepository, WorkRepository>();
-            services.AddScoped<IVacancyRepository, VacancyRepository>();
-            services.AddScoped<IServiceRepository, ServiceRepository>();
-            services.AddScoped<IShortDescriptionRepository, ShortDescriptionRepository>();
-            services.AddScoped<IRateRepository, RateRepository>();
-            services.AddScoped<IConditionRepository, ConditionRepository>();
-            services.AddScoped<IConditionValueRepository, ConditionValueRepository>();
-            services.AddScoped<ITaskRepository, TaskRepository>();
-            services.AddScoped<IRuleRepository, RuleRepository>();
-            services.AddScoped<IProjectRepository, ProjectRepository>();
-            services.AddScoped<IProjectTypeRepository, ProjectTypeRepository>();
-            services.AddScoped<IProjectCategoryRepository, ProjectCategoryRepository>();
-            services.AddScoped<IProjectCompatibilityRepository, ProjectCompatibilityRepository>();
-            services.AddScoped<IProjectImageRepository, ProjectImageRepository>();
-            services.AddScoped<IProjectReviewRepository, ProjectReviewRepository>();
-            services.AddScoped<IProjectTechnicalRequirementValueRepository, ProjectTechnicalRequirementValueRepository>();
-            services.AddScoped<IChannelRepository, ChannelRepository>();
-            services.AddScoped<IPostRepository, PostRepository>();
-            services.AddScoped<IUserStatisticRepository, UserStatisticRepository>();
-            services.AddScoped<ITopchikRepository, TopchikRepository>();
-            services.AddScoped<IBookmarkRepository, BookmarkRepository>();
-            services.AddScoped<IChannelSubscriptionRepository, ChannelSubscriptionRepository>();
-            services.AddScoped<IMailingSubscriptionRepository, MailingSubscriptionRepository>();
-            services.AddScoped<IPostFieldRepository, PostFieldRepository>();
-            services.AddScoped<IPostElementRepository, PostElementRepository>();
-            services.AddScoped<ICommentBranchRepository, CommentBranchRepository>();
-            services.AddScoped<ICommentRepository, CommentRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-
-            services.AddScoped<IBusinessCardService, BusinessCardService>();
-            services.AddScoped<IAboutMeService, AboutMeService>();
-            services.AddScoped<IWorkService, WorkService>();
-            services.AddScoped<ISelfEmployedService, SelfEmployedService>();
-            services.AddScoped<ITaskService, TaskService>();
-            services.AddScoped<IRuleService, RuleService>();
-            services.AddScoped<IStoreService, StoreService>();
-            services.AddScoped<IProjectReviewService, ProjectReviewService>();
-            services.AddScoped<IBlogService, BlogService>();
-            services.AddScoped<IChannelService, ChannelService>();
-            services.AddScoped<IPostService, PostService>();
-            services.AddScoped<IPersonalInformationService, PersonalInformationService>();
-            services.AddScoped<ICommentService, CommentService>();
-            services.AddScoped<IUserService, UserService>();
-
-            services.AddScoped<FileSaver>();
-
-            services.AddScoped<ISelectionQueryBuilderFactory, SelectionQueryBuilderFactory>();
-            services.AddScoped<IValidator, Validator>();
-
-            services.AddScoped<ProjectsSelectionQueryBuilder>();
-            services.AddScoped<PostsSelectionQueryBuilder>();
+            services.AddDataAccessLayerServices();
+            services.AddCacheProviderServices();
+            services.AddBusinessLogicLayerServices();
 
             services.AddMvc();
 
@@ -143,6 +81,9 @@ namespace BusinessCard
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

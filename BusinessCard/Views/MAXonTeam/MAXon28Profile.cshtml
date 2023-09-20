@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Личные данные";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/detail.css" runat="server" />
+    <link rel="stylesheet" href="~/css/detailMAXon28.css" runat="server" />
+    <link rel="stylesheet" href="~/css/preloader.css" runat="server" />
+    <script src="https://use.fontawesome.com/5d4de9dc4f.js"></script>
+    <title>@ViewData["Title"] | MAXon28</title>
+</head>
+<body class="body-detail">
+    <div class="scene-detail">
+        <p class="header">Личные данные</p>
+        <div class="reverse-spinner" style="display: none;">
+            <div class="status">Загрузка<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span></div>
+        </div>
+        <div class="container" style="display: none;">
+            <div class="frame">
+                <div class="inputsData">
+                    <div class="inputsBlock">
+                        <div class="firstPartBlock">
+                            <div class="inputbox">
+                                <input id="surname" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Фамилия</span>
+                                <p id="surnameError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                            </div>
+                            <div class="inputbox">
+                                <input id="name" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Имя</span>
+                                <p id="nameError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                            </div>
+                            <div class="inputbox">
+                                <input id="middleName" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Отчество</span>
+                            </div>
+                        </div>
+                        <div class="secondPartBlock">
+                            <div class="inputbox">
+                                <input id="login" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Email</span>
+                                <p id="loginError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="loginErrorFromServer" class="errorMessage"></p>
+                            </div>
+                            <div class="inputbox">
+                                <input id="phoneNumber" class="input" type="text" required="required" autocomplete="off">
+                                <span class="placeholder">Номер телефона</span>
+                                <p id="phoneNumberError" class="errorMessage">Это поле является обязательным для заполнения.</p>
+                                <p id="phoneNumberErrorFromServer" class="errorMessage"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mainPreloader" class="preloader" style="display: none; margin-top: 201px;">
+                        <svg class="preloader__image" style="color: #87CEFA" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path fill="currentColor"
+                                  d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+                            </path>
+                        </svg>
+                    </div>
+                    <p class="btn-replacePassword" onclick="ReplacePassword()"><span>Изменить пароль</span></p>
+                    <button class="btn-saveData" onclick="SaveNewUserData()">Сохрнаить</button>
+                    <p id="registrationError" class="errorMessage"></p>
+                    <p id="registrationSuccess" class="successMessage">Данные профиля успешно обновлены!</p>
+                </div>
+            </div>
+        </div>
+        <div class="adminButtons" style="display: none;">
+            <div class="adminButton biography" onclick="FactsAboutMe()">
+                <p>Факты обо мне</p>
+            </div>
+            <div class="adminButton biography" onclick="Biography()">
+                <p>Биография</p>
+            </div>
+            <div class="adminButton aboutMe" onclick="Skills()">
+                <p>Навыки</p>
+            </div>
+            <div class="adminButton aboutMe" onclick="AllExperience()">
+                <p>Опыт работы</p>
+            </div>
+            <div class="adminButton aboutMe" onclick="AllEducation()">
+                <p>Образование</p>
+            </div>
+            <div class="adminButton data" onclick="ResumeInfo()">
+                <p>Резюме</p>
+            </div>
+            <div class="adminButton data" onclick="ServicesMenu()">
+                <p>Услуги</p>
+            </div>
+            <div class="adminButton data" onclick="ProjectMenu()">
+                <p>Проекты</p>
+            </div>
+            <div class="adminButton data" onclick="BlogMenu()">
+                <p>Блог</p>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/detailMAXon28.js"></script>
+</body>
+</html>

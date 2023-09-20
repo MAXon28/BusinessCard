@@ -1,31 +1,35 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.AboutMeDtos;
-using BusinessCard.BusinessLogicLayer.Interfaces;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces;
+using BusinessCard.BusinessLogicLayer.Utils.Extensions;
+using BusinessCard.DataAccessLayer.Entities.Content;
 using BusinessCard.DataAccessLayer.Interfaces.Content;
+using BusinessCard.Entities.DTO.AboutMe;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BusinessCard.BusinessLogicLayer.Services
 {
     /// <inheritdoc cref="IAboutMeService" />
-    public class AboutMeService : IAboutMeService
+    internal class AboutMeService : IAboutMeService
     {
         /// <summary>
-        /// 
+        /// Репозиторий биографии
         /// </summary>
         private readonly IBiographyRepository _biographyRepository;
 
         /// <summary>
-        /// 
+        /// Репозиторий навыков
         /// </summary>
         private readonly ISkillRepository _skillRepository;
 
         /// <summary>
-        /// 
+        /// Репозиторий опыта
         /// </summary>
         private readonly IExperienceRepository _experienceRepository;
 
         /// <summary>
-        /// 
+        /// Репозиторий образования
         /// </summary>
         private readonly IEducationRepository _educationRepository;
 
@@ -37,97 +41,137 @@ namespace BusinessCard.BusinessLogicLayer.Services
             _educationRepository = educationRepository;
         }
 
-        public async Task<Dictionary<string, List<object>>> GetInformationAboutMe()
-        {
-            var aboutMeDictionary = new Dictionary<string, List<object>>();
-            aboutMeDictionary.Add("Biography", await GetBiographyAsync());
-            aboutMeDictionary.Add("Skills", await GetSkillsAsync());
-            aboutMeDictionary.Add("Experience", await GetExperienceAsync());
-            aboutMeDictionary.Add("Education", await GetEducationAsync());
+        /// <inheritdoc/>
+        public async Task<AboutMeInfo> GetInformationAboutMe()
+            => new()
+            {
+                Biography = await GetBiographyAsync(),
+                Skills = await GetSkillsAsync(),
+                Experience = await GetExperienceAsync(),
+                Education = await GetEducationAsync()
+            };
 
-            return aboutMeDictionary;
-        }
+        /// <inheritdoc/>
+        public async Task<string> GetBiographyAsync()
+            => (await _biographyRepository.GetAsync()).First().Text;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>  </returns>
-        private async Task<List<object>> GetBiographyAsync()
-        {
-            var data = await _biographyRepository.GetSortedBiographyByPriorityAsync();
+        /// <inheritdoc/>
+        public async Task<IReadOnlyCollection<SkillDto>> GetSkillsAsync()
+            => (await _skillRepository.GetAsync())
+            .Select(x => new SkillDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                PercentOfKnowledge = x.PercentOfKnowledge,
+                Description = x.Description
+            })
+            .ToArray();
 
-            var biographyData = new List<object>();
+        /// <inheritdoc/>
+        public async Task<IReadOnlyCollection<ExperienceDto>> GetExperienceAsync()
+            => (await _experienceRepository.GetAsync())
+            .Select(x => new ExperienceDto
+            {
+                Id = x.Id,
+                Company = x.Company,
+                Position = x.Position,
+                Description = x.Description,
+                FromDate = x.StartDate.ConvertToReadableFormat(),
+                ToDate = x.EndDate is not null ? x.EndDate?.ConvertToReadableFormat() : "по настоящее время"
+            })
+            .ToArray();
 
-            foreach (var element in data)
-                biographyData.Add(new BiographyDto { Data = element.Data });
+        /// <inheritdoc/>
+        public async Task<IReadOnlyCollection<EducationDto>> GetEducationAsync()
+            => (await _educationRepository.GetAsync())
+            .OrderBy(x => x.StartDate)
+            .Select(x => new EducationDto
+            {
+                Id = x.Id,
+                Organization = x.Organization,
+                Description = x.Description,
+                FromDate = x.StartDate.ConvertToReadableFormat(),
+                ToDate = x.EndDate is not null ? x.EndDate?.ConvertToReadableFormat() : "по настоящее время"
+            })
+            .ToArray();
 
-            return biographyData;
-        }
+        /// <inheritdoc/>
+        public async Task<bool> UpdateBiographyAsync(string biographyText)
+            => (await _biographyRepository.UpdateBiographyAsync(biographyText)) > 0;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>  </returns>
-        private async Task<List<object>> GetSkillsAsync()
-        {
-            var data = await _skillRepository.GetAsync();
+        /// <inheritdoc/>
+        public async Task<bool> AddSkillAsync(SkillDto skill)
+            => (await _skillRepository.AddAsync(new Skill
+            {
+                Name = skill.Name,
+                Description = skill.Description,
+                PercentOfKnowledge = skill.PercentOfKnowledge
+            })) == 1;
 
-            var skills = new List<object>();
+        /// <inheritdoc/>
+        public async Task<bool> UpdateSkillAsync(SkillDto skill)
+            => (await _skillRepository.UpdateAsync(new Skill
+            {
+                Id = skill.Id,
+                Name = skill.Name,
+                Description = skill.Description,
+                PercentOfKnowledge = skill.PercentOfKnowledge
+            })) == 1;
 
-            foreach (var element in data)
-                skills.Add(new SkillDto
-                {
-                    Name = element.Name,
-                    PercentOfKnowledge = element.PercentOfKnowledge,
-                    Description = element.Description
-                });
+        /// <inheritdoc/>
+        public async Task<bool> DeleteSkillAsync(int skillId)
+            => (await _skillRepository.DeleteAsync(skillId)) == 1;
 
-            return skills;
-        }
+        /// <inheritdoc/>
+        public async Task<bool> AddExperienceAsync(ExperienceDto experience)
+            => (await _experienceRepository.AddAsync(new Experience
+            {
+                Company = experience.Company,
+                Position = experience.Position,
+                Description = experience.Description,
+                StartDate = DateTime.ParseExact(experience.FromDate, "d MMMM yyyy", null),
+                EndDate = string.IsNullOrEmpty(experience.ToDate) ? null : DateTime.ParseExact(experience.ToDate, "d MMMM yyyy", null)
+            })) == 1;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>  </returns>
-        private async Task<List<object>> GetExperienceAsync()
-        {
-            var data = await _experienceRepository.GetAsync();
+        /// <inheritdoc/>
+        public async Task<bool> UpdateExperienceAsync(ExperienceDto experience)
+            => (await _experienceRepository.UpdateAsync(new Experience
+            {
+                Id = experience.Id,
+                Company = experience.Company,
+                Position = experience.Position,
+                Description = experience.Description,
+                StartDate = DateTime.ParseExact(experience.FromDate, "d MMMM yyyy", null),
+                EndDate = string.IsNullOrEmpty(experience.ToDate) ? null : DateTime.ParseExact(experience.ToDate, "d MMMM yyyy", null)
+            })) == 1;
 
-            var experience = new List<object>();
+        /// <inheritdoc/>
+        public async Task<bool> DeleteExperienceAsync(int experienceId)
+            => (await _experienceRepository.DeleteAsync(experienceId)) == 1;
 
-            foreach (var element in data)
-                experience.Add(new ExperienceDto
-                {
-                    Company = element.Company,
-                    Position = element.Position,
-                    Description = element.Description,
-                    StartDate = element.StartDate.ToString("Y"),
-                    EndDate = element.EndDate != null ? element.EndDate?.ToString("Y") : "по настоящее время"
-                });
+        /// <inheritdoc/>
+        public async Task<bool> AddEducationAsync(EducationDto education)
+            => (await _educationRepository.AddAsync(new Education
+            {
+                Organization = education.Organization,
+                Description = education.Description,
+                StartDate = DateTime.ParseExact(education.FromDate, "d MMMM yyyy", null),
+                EndDate = string.IsNullOrEmpty(education.ToDate) ? null : DateTime.ParseExact(education.ToDate, "d MMMM yyyy", null)
+            })) == 1;
 
-            return experience;
-        }
+        /// <inheritdoc/>
+        public async Task<bool> UpdateEducationAsync(EducationDto education)
+            => (await _educationRepository.UpdateAsync(new Education
+            {
+                Id = education.Id,
+                Organization = education.Organization,
+                Description = education.Description,
+                StartDate = DateTime.ParseExact(education.FromDate, "d MMMM yyyy", null),
+                EndDate = string.IsNullOrEmpty(education.ToDate) ? null : DateTime.ParseExact(education.ToDate, "d MMMM yyyy", null)
+            })) == 1;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>  </returns>
-        private async Task<List<object>> GetEducationAsync()
-        {
-            var data = await _educationRepository.GetAsync();
-
-            var education = new List<object>();
-
-            foreach (var element in data)
-                education.Add(new EducationDto
-                {
-                    Organization = element.Organization,
-                    Description = element.Description,
-                    StartDate = element.StartDate.ToString("Y"),
-                    EndDate = element.EndDate != null ? element.EndDate?.ToString("Y") : "по настоящее время"
-                });
-
-            return education;
-        }
+        /// <inheritdoc/>
+        public async Task<bool> DeleteEducationAsync(int educationId)
+            => (await _educationRepository.DeleteAsync(educationId)) == 1;
     }
 }

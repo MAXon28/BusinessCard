@@ -23,5 +23,12 @@ namespace BusinessCard.DataAccessLayer.Interfaces.MAXonBlog
         /// <param name="channelId">  </param>
         /// <returns>  </returns>
         public Task<Dictionary<string, bool>> GetUserSubscriptionsByPostsAsync(int userId, int channelId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId">  </param>
+        /// <returns>  </returns>
+        public Task<Dictionary<string, int>> GetUserStatisticInBlogAsync(int userId);
     }
 }

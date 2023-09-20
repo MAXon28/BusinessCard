@@ -1,7 +1,5 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Blog;
-using BusinessCard.BusinessLogicLayer.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces;
+using BusinessCard.Entities.DTO.Blog;
 using System.Threading.Tasks;
 
 namespace BusinessCard.BusinessLogicLayer.Services
@@ -9,7 +7,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
     /// <summary>
     /// 
     /// </summary>
-    public class BlogService : IBlogService
+    internal class BlogService : IBlogService
     {
         /// <summary>
         /// 
@@ -33,20 +31,22 @@ namespace BusinessCard.BusinessLogicLayer.Services
             _personalInformationService = personalInformationService;
         }
 
-        public async Task<BlogInformation> GetBlogInformationAsync(int? userId)
+        public async Task<BlogInformation> GetBlogInformationAsync(int userId)
         {
-            var information = await _postService.GetFirstBlockOfPostsAsync(userId);
+            var information = await _postService.GetFirstBlockOfPostsAsync(userId != -1 ? userId : null);
             information.Channels = await _channelService.GetLimitedNumberChannelsAsync();
             return information;
         }
 
-        public async Task<ChannelInformation> GetChannelInformationAsync(int? userId, int channelId)
+        public async Task<ChannelInformation> GetChannelInformationAsync(int userId, int channelId)
         {
             var information = new ChannelInformation();
             var data = await _channelService.GetChannelDataWithPostsAsync(channelId);
             information.Channel = data.Channel;
             information.Posts = data.Posts;
-            information.PersonalInformation = userId is null ? null : await _personalInformationService.GetPersonalInformationAsync((int)userId, channelId, _postService.GetPostsId(information.Posts));
+            information.PersonalInformation = userId != -1
+                ? await _personalInformationService.GetPersonalInformationAsync(userId, channelId, _postService.GetPostsId(information.Posts))
+                : null;
             information.PagesCount = await _postService.GetPagesCountByChannelAsync(channelId);
             return information;
         }

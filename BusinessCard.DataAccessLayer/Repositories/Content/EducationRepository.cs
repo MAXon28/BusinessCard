@@ -7,7 +7,7 @@ namespace BusinessCard.DataAccessLayer.Repositories.Content
     /// <summary>
     /// 
     /// </summary>
-    public class EducationRepository : StandardRepository<Education>, IEducationRepository
+    internal class EducationRepository : StandardRepository<Education>, IEducationRepository
     {
         public EducationRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
     }

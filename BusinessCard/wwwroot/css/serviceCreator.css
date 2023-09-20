@@ -1,0 +1,249 @@
+﻿.body-serviceCreator {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /*background: snow;*/
+    background: linear-gradient(180deg, #E0FFFF, #edeef0);
+    //background: #edeef0;
+    background-size: cover;
+    font-family: sans-serif;
+}
+
+.scene-serviceCreator {
+    min-width: 728px;
+    margin: 40px auto;
+    margin-bottom: 5px;
+    font-size: 0;
+}
+
+.header {
+    font-weight: bold;
+    font-size: 27px;
+    font-family: sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: #211F30;
+    opacity: 1;
+    transition: 1.28s opacity ease-in-out;
+}
+
+.container {
+    width: 90%;
+    padding-top: 28px;
+    padding-bottom: 101px;
+    margin: 0 auto;
+}
+
+.center {
+    max-width: 928px;
+    padding: 32px;
+    border-radius: 9px;
+    box-shadow: 0 4px 16px #ccc;
+    position: relative;
+    background: #fff;
+    margin: 0 auto;
+}
+
+.inputsData {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 41px 41px 28px 41px;
+    font-size: 16px;
+    font-weight: 300;
+    position: relative;
+    transition: all .5s ease;
+}
+
+.inputbox {
+    position: relative;
+    margin-bottom: 28px;
+    width: 100%;
+}
+
+.input {
+    border: 1px solid #e0e0e0;
+    outline: none;
+    padding: 19px 12px;
+    border-radius: 5px;
+    font-size: 19px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border 328ms;
+}
+
+.placeholder {
+    color: #e0e0e0;
+    font-family: sans-serif;
+    left: 12px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 500ms, color 500ms;
+    top: 17px;
+    background: white;
+    font-size: 19px;
+    padding: 3px;
+}
+
+.input:focus ~ .placeholder, .input:valid ~ .placeholder {
+    transform: translateX(-1px) translateY(-28px);
+    font-size: 16px;
+    color: #87CEFA;
+}
+
+.input:focus {
+    border: 1px solid #E29930;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+.editor {
+    height: 227px;
+    min-height: 227px;
+    padding: 12px;
+    outline: none;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 22px;
+    font-family: sans-serif;
+    color: #211f30;
+    overflow-x: hidden;
+    align-self: stretch;
+}
+
+.editor::-webkit-scrollbar {
+    width: 5px;
+}
+
+.editor::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.editor::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+}
+
+[contenteditable]:empty:before {
+    content: attr(data-placeholder);
+    font-size: 22px;
+    color: #e0e0e0;
+    font-family: sans-serif;
+    display: inline-block;
+}
+
+.booleansBlock {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booleanBlock {
+    width: 40%;
+    margin-top: 28px;
+}
+
+.checkboxBlock {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.checkboxBlock p {
+    color: #211f30;
+    font-size: 22px;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* для элемента input c type="checkbox" */
+.custom-checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+/* для элемента label, связанного с .custom-checkbox */
+.custom-checkbox + label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    width: 100%;
+    font-size: 28px;
+    margin-left: 5%;
+}
+
+/* создание в label псевдоэлемента before со следующими стилями */
+.custom-checkbox + label::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #211f30;
+    border-radius: 3px;
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 67% 67%;
+}
+
+/* стили для чекбокса, находящегося в состоянии checked */
+.custom-checkbox:checked + label::before {
+    border-color: #211f30;
+    background-color: #211f30;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2387cefa' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+}
+
+.errorMessage {
+    display: none;
+    color: red;
+    font-size: 17px;
+    text-align: center;
+    font-family: system-ui;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.successMessage {
+    display: none;
+    color: green;
+    font-size: 17px;
+    text-align: center;
+    font-family: system-ui;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.btn-saveData {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-size: 17px;
+    color: #fff;
+    background-color: #87CEFA;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 0;
+    margin-top: 28px;
+    align-self: center;
+}

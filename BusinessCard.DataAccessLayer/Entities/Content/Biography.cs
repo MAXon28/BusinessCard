@@ -1,23 +1,16 @@
-﻿namespace BusinessCard.DataAccessLayer.Entities.Content
+﻿using DapperAssistant.Annotations;
+
+namespace BusinessCard.DataAccessLayer.Entities.Content
 {
     /// <summary>
-    /// 
+    /// Биография
     /// </summary>
+    [NeedInsertId]
     public class Biography
     {
         /// <summary>
-        /// 
+        /// Текст
         /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Data { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Priority { get; set; }
+        public string Text { get; set; }
     }
 }

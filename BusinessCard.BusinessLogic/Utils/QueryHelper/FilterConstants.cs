@@ -6,7 +6,17 @@
     internal class FilterConstants
     {
         /// <summary>
-        /// Имя проекта
+        /// Идентификатор
+        /// </summary>
+        public const string Id = "Id";
+
+        /// <summary>
+        /// Пользователь
+        /// </summary>
+        public const string User = "User";
+
+        /// <summary>
+        /// Наименование проекта
         /// </summary>
         public const string ProjectName = "ProjectName";
 
@@ -26,18 +36,28 @@
         public const string ProjectCompatibility = "ProjectCompatibility";
 
         /// <summary>
-        /// Имя проекта
+        /// Наименование поста
         /// </summary>
         public const string PostName = "PostName";
-
-        /// <summary>
-        /// Пользователь
-        /// </summary>
-        public const string User = "User";
 
         /// <summary>
         /// Канал
         /// </summary>
         public const string Channel = "Channel";
+
+        /// <summary>
+        /// Номер задачи
+        /// </summary>
+        public const string TaskNumber = "TaskNumber";
+
+        /// <summary>
+        /// Статус задачи
+        /// </summary>
+        public const string TaskStatusCode = "StatusCode";
+
+        /// <summary>
+        /// Наименование вакансии
+        /// </summary>
+        public const string VacancyName = "VacancyName";
     }
 }

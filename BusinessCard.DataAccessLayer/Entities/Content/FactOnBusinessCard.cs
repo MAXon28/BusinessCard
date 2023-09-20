@@ -1,27 +1,21 @@
 ﻿using DapperAssistant.Annotations;
-using System;
 
 namespace BusinessCard.DataAccessLayer.Entities.Content
 {
     /// <summary>
-    /// 
+    /// Факт обо мне
     /// </summary>
     [SqlTable("FactsOnBusinessCard")]
     public class FactOnBusinessCard
     {
         /// <summary>
-        /// 
+        /// Идентификатор факта
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
-        /// 
+        /// Факт
         /// </summary>
         public string Data { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Priority { get; set; }
     }
 }

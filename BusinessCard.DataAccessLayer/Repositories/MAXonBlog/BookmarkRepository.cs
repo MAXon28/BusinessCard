@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BusinessCard.DataAccessLayer.Repositories.MAXonBlog
 {
     /// <inheritdoc cref="IBookmarkRepository"/>
-    public class BookmarkRepository : StandardRepository<Bookmark>, IBookmarkRepository
+    internal class BookmarkRepository : StandardRepository<Bookmark>, IBookmarkRepository
     {
         public BookmarkRepository(DbConnectionKeeper dbConnectionKeeper) : base(dbConnectionKeeper) { }
 

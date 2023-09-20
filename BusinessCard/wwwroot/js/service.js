@@ -9,7 +9,7 @@ function init() {
     $.ajax({
         async: true,
         type: "GET",
-        url: "/MAXonWork/GetServices",
+        url: "/MAXonService/GetServices",
         success: function (services) {
             for (var i = 0; i < services.length; i++) {
                 SetService(services[i]);
@@ -147,7 +147,7 @@ function LoadMoreDetailed(id) {
     $.ajax({
         async: true,
         type: "GET",
-        url: "/MAXonWork/GetFullDescription",
+        url: "/MAXonService/GetFullDescription",
         data: { id },
         success: function (fullDescription) {
             var preloader = document.querySelector('.preloader');
@@ -204,7 +204,7 @@ function ViewReviews(id) {
     $.ajax({
         async: true,
         type: "GET",
-        url: "/MAXonWork/GetReviews",
+        url: "/MAXonService/GetReviews",
         data: { id },
         success: function (reviews) {
             var preloader = document.querySelector('.preloader');

@@ -1,5 +1,4 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Blog;
-using BusinessCard.DataAccessLayer.Entities.MAXonBlog;
+﻿using BusinessCard.Entities.DTO.Blog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

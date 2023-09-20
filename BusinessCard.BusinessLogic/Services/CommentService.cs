@@ -1,7 +1,8 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs.Blog;
-using BusinessCard.BusinessLogicLayer.Interfaces;
+﻿using BusinessCard.BusinessLogicLayer.Interfaces;
+using BusinessCard.BusinessLogicLayer.Utils.Extensions;
 using BusinessCard.DataAccessLayer.Entities.MAXonBlog;
 using BusinessCard.DataAccessLayer.Interfaces.MAXonBlog;
+using BusinessCard.Entities.DTO.Blog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace BusinessCard.BusinessLogicLayer.Services
     /// <summary>
     /// 
     /// </summary>
-    public class CommentService : ICommentService
+    internal class CommentService : ICommentService
     {
         /// <summary>
         /// Максимальное допустимое количество комментариев в одном пакете для отправки клиенту
@@ -72,47 +73,51 @@ namespace BusinessCard.BusinessLogicLayer.Services
         {
             var branchesId = comments.Select(comment => comment.BranchId).Distinct();
             var commentsCountInBranches = await _commentBranchRepository.GetCommentsCountInBranchesAsync(comments.Select(comment => comment.BranchId).Distinct());
-            return new CommentsInformation
+            return new()
             {
-                Branches = comments.GroupBy(comment => comment.BranchId)
-                            .OrderBy(x => x.Key)
-                            .Select(x => new Branch
+                Branches = comments
+                    .GroupBy(comment => comment.BranchId)
+                    .OrderBy(x => x.Key)
+                    .Select(x =>
+                        new Branch
+                        {
+                            Id = x.Key,
+                            Comments = x.Select(v => new CommentOut
                             {
-                                Id = x.Key,
-                                Comments = x.Select(v => new CommentOut
-                                {
-                                    Id = v.Id,
-                                    Text = !v.IsDeleted ? v.Text : string.Empty,
-                                    Time = v.Time.ToString("g"),
-                                    IsDeleted = v.IsDeleted,
-                                    UserName = !v.IsDeleted ? v.UserName : string.Empty,
-                                    CommentId = v.CommentId,
-                                    BelongsUser = !v.IsDeleted && !(userId is null) && (v.UserId == userId)
-                                }).ToList(),
-                                CommentsCount = commentsCountInBranches[x.Key]
-                            }).ToList()
+                                Id = v.Id,
+                                Text = v.IsDeleted is false ? v.Text : string.Empty,
+                                Time = v.Time.ConvertToReadableFormatWithTime(),
+                                IsDeleted = v.IsDeleted,
+                                UserName = v.IsDeleted is false ? v.UserName : string.Empty,
+                                CommentId = v.CommentId,
+                                BelongsUser = v.IsDeleted is false && userId is not null && v.UserId == userId
+                            }).ToList(),
+                            CommentsCount = commentsCountInBranches[x.Key]
+                        })
+                    .ToList()
             };
         }
 
         public async Task<IEnumerable<CommentOut>> GetCommentsByBranchAsync(int postId, int branchId, int lastCommentId, int? userId) =>
-            (await _commentRepository.GetCommentsByBranchAsync(postId, branchId, lastCommentId)).Select(x => new CommentOut
-            {
-                Id = x.Id,
-                Text = !x.IsDeleted ? x.Text : string.Empty,
-                Time = x.Time.ToString("g"),
-                IsDeleted = x.IsDeleted,
-                UserName = !x.IsDeleted ? x.UserName : string.Empty,
-                CommentId = x.CommentId,
-                BelongsUser = !x.IsDeleted && !(userId is null) && (x.UserId == userId)
-            });
+            (await _commentRepository.GetCommentsByBranchAsync(postId, branchId, lastCommentId))
+                .Select(x => new CommentOut
+                {
+                    Id = x.Id,
+                    Text = !x.IsDeleted ? x.Text : string.Empty,
+                    Time = x.Time.ConvertToReadableFormatWithTime(),
+                    IsDeleted = x.IsDeleted,
+                    UserName = !x.IsDeleted ? x.UserName : string.Empty,
+                    CommentId = x.CommentId,
+                    BelongsUser = !x.IsDeleted && !(userId is null) && x.UserId == userId
+                });
 
 
         public async Task<(int BranchId, int CommentId)> CreateCommentAsync(CommentIn comment)
         {
             var commentBranchId = comment.BranchId;
             if (commentBranchId == 0)
-                commentBranchId = await _commentBranchRepository.AddAsync(new CommentBranch { PostId = comment.PostId }, true);
-            var newCommentId = await _commentRepository.AddAsync(new Comment
+                commentBranchId = await _commentBranchRepository.AddAsync<int>(new CommentBranch { PostId = comment.PostId });
+            var newCommentId = await _commentRepository.AddAsync<int>(new Comment
             {
                 Text = comment.Text,
                 Time = DateTime.Now,
@@ -120,11 +125,11 @@ namespace BusinessCard.BusinessLogicLayer.Services
                 UserId = comment.UserId,
                 BranchId = commentBranchId,
                 CommentId = comment.CommentId > 0 ? comment.CommentId : null
-            }, true);
+            });
             return (commentBranchId, newCommentId);
         }
 
         public async Task<bool> DeleteCommentAsync(int commentId, int userId) =>
-            (await _commentRepository.MarkCommentAsDeletedAsync(commentId, userId)) == 1;
+            await _commentRepository.MarkCommentAsDeletedAsync(commentId, userId) == 1;
     }
 }

@@ -1,5 +1,5 @@
-﻿using BusinessCard.BusinessLogicLayer.DTOs;
-using BusinessCard.BusinessLogicLayer.DTOs.Store;
+﻿using BusinessCard.Entities.DTO.Review;
+using BusinessCard.Entities.DTO.Store;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,7 +16,7 @@ namespace BusinessCard.BusinessLogicLayer.Interfaces
         /// <param name="projectId">  param>
         /// <param name="reviewsPackageNumber">  param>
         /// <returns>  </returns>
-        public Task<List<Review>> GetReviewsAsync(int projectId, int reviewsPackageNumber);
+        public Task<List<ReviewData>> GetReviewsAsync(int projectId, int reviewsPackageNumber);
 
         /// <summary>
         /// 
